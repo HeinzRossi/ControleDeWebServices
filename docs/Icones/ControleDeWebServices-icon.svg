@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ControleDeWebServices</title>
+  <desc id="desc">Icone de nuvem tecnica com conexoes de rede para representar web services.</desc>
+  <rect x="16" y="16" width="224" height="224" rx="48" fill="#F7F9FA"/>
+  <rect x="16" y="16" width="224" height="224" rx="48" stroke="#D7E0E4" stroke-width="8"/>
+  <path d="M83.6 160.5H174.4C195.3 160.5 212 145 212 125.9C212 107 196.4 91.7 177 91.1C168.4 71.7 149 58 126.4 58C99.5 58 77.1 77.1 72 102.5C55.9 106.8 44 121 44 138C44 150.6 54.3 160.5 68.4 160.5H83.6Z" fill="#FCFDFD"/>
+  <path d="M83.6 160.5H174.4C195.3 160.5 212 145 212 125.9C212 107 196.4 91.7 177 91.1C168.4 71.7 149 58 126.4 58C99.5 58 77.1 77.1 72 102.5C55.9 106.8 44 121 44 138C44 150.6 54.3 160.5 68.4 160.5H83.6Z" stroke="#245875" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M89 132H119L137 110H166" stroke="#2F6F8F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M119 132H151" stroke="#2F6F8F" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="88" cy="132" r="11" fill="#2F6F8F"/>
+  <circle cx="138" cy="110" r="11" fill="#2F6F8F"/>
+  <circle cx="168" cy="110" r="11" fill="#4E9A57"/>
+  <circle cx="154" cy="132" r="11" fill="#2F6F8F"/>
+  <path d="M128 161V191" stroke="#245875" stroke-width="10" stroke-linecap="round"/>
+  <path d="M88 191H168" stroke="#245875" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="88" cy="191" r="10" fill="#2F6F8F"/>
+  <circle cx="128" cy="191" r="10" fill="#4E9A57"/>
+  <circle cx="168" cy="191" r="10" fill="#2F6F8F"/>
+</svg>

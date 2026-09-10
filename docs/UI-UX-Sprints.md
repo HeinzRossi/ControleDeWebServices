@@ -6,6 +6,8 @@ Este documento descreve um plano futuro de modernizacao visual para o ControleDe
 
 Atualizacao considerada: a solucao passou a incluir a tela auxiliar `ImportarParametrosDe.xaml`, o utilitario `ConverterListaGenerica.cs` e dependencias de execucao relacionadas a PostgreSQL/Npgsql, alem das dependencias ja existentes para Firebird.
 
+Baseline Git considerado: branch `master`, worktree limpo, projeto ainda em WPF classico com `.NET Framework 4.8`, `.csproj` classico, `packages.config`, `HintPath`, `App.config` e dependencias copiadas para `Execucao`. O detalhamento tecnico sprint a sprint da migracao fica em `docs/Migration-Plan-DotNet8-WPF.md`.
+
 ## Diagnostico Atual
 
 O projeto e uma aplicacao WPF em .NET Framework 4.8. A direcao tecnica futura aprovada e migrar para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade devem ser removidos e substituidos por alternativa similar moderna quando ainda forem necessarios. A solucao ja referencia MaterialDesignThemes, MaterialDesignColors e FluentWPF, que devem ser avaliados na fase de compatibilidade.
@@ -133,6 +135,7 @@ O estudo do codigo real tambem apontou melhorias tecnicas importantes para suste
 - `VinculoClienteSistema` possui bug provavel ao registrar alteracoes: `IncluirListaDeSistemas` adiciona o item somente quando a lista ja contem o mesmo item.
 - `ImportarParametrosDe` conclui importacao com a mensagem incorreta "URL atualizada com Sucesso!", embora a acao real seja copiar parametros.
 - A separacao futura deve mover regras de tela para ViewModels, casos de uso para Application e banco/arquivos/processos para Infrastructure.
+- O plano especifico de migracao para WPF em .NET 8/9 fica documentado em `docs/Migration-Plan-DotNet8-WPF.md`.
 
 Roadmap tecnico recomendado:
 
@@ -149,6 +152,7 @@ Criterios de aceite da documentacao tecnica:
 - A prioridade inicial permanece estabilizacao UX: primeiro feedback, validacao e confirmacoes consistentes.
 - O destino tecnico preferencial fica documentado como .NET 8/9 WPF.
 - A separacao profunda entre View, ViewModel, Application, Domain e Infrastructure fica registrada como direcao oficial.
+- A modernizacao visual deve acompanhar a migracao de runtime e a separacao View/ViewModel/Services, sem depender de code-behind para regra de negocio.
 - Nenhuma recomendacao desta secao instrui alteracao imediata no projeto.
 - O documento tecnico detalhado fica em `docs/Code-Improvement-Roadmap.md`.
 
@@ -303,6 +307,8 @@ Criterios de aceite:
 8. Modernizar shell e navegacao.
 9. Refinar vinculos, importacao e WebServices.
 10. Fazer QA visual, acessibilidade e documentacao final.
+
+Para execucao tecnica, usar o detalhamento de sprints em `docs/Migration-Plan-DotNet8-WPF.md`, que separa baseline, migracao do runtime, componentes, camadas, shell/feedback, tela piloto, cadastros/vinculos, configuracao/banco e WebServices/QA final.
 
 ## Fora De Escopo Neste Documento
 

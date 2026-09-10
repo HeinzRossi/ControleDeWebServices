@@ -6,6 +6,20 @@ Este documento registra oportunidades de melhoria no codigo do `ControleDeWebSer
 
 Esta documentacao nao altera codigo-fonte, XAML, `.csproj`, pacotes, configuracoes, estilos ou comportamento do sistema.
 
+## Baseline Atual Do Repositorio
+
+Levantamento apos atualizacao do diretorio Git:
+
+- Branch atual: `master`.
+- Worktree limpo no momento da revisao.
+- Projeto principal ainda esta em WPF classico com `.NET Framework 4.8`.
+- O projeto usa `.csproj` classico, `packages.config`, referencias por `HintPath` e configuracoes em `App.config`.
+- Componentes relevantes encontrados: Entity Framework 6, MaterialDesignThemes, MaterialDesignColors, FluentWPF, FirebirdSql.Data.FirebirdClient, Npgsql, PeanutButter.INI, Ninject, Microsoft.Xaml.Behaviors e `Comum.Utilitarios.dll`.
+- A pasta `Execucao` contem binarios copiados junto da aplicacao e deve ser inventariada durante a prova de migracao.
+- Os documentos `DESIGN.md`, `docs/UI-UX-Sprints.md` e `docs/Code-Improvement-Roadmap.md` ja fazem parte do baseline documentado.
+
+Este baseline deve ser usado como ponto de partida para o plano especifico em `docs/Migration-Plan-DotNet8-WPF.md`, que detalha as sprints de migracao, componentes, arquitetura, UX tecnica, banco, execucao e QA final.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
@@ -279,6 +293,18 @@ Criterios de aceite:
 7. Parametrizar SQL e revisar ciclo de vida das conexoes.
 8. Separar controle de processos, arquivos e logs.
 9. Adicionar testes/checklists de regressao.
+
+O detalhamento operacional sprint a sprint fica centralizado em `docs/Migration-Plan-DotNet8-WPF.md`:
+
+- Sprint 0: Baseline, Build E Prova Tecnica.
+- Sprint 1: Migracao Para .NET 8/9 WPF.
+- Sprint 2: Atualizacao De Componentes.
+- Sprint 3: Arquitetura Em Camadas.
+- Sprint 4: Shell, Navegacao E Feedback.
+- Sprint 5: Tela Piloto Clientes.
+- Sprint 6: Cadastros, Listas E Vinculos.
+- Sprint 7: Configuracao, Importacao E Banco.
+- Sprint 8: WebServices, Execucao E QA Final.
 
 ## Validacao Da Documentacao
 
