@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:viewModels="clr-namespace:ControleDeWebServices.ViewModels"
       mc:Ignorable="d"
       d:DesignHeight="650"
       d:DesignWidth="850"
@@ -38,6 +39,103 @@
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Padding" Value="10,8"/>
         </Style>
+        <DataTemplate DataType="{x:Type viewModels:ConfiguracaoSistemaViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Configuração técnica do sistema" FontSize="16" FontWeight="SemiBold" Foreground="#172126"/>
+                <Grid Grid.Row="1" Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox materialDesign:HintAssist.Hint="UF" Text="{Binding Uf}" IsReadOnly="True" Margin="0,0,8,0"/>
+                    <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" Text="{Binding NomeCliente}" IsReadOnly="True" Margin="0,0,8,0"/>
+                    <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema" Text="{Binding NomeSistema}" IsReadOnly="True"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox materialDesign:HintAssist.Hint="Arquivo executável" Text="{Binding ArquivoExecutavel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                    <Button Grid.Column="1" Style="{StaticResource PrimaryActionButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
+                    <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Arquivo de configuração" Text="{Binding ArquivoConfiguracao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0"/>
+                    <Button Grid.Column="3" Style="{StaticResource PrimaryActionButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
+                </Grid>
+                <Grid Grid.Row="3" Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox materialDesign:HintAssist.Hint="Servidor" Text="{Binding Servidor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Porta" Text="{Binding Porta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Banco de dados" Text="{Binding DataBase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="3" materialDesign:HintAssist.Hint="Tipo" ItemsSource="{Binding TiposConexao}" SelectedValue="{Binding TipoConexao, Mode=TwoWay}" DisplayMemberPath="Nome" SelectedValuePath="Id" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="4" materialDesign:HintAssist.Hint="Usuário" Text="{Binding Usuario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="5" materialDesign:HintAssist.Hint="Senha" Text="{Binding Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <CheckBox Grid.Column="6" Content="Criptografia" IsChecked="{Binding UsaCriptografia, Mode=TwoWay}" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="0,12,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox materialDesign:HintAssist.Hint="Seção" Text="{Binding NovaSecao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Parâmetro" Text="{Binding NovoParametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Valor" Text="{Binding NovoValor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <Button Grid.Column="3" Style="{StaticResource SuccessActionButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
+                        <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource DangerActionButton}" Command="{Binding RemoverParametroCommand}" Content="Remover"/>
+                    </Grid>
+                    <DataGrid Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" Background="#FCFDFD" AlternatingRowBackground="#F7F9FA" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7E0E4" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Valor" Width="*" Binding="{Binding Valor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="3" Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding ImportacaoUfs}" SelectedItem="{Binding SelectedImportacaoUf, Mode=TwoWay}" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente origem" ItemsSource="{Binding ImportacaoClientes}" SelectedItem="{Binding SelectedImportacaoCliente, Mode=TwoWay}" DisplayMemberPath="Nome" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema origem" ItemsSource="{Binding ImportacaoSistemas}" SelectedItem="{Binding SelectedImportacaoSistema, Mode=TwoWay}" DisplayMemberPath="NomeSistema" Margin="0,0,8,0"/>
+                        <Button Grid.Column="3" Style="{StaticResource SuccessActionButton}" Command="{Binding ImportarParametrosCommand}" Content="Importar parâmetros"/>
+                    </Grid>
+                </Grid>
+                <StackPanel Grid.Row="4" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Style="{StaticResource PrimaryActionButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
+                    <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Cancelar"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Background="#F7F9FA">
@@ -62,6 +160,7 @@
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <Button Style="{StaticResource SuccessActionButton}" Command="{Binding IncluirCommand}" Content="Incluir"/>
                         <Button Margin="8,0,0,0" Style="{StaticResource PrimaryActionButton}" Command="{Binding EditarCommand}" Content="Editar"/>
+                        <Button Margin="8,0,0,0" Style="{StaticResource PrimaryActionButton}" Command="{Binding ConfigurarCommand}" Content="Configurar"/>
                         <Button Margin="8,0,0,0" Style="{StaticResource DangerActionButton}" Command="{Binding ExcluirCommand}" Content="Remover"/>
                     </StackPanel>
                 </Grid>
@@ -127,6 +226,10 @@
                     </Grid>
                 </Border>
 
+                <Border Grid.Row="1" Margin="0,16,0,14" Padding="12" Background="#F7F9FA" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="4" Visibility="{Binding IsConfiguring, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ContentControl Content="{Binding Configuracao}"/>
+                </Border>
+
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="260"/>
@@ -139,7 +242,7 @@
                             <DataGridTextColumn Header="UF" Width="50" Binding="{Binding Uf}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid Grid.Column="2" ItemsSource="{Binding Sistemas}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="#FCFDFD" AlternatingRowBackground="#F7F9FA" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7E0E4" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                    <DataGrid Grid.Column="2" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="#FCFDFD" AlternatingRowBackground="#F7F9FA" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7E0E4" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Sistema" Width="*" Binding="{Binding NomeSistema}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
                             <DataGridTextColumn Header="UF" Width="60" Binding="{Binding Uf}" HeaderStyle="{StaticResource GridHeaderStyle}"/>

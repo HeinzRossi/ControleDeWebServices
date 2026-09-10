@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Windows;
+using ControleDeWebServices.Diversos;
 using ControleDeWebServices.Application.Data;
 using ControleDeWebServices.Application.Feedback;
 using ControleDeWebServices.Application.Cadastros;
 using ControleDeWebServices.Application.Clientes;
+using ControleDeWebServices.Application.Configuracoes;
 using ControleDeWebServices.Application.Navigation;
+using ControleDeWebServices.Application.Platform;
 using ControleDeWebServices.Application.Vinculos;
 using ControleDeWebServices.Infrastructure.Cadastros;
 using ControleDeWebServices.Infrastructure.Clientes;
+using ControleDeWebServices.Infrastructure.Configuracoes;
 using ControleDeWebServices.Infrastructure.Data;
 using ControleDeWebServices.Infrastructure.Vinculos;
 using ControleDeWebServices.Presentation.Feedback;
 using ControleDeWebServices.Presentation.Navigation;
+using ControleDeWebServices.Presentation.Platform;
 using ControleDeWebServices.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -51,6 +56,11 @@ namespace ControleDeWebServices
             services.AddTransient<ISecoesService, SecoesService>();
             services.AddTransient<IVinculoClienteSistemaService, VinculoClienteSistemaService>();
             services.AddTransient<IVinculoClienteServicoService, VinculoClienteServicoService>();
+            services.AddTransient<IConfiguracaoSistemaService, ConfiguracaoSistemaService>();
+            services.AddTransient<IConfiguracaoServicoService, ConfiguracaoServicoService>();
+            services.AddTransient<IImportarParametrosService, ImportarParametrosService>();
+            services.AddTransient<IAtualizarPadroesService, AtualizarPadroes>();
+            services.AddSingleton<IFilePickerService, FilePickerService>();
 
             services.AddSingleton<ToastService>();
             services.AddSingleton<IToastService>(provider => provider.GetRequiredService<ToastService>());
@@ -68,8 +78,13 @@ namespace ControleDeWebServices
             services.AddTransient<SecoesListViewModel>();
             services.AddTransient<VinculoClienteSistemaViewModel>();
             services.AddTransient<VinculoClienteServicoViewModel>();
+            services.AddTransient<ConfiguracaoSistemaViewModel>();
+            services.AddTransient<ConfiguracaoServicoViewModel>();
+            services.AddTransient<ImportarParametrosViewModel>();
             services.AddTransient<Func<VinculoClienteSistemaViewModel>>(provider => () => provider.GetRequiredService<VinculoClienteSistemaViewModel>());
             services.AddTransient<Func<VinculoClienteServicoViewModel>>(provider => () => provider.GetRequiredService<VinculoClienteServicoViewModel>());
+            services.AddTransient<Func<ConfiguracaoSistemaViewModel>>(provider => () => provider.GetRequiredService<ConfiguracaoSistemaViewModel>());
+            services.AddTransient<Func<ConfiguracaoServicoViewModel>>(provider => () => provider.GetRequiredService<ConfiguracaoServicoViewModel>());
             services.AddTransient<ListaVinculosSistemaViewModel>();
             services.AddTransient<ListaVinculosServicoViewModel>();
 

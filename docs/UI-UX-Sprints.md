@@ -256,6 +256,8 @@ Objetivo: melhorar clareza, agrupamento e ergonomia dos fluxos de cadastro e vin
 
 Status tecnico aplicado: na Sprint 6 de modernizacao, Sistemas, Servicos, Secoes e os vinculos Cliente/Sistema e Cliente/Servico passaram a seguir o padrao operacional limpo iniciado em Clientes, com ViewModels, commands, feedback por toast/dialogo customizado e sem `MessageBox` nas telas migradas.
 
+Status tecnico aplicado na Sprint 7: configuracoes de sistema/servico e importacao de parametros tambem passaram para ViewModels, servicos, picker isolado, toast/dialogo customizado e telas bindaveis, mantendo o visual operacional limpo.
+
 Tasks:
 
 - Definir template de formulario com toolbar, agrupamento de campos e area de feedback.

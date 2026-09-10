@@ -238,6 +238,8 @@ Criterios de aceite:
 
 Objetivo: isolar configuracao tecnica, importacao de parametros e acesso a bancos externos.
 
+Status da execucao inicial: concluida na branch `codex/sprint-7-config-importacao-banco`, com relatorio em `docs/Sprint-7-Config-Importacao-Banco.md`. Configuracoes de sistema/servico, importacao de parametros e `AtualizarPadroes` foram migrados para ViewModels, servicos, picker isolado, toast/dialogo customizado e SQL parametrizado, mantendo modelos intactos.
+
 Entregaveis:
 
 - Servicos de configuracao de sistemas/servicos.

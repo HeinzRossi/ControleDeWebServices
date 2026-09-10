@@ -14,6 +14,7 @@ namespace ControleDeWebServices.ViewModels
         private readonly IToastService toastService;
         private readonly IConfirmDialogService confirmDialogService;
         private readonly Func<VinculoClienteSistemaViewModel> editorFactory;
+        private readonly Func<ConfiguracaoSistemaViewModel> configuracaoFactory;
 
         [ObservableProperty]
         private ObservableCollection<ClienteVinculoListItem> clientes = new ObservableCollection<ClienteVinculoListItem>();
@@ -25,21 +26,32 @@ namespace ControleDeWebServices.ViewModels
         private ObservableCollection<ClienteSistemaResumo> sistemas = new ObservableCollection<ClienteSistemaResumo>();
 
         [ObservableProperty]
+        private ClienteSistemaResumo selectedSistema;
+
+        [ObservableProperty]
         private bool isEditing;
 
         [ObservableProperty]
         private VinculoClienteSistemaViewModel editor;
 
+        [ObservableProperty]
+        private bool isConfiguring;
+
+        [ObservableProperty]
+        private ConfiguracaoSistemaViewModel configuracao;
+
         public ListaVinculosSistemaViewModel(
             IVinculoClienteSistemaService vinculoService,
             IToastService toastService,
             IConfirmDialogService confirmDialogService,
-            Func<VinculoClienteSistemaViewModel> editorFactory)
+            Func<VinculoClienteSistemaViewModel> editorFactory,
+            Func<ConfiguracaoSistemaViewModel> configuracaoFactory)
         {
             this.vinculoService = vinculoService;
             this.toastService = toastService;
             this.confirmDialogService = confirmDialogService;
             this.editorFactory = editorFactory;
+            this.configuracaoFactory = configuracaoFactory;
         }
 
         public string TotalRegistros => Clientes.Count == 1 ? "1 cliente vinculado" : $"{Clientes.Count} clientes vinculados";
@@ -70,6 +82,7 @@ namespace ControleDeWebServices.ViewModels
             Editor = editorFactory();
             Editor.CarregarCommand.Execute(null);
             IsEditing = true;
+            IsConfiguring = false;
         }
 
         [RelayCommand]
@@ -91,6 +104,23 @@ namespace ControleDeWebServices.ViewModels
                 Uf = SelectedCliente.Uf
             };
             IsEditing = true;
+            IsConfiguring = false;
+        }
+
+        [RelayCommand]
+        public void Configurar()
+        {
+            if (SelectedSistema == null)
+            {
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um sistema antes de configurar.", "Atencao"));
+                return;
+            }
+
+            Configuracao = configuracaoFactory();
+            Configuracao.RequestClose += (sender, args) => CancelarConfiguracao();
+            Configuracao.Carregar(SelectedSistema.IdClientesSistema);
+            IsConfiguring = true;
+            IsEditing = false;
         }
 
         [RelayCommand]
@@ -142,6 +172,23 @@ namespace ControleDeWebServices.ViewModels
             IsEditing = false;
         }
 
+        [RelayCommand]
+        public void ConcluirConfiguracao()
+        {
+            if (Configuracao != null && Configuracao.TrySalvar())
+            {
+                CancelarConfiguracao();
+                Carregar();
+            }
+        }
+
+        [RelayCommand]
+        public void CancelarConfiguracao()
+        {
+            IsConfiguring = false;
+            Configuracao = null;
+        }
+
         partial void OnClientesChanged(ObservableCollection<ClienteVinculoListItem> value)
         {
             OnPropertyChanged(nameof(TotalRegistros));
@@ -153,6 +200,7 @@ namespace ControleDeWebServices.ViewModels
             Sistemas = value == null
                 ? new ObservableCollection<ClienteSistemaResumo>()
                 : new ObservableCollection<ClienteSistemaResumo>(vinculoService.ListarSistemasDoCliente(value.IdCliente));
+            SelectedSistema = Sistemas.Count > 0 ? Sistemas[0] : null;
         }
 
         private ClienteVinculoListItem FindCliente(int idCliente)

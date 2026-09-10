@@ -1,103 +1,47 @@
-﻿<Window x:Class="ControleDeWebServices.View.Cadastro.ImportarParametrosDe"
+<Window x:Class="ControleDeWebServices.View.Cadastro.ImportarParametrosDe"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ControleDeWebServices.View.Cadastro"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        FontFamily="{DynamicResource MaterialDesignFont}" 
-        WindowStartupLocation="CenterScreen" 
-        ResizeMode="NoResize" 
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
         WindowStyle="None"
-        AllowsTransparency="True" 
+        AllowsTransparency="True"
         mc:Ignorable="d"
-        Title="Importar" Height="150" Width="300">
-    <Grid Background="WhiteSmoke">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,5,0,0">
-            <TextBlock Text="Escolha o sistema" HorizontalAlignment="Center" FontSize="14"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top">
-            <ComboBox
-                    x:Name="cbbUF"
-                    Margin="10,0,0,0"
-                    materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding IsChecked, ElementName=DisplaySelectedItemCheckBox}"
-                    materialDesign:HintAssist.Hint="UF"
-                    Height="26"
-                    HorizontalAlignment="Left"
-                    Width="60"
-                    VerticalAlignment="Center"
-                    SelectionChanged="cbbUF_SelectionChanged"/>
-            <ComboBox
-                    x:Name="cbbClientes"
-                    Margin="10,0,0,0"
-                    materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding IsChecked, ElementName=DisplaySelectedItemCheckBox}"
-                    materialDesign:HintAssist.Hint="Cliente"
-                    Height="26"
-                    HorizontalAlignment="Left"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    ItemsSource="{Binding Path=NomeCliente}"
-                    SelectedValue="{Binding Path=IdCliente}"
-                    SelectedIndex="{Binding Path=IdCliente}"
-                    DisplayMemberPath="NomeCliente"
-                    SelectedValuePath="NomeCliente"
-                    SelectionChanged="cbbClientes_SelectionChanged"/>            
-        </StackPanel>
-        <StackPanel x:Name="Sistemas" Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top">
-            <ComboBox
-                    x:Name="cbbSistemas"
-                    Margin="10,0,0,0"
-                    materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding IsChecked, ElementName=DisplaySelectedItemCheckBox}"
-                    materialDesign:HintAssist.Hint="Sistema"
-                    Height="26"
-                    HorizontalAlignment="Left"
-                    Width="280"
-                    VerticalAlignment="Center"
-                    ItemsSource="{Binding Path=NomeSistema}"
-                    SelectedValue="{Binding Path=IdClientesSistema}"
-                    SelectedIndex="{Binding Path=IdClientesSistema}"
-                    DisplayMemberPath="NomeSistema"
-                    SelectedValuePath="NomeSistema"/>
+        Title="Importar parâmetros" Height="220" Width="420">
+    <Border Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6" Padding="18">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        </StackPanel>
-        <StackPanel x:Name="Botoes" HorizontalAlignment="Right" Grid.Row="3" Margin="0,0,10,5" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <StackPanel Margin="0,0,10,0">
-                <Button 
-                            x:Name="btnImportar"
-                            Style="{StaticResource MaterialDesignRaisedButton}" 
-                            HorizontalAlignment="Right" 
-                            ToolTip="Salvar" 
-                            Height="26" 
-                            Background="#CC5743"
-                            BorderBrush="#CC5743"
-                            IsEnabled="True"
-                            Click="btnImportar_Click">
-                    <TextBlock Text="Importar"/>
-                </Button>
+            <StackPanel>
+                <TextBlock Text="Importar parâmetros" FontSize="18" FontWeight="SemiBold" Foreground="#172126"/>
+                <TextBlock Text="Escolha a origem para copiar parâmetros" Margin="0,3,0,0" Foreground="#5C6B73"/>
             </StackPanel>
-            <StackPanel >
-                <Button 
-                            x:Name="btnCancelar"
-                            Style="{StaticResource MaterialDesignRaisedButton}" 
-                            HorizontalAlignment="Right" 
-                            ToolTip="Cancelar" 
-                            Height="26" 
-                            Background="#4383CC"
-                            BorderBrush="#4383CC"
-                            IsEnabled="True" Click="btnCancelar_Click">
-                    <TextBlock Text="Fechar"/>
-                </Button>
+
+            <Grid Grid.Row="1" Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding Ufs}" SelectedItem="{Binding SelectedUf, Mode=TwoWay}" Margin="0,0,8,0"/>
+                <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente, Mode=TwoWay}" DisplayMemberPath="Nome"/>
+            </Grid>
+
+            <ComboBox Grid.Row="2" Margin="0,12,0,0" materialDesign:HintAssist.Hint="Sistema" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" DisplayMemberPath="NomeSistema"/>
+
+            <StackPanel Grid.Row="3" Margin="0,18,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Background="#4E9A57" BorderBrush="#4E9A57" Foreground="White" Command="{Binding ImportarCommand}" Content="Importar"/>
+                <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Fechar"/>
             </StackPanel>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

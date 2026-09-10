@@ -14,6 +14,7 @@ namespace ControleDeWebServices.ViewModels
         private readonly IToastService toastService;
         private readonly IConfirmDialogService confirmDialogService;
         private readonly Func<VinculoClienteServicoViewModel> editorFactory;
+        private readonly Func<ConfiguracaoServicoViewModel> configuracaoFactory;
 
         [ObservableProperty]
         private ObservableCollection<ClienteVinculoListItem> clientes = new ObservableCollection<ClienteVinculoListItem>();
@@ -31,21 +32,32 @@ namespace ControleDeWebServices.ViewModels
         private ObservableCollection<ClienteServicoResumo> servicos = new ObservableCollection<ClienteServicoResumo>();
 
         [ObservableProperty]
+        private ClienteServicoResumo selectedServico;
+
+        [ObservableProperty]
         private bool isEditing;
 
         [ObservableProperty]
         private VinculoClienteServicoViewModel editor;
 
+        [ObservableProperty]
+        private bool isConfiguring;
+
+        [ObservableProperty]
+        private ConfiguracaoServicoViewModel configuracao;
+
         public ListaVinculosServicoViewModel(
             IVinculoClienteServicoService vinculoService,
             IToastService toastService,
             IConfirmDialogService confirmDialogService,
-            Func<VinculoClienteServicoViewModel> editorFactory)
+            Func<VinculoClienteServicoViewModel> editorFactory,
+            Func<ConfiguracaoServicoViewModel> configuracaoFactory)
         {
             this.vinculoService = vinculoService;
             this.toastService = toastService;
             this.confirmDialogService = confirmDialogService;
             this.editorFactory = editorFactory;
+            this.configuracaoFactory = configuracaoFactory;
         }
 
         public string TotalRegistros => Clientes.Count == 1 ? "1 cliente vinculado" : $"{Clientes.Count} clientes vinculados";
@@ -76,6 +88,7 @@ namespace ControleDeWebServices.ViewModels
             Editor = editorFactory();
             Editor.CarregarCommand.Execute(null);
             IsEditing = true;
+            IsConfiguring = false;
         }
 
         [RelayCommand]
@@ -103,6 +116,23 @@ namespace ControleDeWebServices.ViewModels
                 Uf = SelectedSistema.Uf
             };
             IsEditing = true;
+            IsConfiguring = false;
+        }
+
+        [RelayCommand]
+        public void Configurar()
+        {
+            if (SelectedServico == null)
+            {
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um serviço antes de configurar.", "Atencao"));
+                return;
+            }
+
+            Configuracao = configuracaoFactory();
+            Configuracao.RequestClose += (sender, args) => CancelarConfiguracao();
+            Configuracao.Carregar(SelectedServico.IdClienteServico);
+            IsConfiguring = true;
+            IsEditing = false;
         }
 
         [RelayCommand]
@@ -154,6 +184,23 @@ namespace ControleDeWebServices.ViewModels
             IsEditing = false;
         }
 
+        [RelayCommand]
+        public void ConcluirConfiguracao()
+        {
+            if (Configuracao != null && Configuracao.TrySalvar())
+            {
+                CancelarConfiguracao();
+                Carregar();
+            }
+        }
+
+        [RelayCommand]
+        public void CancelarConfiguracao()
+        {
+            IsConfiguring = false;
+            Configuracao = null;
+        }
+
         partial void OnClientesChanged(ObservableCollection<ClienteVinculoListItem> value)
         {
             OnPropertyChanged(nameof(TotalRegistros));
@@ -173,6 +220,7 @@ namespace ControleDeWebServices.ViewModels
             Servicos = value == null
                 ? new ObservableCollection<ClienteServicoResumo>()
                 : new ObservableCollection<ClienteServicoResumo>(vinculoService.ListarServicosDoSistema(value.IdCliente, value.IdSistemas));
+            SelectedServico = Servicos.Count > 0 ? Servicos[0] : null;
         }
 
         private ClienteVinculoListItem FindCliente(int idCliente)
