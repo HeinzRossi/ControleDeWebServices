@@ -10,15 +10,19 @@ Esta documentacao nao altera codigo-fonte, XAML, `.csproj`, pacotes, configuraco
 
 Levantamento apos atualizacao do diretorio Git:
 
-- Branch atual: `master`.
-- Worktree limpo no momento da revisao.
+- Branch de origem: `master`.
+- Branch de trabalho da Sprint 0: `codex/sprint-0-baseline`.
+- Worktree limpo no momento da criacao da branch da Sprint 0.
 - Projeto principal ainda esta em WPF classico com `.NET Framework 4.8`.
 - O projeto usa `.csproj` classico, `packages.config`, referencias por `HintPath` e configuracoes em `App.config`.
 - Componentes relevantes encontrados: Entity Framework 6, MaterialDesignThemes, MaterialDesignColors, FluentWPF, FirebirdSql.Data.FirebirdClient, Npgsql, PeanutButter.INI, Ninject, Microsoft.Xaml.Behaviors e `Comum.Utilitarios.dll`.
 - A pasta `Execucao` contem binarios copiados junto da aplicacao e deve ser inventariada durante a prova de migracao.
 - Os documentos `DESIGN.md`, `docs/UI-UX-Sprints.md` e `docs/Code-Improvement-Roadmap.md` ja fazem parte do baseline documentado.
+- O relatorio detalhado da Sprint 0 esta em `docs/Sprint-0-Baseline.md`.
 
 Este baseline deve ser usado como ponto de partida para o plano especifico em `docs/Migration-Plan-DotNet8-WPF.md`, que detalha as sprints de migracao, componentes, arquitetura, UX tecnica, banco, execucao e QA final.
+
+Regra transversal: os modelos em `ControleDeWebServices/Modelo` devem ser preservados. A modernizacao nao deve alterar classes, propriedades, enums, atributos, tabelas ou relacionamentos desses modelos; novas necessidades devem ser resolvidas com ViewModels, DTOs, adapters e servicos.
 
 ## Direcao De Runtime E Componentes
 

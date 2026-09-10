@@ -6,7 +6,9 @@ Este documento descreve um plano futuro de modernizacao visual para o ControleDe
 
 Atualizacao considerada: a solucao passou a incluir a tela auxiliar `ImportarParametrosDe.xaml`, o utilitario `ConverterListaGenerica.cs` e dependencias de execucao relacionadas a PostgreSQL/Npgsql, alem das dependencias ja existentes para Firebird.
 
-Baseline Git considerado: branch `master`, worktree limpo, projeto ainda em WPF classico com `.NET Framework 4.8`, `.csproj` classico, `packages.config`, `HintPath`, `App.config` e dependencias copiadas para `Execucao`. O detalhamento tecnico sprint a sprint da migracao fica em `docs/Migration-Plan-DotNet8-WPF.md`.
+Baseline Git considerado: branch de origem `master`, branch da Sprint 0 `codex/sprint-0-baseline`, worktree limpo no momento da criacao da branch, projeto ainda em WPF classico com `.NET Framework 4.8`, `.csproj` classico, `packages.config`, `HintPath`, `App.config` e dependencias copiadas para `Execucao`. O detalhamento tecnico sprint a sprint da migracao fica em `docs/Migration-Plan-DotNet8-WPF.md`, com relatorio de baseline em `docs/Sprint-0-Baseline.md`.
+
+Regra transversal: os modelos em `ControleDeWebServices/Modelo` nao devem ser alterados. A modernizacao visual e tecnica deve usar ViewModels, servicos e adapters para evoluir a experiencia sem mudar entidades, propriedades, enums ou relacionamentos existentes.
 
 ## Diagnostico Atual
 

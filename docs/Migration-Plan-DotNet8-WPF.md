@@ -8,13 +8,16 @@ Esta etapa e documental. Nenhum codigo, XAML, `.csproj`, pacote, config ou depen
 
 ## Baseline Atual
 
-- Branch atual: `master`.
-- Worktree limpo no momento da revisao.
+- Branch de origem: `master`.
+- Branch da Sprint 0: `codex/sprint-0-baseline`.
+- Worktree limpo no momento da criacao da branch da Sprint 0.
 - Projeto atual: WPF classico em `.NET Framework 4.8`.
 - Formato atual: `.csproj` classico, `packages.config`, referencias por `HintPath` e `App.config`.
 - UI atual: MaterialDesignThemes, MaterialDesignColors e FluentWPF.
 - Dados e integracoes: Entity Framework 6, SQL Server, Firebird, PostgreSQL/Npgsql, arquivos INI/XML e DLL auxiliar `Comum.Utilitarios.dll`.
 - Ponto critico de arquitetura: Views e code-behind ainda concentram consultas, validacoes, navegacao, feedback e parte da orquestracao operacional.
+- Relatorio detalhado da Sprint 0: `docs/Sprint-0-Baseline.md`.
+- Regra transversal: os modelos em `ControleDeWebServices/Modelo` nao devem ser alterados; evolucoes devem usar ViewModels, servicos, DTOs ou adapters ao redor deles.
 
 ## Estrategia Geral
 
@@ -310,3 +313,4 @@ Criterios de aceite:
 - Componentes incompativeis devem ser substituidos por similares modernos ou removidos quando desnecessarios.
 - A separacao profunda de View, ViewModels, Application, Domain e Infrastructure e requisito da modernizacao.
 - Cada sprint deve preservar paridade funcional antes de avancar para a proxima.
+- Os modelos atuais devem ser preservados sem mudancas de classes, propriedades, enums, atributos ou relacionamentos.

@@ -344,4 +344,4 @@ healthchecksdb
 *.exe
 *.ini
 
-/ControleDeWebServices/Execucao/*.exe
+/ControleDeWebServices/Execucao/
