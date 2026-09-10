@@ -1,6 +1,7 @@
 ﻿using ControleDeWebServices.Diversos;
 using ControleDeWebServices.Modelo;
 using ControleDeWebServices.View.Vinculos;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace ControleDeWebServices.View.Cadastro
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            FrameActive.Content = new ListaVinculosSistema();
+            FrameActive.Content = ActivatorUtilities.CreateInstance<ListaVinculosSistema>(App.Services);
         }
 
         private void TxtPorta_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -104,7 +105,7 @@ namespace ControleDeWebServices.View.Cadastro
             PersistirDados();
             Funcoes.AtivarDesativarControles(Botoes, false);
             Funcoes.AtivarDesativarControles(CamposDeServico, false);
-            FrameActive.Content = new ListaVinculosSistema();
+            FrameActive.Content = ActivatorUtilities.CreateInstance<ListaVinculosSistema>(App.Services);
         }
 
         private void PersistirDados()

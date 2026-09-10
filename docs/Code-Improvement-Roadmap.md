@@ -34,6 +34,8 @@ Execucao da Sprint 4: o Shell e a base de feedback ficaram documentados em `docs
 
 Execucao da Sprint 5: a tela piloto Clientes ficou documentada em `docs/Sprint-5-Clientes-Piloto.md`. O fluxo passou a usar ViewModels, servico de aplicacao, `IDadosDbContextFactory`, comandos, toasts e dialogo customizado de exclusao, com visual operacional limpo e sem alterar modelos.
 
+Execucao da Sprint 6: cadastros simples restantes e vinculos ficaram documentados em `docs/Sprint-6-Cadastros-Vinculos.md`. Sistemas, Servicos, Secoes, Vinculo Cliente/Sistema e Vinculo Cliente/Servico passaram a usar servicos, ViewModels, commands e feedback centralizado, preservando `ControleDeWebServices/Modelo`.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.

@@ -2,6 +2,7 @@ using ControleDeWebServices.Application.Navigation;
 using ControleDeWebServices.View;
 using ControleDeWebServices.View.Cadastro;
 using ControleDeWebServices.View.Vinculos;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -10,11 +11,17 @@ namespace ControleDeWebServices.Presentation.Navigation
 {
     public sealed class WpfNavigationService : INavigationService
     {
+        private readonly IServiceProvider serviceProvider;
         private Frame frame;
 
         public event EventHandler<NavigationChangedEventArgs> Navigated;
 
         public NavigationRoute CurrentRoute { get; private set; } = NavigationRoute.WebServices;
+
+        public WpfNavigationService(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        }
 
         public void Attach(Frame hostFrame)
         {
@@ -34,24 +41,24 @@ namespace ControleDeWebServices.Presentation.Navigation
             return Task.CompletedTask;
         }
 
-        private static object CreatePage(NavigationRoute route)
+        private object CreatePage(NavigationRoute route)
         {
             switch (route)
             {
                 case NavigationRoute.WebServices:
-                    return new WebServices();
+                    return ActivatorUtilities.CreateInstance<WebServices>(serviceProvider);
                 case NavigationRoute.Clientes:
-                    return new ListaDeClientes();
+                    return ActivatorUtilities.CreateInstance<ListaDeClientes>(serviceProvider);
                 case NavigationRoute.Sistemas:
-                    return new ListaDeSistemas();
+                    return ActivatorUtilities.CreateInstance<ListaDeSistemas>(serviceProvider);
                 case NavigationRoute.Servicos:
-                    return new ListaDeServicos();
+                    return ActivatorUtilities.CreateInstance<ListaDeServicos>(serviceProvider);
                 case NavigationRoute.Secoes:
-                    return new ListaDeSecoes();
+                    return ActivatorUtilities.CreateInstance<ListaDeSecoes>(serviceProvider);
                 case NavigationRoute.VinculoClienteSistema:
-                    return new ListaVinculosSistema();
+                    return ActivatorUtilities.CreateInstance<ListaVinculosSistema>(serviceProvider);
                 case NavigationRoute.VinculoClienteServico:
-                    return new ListaVinculosServico();
+                    return ActivatorUtilities.CreateInstance<ListaVinculosServico>(serviceProvider);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(route), route, null);
             }

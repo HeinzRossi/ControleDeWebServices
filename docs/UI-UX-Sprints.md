@@ -254,6 +254,8 @@ Criterios de aceite:
 
 Objetivo: melhorar clareza, agrupamento e ergonomia dos fluxos de cadastro e vinculo.
 
+Status tecnico aplicado: na Sprint 6 de modernizacao, Sistemas, Servicos, Secoes e os vinculos Cliente/Sistema e Cliente/Servico passaram a seguir o padrao operacional limpo iniciado em Clientes, com ViewModels, commands, feedback por toast/dialogo customizado e sem `MessageBox` nas telas migradas.
+
 Tasks:
 
 - Definir template de formulario com toolbar, agrupamento de campos e area de feedback.

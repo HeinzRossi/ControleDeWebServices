@@ -208,6 +208,8 @@ Criterios de aceite:
 
 Objetivo: aplicar o padrao da tela piloto aos fluxos administrativos e de vinculo.
 
+Status da execucao inicial: concluida na branch `codex/sprint-6-cadastros-vinculos`, com relatorio em `docs/Sprint-6-Cadastros-Vinculos.md`. Sistemas, Servicos, Secoes e vinculos Cliente/Sistema e Cliente/Servico foram migrados para ViewModels, servicos, commands e feedback centralizado, mantendo modelos intactos.
+
 Entregaveis:
 
 - Cadastros/listas de Sistemas, Servicos e Secoes migrados.

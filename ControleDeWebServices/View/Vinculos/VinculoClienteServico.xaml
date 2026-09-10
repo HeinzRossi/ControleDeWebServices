@@ -1,128 +1,89 @@
-﻿<Page x:Class="ControleDeWebServices.View.Vinculos.VinculoClienteServico"
+<Page x:Class="ControleDeWebServices.View.Vinculos.VinculoClienteServico"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ControleDeWebServices.View.Vinculos"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
-      d:DesignHeight="650" 
+      mc:Ignorable="d"
+      d:DesignHeight="540"
+      d:DesignWidth="850"
       Title="VinculoClienteServico">
+
     <Page.Resources>
-        <DataTemplate x:Key="TemplateAdicionar">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Path=NomeServico}" Width="250"/>
-                <Button 
-                    x:Name="btnAdicionar"
-                    Content="Adicionar"
-                    Height="25"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Background="#4383CC"
-                    BorderBrush="#4383CC"
-                    Click="BtnAdicionar_Click"/>
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="TemplateRemover">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Path=NomeServico}" Width="310"/>
-                <Button 
-                    x:Name="btnRemover"
-                    Content="Remover"
-                    Height="25"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Background="#CC5743"
-                    BorderBrush="#CC5743"
-                    Click="BtnRemover_Click"/>
-            </StackPanel>
-        </DataTemplate>
+        <Style x:Key="PrimaryActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#2F6F8F"/>
+            <Setter Property="BorderBrush" Value="#2F6F8F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Padding" Value="12,0"/>
+        </Style>
+        <Style x:Key="DangerActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#B94E45"/>
+            <Setter Property="BorderBrush" Value="#B94E45"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Padding" Value="12,0"/>
+        </Style>
     </Page.Resources>
-    <Grid Background="WhiteSmoke" Width="850">
-        <StackPanel Orientation="Vertical">
-            <Grid x:Name="GridBotoes">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel x:Name="Botoes" HorizontalAlignment="Right" Margin="0,5,10,0" Orientation="Horizontal">
-                    <StackPanel Margin="0,0,10,0">
-                        <Button 
-                            x:Name="btnGravar"
-                            Style="{StaticResource MaterialDesignRaisedButton}" 
-                            HorizontalAlignment="Right" 
-                            ToolTip="Salvar" 
-                            Height="Auto" 
-                            Background="#CC5743"
-                            BorderBrush="#CC5743"
-                            IsEnabled="True" Click="BtnGravar_Click">
-                            <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24"/>
-                        </Button>
-                    </StackPanel>
-                    <StackPanel >
-                        <Button 
-                            x:Name="btnCancelar"
-                            Style="{StaticResource MaterialDesignRaisedButton}" 
-                            HorizontalAlignment="Right" 
-                            ToolTip="Cancelar" 
-                            Height="Auto" 
-                            Background="#4383CC"
-                            BorderBrush="#4383CC"
-                            IsEnabled="True" Click="BtnCancelar_Click">
-                            <materialDesign:PackIcon Kind="ArrowBack" Height="24" Width="24"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
+
+    <Grid Background="#F7F9FA">
+        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Vincular servicos ao sistema" FontSize="18" FontWeight="SemiBold" Foreground="#172126"/>
+
+                <Grid Grid.Row="1" Margin="0,14,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding Ufs}" SelectedItem="{Binding SelectedUf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nome" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nome" Margin="0,0,10,0"/>
+                    <TextBlock Grid.Column="3" Text="{Binding PendingText}" Foreground="#9A6B12" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Header="Disponiveis" BorderBrush="#D7E0E4">
+                        <ListBox ItemsSource="{Binding ServicosDisponiveis}" SelectedItem="{Binding SelectedServicoDisponivel, Mode=TwoWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel Margin="0,3">
+                                        <Button DockPanel.Dock="Right" Style="{StaticResource PrimaryActionButton}" Command="{Binding DataContext.AdicionarCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Adicionar"/>
+                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" Foreground="#172126"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="2" Header="Vinculados" BorderBrush="#D7E0E4">
+                        <ListBox ItemsSource="{Binding ServicosVinculados}" SelectedItem="{Binding SelectedServicoVinculado, Mode=TwoWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel Margin="0,3">
+                                        <Button DockPanel.Dock="Right" Style="{StaticResource DangerActionButton}" Command="{Binding DataContext.RemoverCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Remover"/>
+                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" Foreground="#172126"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                </Grid>
             </Grid>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="Selecionar:" Margin="10,5,0,0" Width="60" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <ComboBox
-                    x:Name="cbbUF"
-                    Margin="10,0,0,0"
-                    materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding IsChecked, ElementName=DisplaySelectedItemCheckBox}"
-                    materialDesign:HintAssist.Hint="UF"
-                    Height="26"
-                    HorizontalAlignment="Left"
-                    Width="60"
-                    VerticalAlignment="Center" SelectionChanged="CbbUF_SelectionChanged"/>
-                <TextBlock x:Name="txtSelecionarCliente" Text="Selecionar:" Margin="10,5,0,0" Width="60" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <ComboBox
-                    x:Name="cbbClientes"
-                    Margin="10,0,0,0"
-                    materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding IsChecked, ElementName=DisplaySelectedItemCheckBox}"
-                    materialDesign:HintAssist.Hint="Cliente"
-                    Height="26"
-                    HorizontalAlignment="Left"
-                    Width="300"
-                    VerticalAlignment="Center"
-                    ItemsSource="{Binding Path=NomeCliente}"
-                    SelectedValue="{Binding Path=IdCliente}"
-                    SelectedIndex="{Binding Path=IdCliente}"
-                    DisplayMemberPath="NomeCliente"
-                    SelectedValuePath="NomeCliente" SelectionChanged="CbbClientes_SelectionChanged"/>
-                <TextBlock x:Name="txtSelecionarSistemas" Text="Selecionar:" Margin="10,5,0,0" Width="60" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <ComboBox
-                    x:Name="cbbSistemas"
-                    Margin="10,0,0,0"
-                    materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding IsChecked, ElementName=DisplaySelectedItemCheckBox}"
-                    materialDesign:HintAssist.Hint="Sistema"
-                    Height="26"
-                    HorizontalAlignment="Left"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    ItemsSource="{Binding Path=NomeSistema}"
-                    SelectedValue="{Binding Path=IdSistemas}"
-                    SelectedIndex="{Binding Path=IdSistemas}"
-                    DisplayMemberPath="NomeSistema"
-                    SelectedValuePath="NomeSistema" SelectionChanged="CbbSistemas_SelectionChanged"/>                
-            </StackPanel>
-            <StackPanel VerticalAlignment="Top">
-                <StackPanel x:Name="SistemasVinculados" Orientation="Horizontal" Margin="10,10,0,0" HorizontalAlignment="Left" Height="380">
-                    <GroupBox x:Name="GrupoSistemasDisponiveis" Header="Sistemas Disponíveis" Width="380">
-                        <ListBox x:Name="ListaServicosDisponiveis" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource TemplateAdicionar}"/>
-                    </GroupBox>
-                    <GroupBox x:Name="GrupoSistemasVinculados" Header="Sistemas Vinculados" Margin="10,0,0,0" Width="440" BorderBrush="#FF4383CC">
-                        <ListBox x:Name="ListaServicosVinculados" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource TemplateRemover}"/>
-                    </GroupBox>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
+        </Border>
     </Grid>
 </Page>

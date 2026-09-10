@@ -1,6 +1,7 @@
 ﻿using ControleDeWebServices.Diversos;
 using ControleDeWebServices.Modelo;
 using ControleDeWebServices.View.Vinculos;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -65,7 +66,7 @@ namespace ControleDeWebServices.View.Cadastro
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            FrameActive.Content = new ListaVinculosServico();
+            FrameActive.Content = ActivatorUtilities.CreateInstance<ListaVinculosServico>(App.Services);
         }
 
         private void BtnGravar_Click(object sender, RoutedEventArgs e)
@@ -73,7 +74,7 @@ namespace ControleDeWebServices.View.Cadastro
             PersistirDados();
             Funcoes.AtivarDesativarControles(Botoes, false);
             Funcoes.AtivarDesativarControles(CamposDeServico, false);
-            FrameActive.Content = new ListaVinculosServico();
+            FrameActive.Content = ActivatorUtilities.CreateInstance<ListaVinculosServico>(App.Services);
         }
 
         private void PersistirDados()
