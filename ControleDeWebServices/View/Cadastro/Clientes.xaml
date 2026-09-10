@@ -1,0 +1,75 @@
+﻿<Page x:Class="ControleDeWebServices.View.Cadastro.Clientes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" 
+      Title="Clientes">
+
+    <Grid Background="WhiteSmoke" Width="850">
+        <StackPanel Orientation="Vertical">
+            <Grid x:Name="GridBotoes">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="Botoes" HorizontalAlignment="Right" Margin="0,5,10,0" Orientation="Horizontal">
+                    <StackPanel Margin="0,0,10,0">
+                        <Button 
+                            x:Name="btnGravar"
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            HorizontalAlignment="Right" 
+                            ToolTip="Salvar" 
+                            Height="Auto" 
+                            Background="#CC5743"
+                            BorderBrush="#CC5743"
+                            IsEnabled="True" Click="BtnGravar_Click">
+                            <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel >
+                        <Button 
+                            x:Name="btnCancelar"
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            HorizontalAlignment="Right" 
+                            ToolTip="Cancelar" 
+                            Height="Auto" 
+                            Background="#4383CC"
+                            BorderBrush="#4383CC"
+                            IsEnabled="True" Click="BtnCancelar_Click">
+                            <materialDesign:PackIcon Kind="ArrowBack" Height="24" Width="24"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <StackPanel>
+                <Grid x:Name="CamposDeServico" VerticalAlignment="Top" Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Height="26" VerticalAlignment="Top" Margin="10,5,5,0" Grid.Column="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtCodigoControle" materialDesign:HintAssist.Hint="Codigo Controle" HorizontalAlignment="Left" Width="95" Grid.Column="0" Focusable="True" Grid.ColumnSpan="2" CharacterCasing="Upper"/>
+                            <TextBox x:Name="txtNomeDoCliente" materialDesign:HintAssist.Hint="Nome do Cliente" HorizontalAlignment="Left" Width="295" Grid.Column="1" Focusable="True" Grid.ColumnSpan="2" CharacterCasing="Upper"/>
+                            <ComboBox
+                                x:Name="cbbUF"
+                                materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
+                                materialDesign:HintAssist.Hint="UF"
+                                Grid.Column="2"
+                                Height="26"
+                                HorizontalAlignment="Left"
+                                Width="50"
+                                Margin="10,0,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

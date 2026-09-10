@@ -1,0 +1,144 @@
+﻿<Window x:Name="FormPrincipal" x:Class="ControleDeWebServices.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}" 
+        Height="700" 
+        Width="1020"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize" 
+        WindowStyle="None"
+        MouseDown="FormPrincipal_MouseDown"
+        fw:AcrylicWindow.Enabled="True" 
+
+        AllowsTransparency="True" 
+        fw:AcrylicWindow.TintColor="White" 
+        MouseLeftButtonDown="FormPrincipal_MouseLeftButtonDown" Loaded="FormPrincipal_Loaded"
+        >
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="160"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="160"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <CollectionViewSource x:Key="GroupedItems" Source="{Binding Viewers}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Sort" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" >
+            <Grid>
+                <Grid Height="40" VerticalAlignment="Top">
+                    <TextBlock Text="Controle de WebServices" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+                </Grid>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0,40,0,0" Background="WhiteSmoke" Grid.Column="1">
+                    <Frame x:Name="FramePrincipal" NavigationUIVisibility="Hidden"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="165" HorizontalAlignment="Left" Grid.Column="0" fw:PointerTracker.Enabled="True" Background="#037F98AC">
+            <StackPanel>
+                <Grid Height="40">
+
+                </Grid>
+                <TreeView x:Name="listaDeMenus" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <TreeViewItem x:Name="Cadastrar" Height="auto"  Header="Cadastrar" Selected="Cadastrar_Selected">
+                        <TreeViewItem x:Name="CadastrarClientes" Selected="CadastrarClientes_Selected">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="32" Height="32">
+                                        <materialDesign:PackIcon Kind="Account" Width="32" Height="32" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                    <TextBlock Text="Clientes" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                        </TreeViewItem>
+                        <TreeViewItem x:Name="CadastrarSistemas" Selected="CadastrarSistemas_Selected">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="32" Height="32">
+                                        <materialDesign:PackIcon Kind="Airplay" Width="32" Height="32" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                    <TextBlock Text="Sistemas" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                        </TreeViewItem>
+                        <TreeViewItem x:Name="CadastrarServicos" Selected="CadastrarServiços_Selected">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="32" Height="32">
+                                        <materialDesign:PackIcon Kind="Build" Width="32" Height="32" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                    <TextBlock Text="Serviços" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                        </TreeViewItem>
+                        <TreeViewItem x:Name="CadastrarSecao" Selected="CadastrarSecao_Selected">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="32" Height="32">
+                                        <materialDesign:PackIcon Kind="Seat" Width="32" Height="32" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                    <TextBlock Text="Secao" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem x:Name="Vincular" Height="auto" Header="Vincular" Selected="Vincular_Selected">
+                        <TreeViewItem x:Name="VincularSistemas" Selected="VincularSistemas_Selected">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="32" Height="32">
+                                        <materialDesign:PackIcon Kind="Airplay" Width="32" Height="32" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                    <TextBlock Text="Sistemas" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                        </TreeViewItem>
+                        <TreeViewItem x:Name="VincularServicos" Selected="VincularServicos_Selected">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="32" Height="32">
+                                        <materialDesign:PackIcon Kind="Build" Width="32" Height="32" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                    <TextBlock Text="serviços" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem x:Name="WebServices" Height="auto" Header="WebServices" Selected="WebServices_Selected"/>
+                    <TreeViewItem x:Name="Sair" Height="auto" Header="Sair" Selected="Sair_Selected"/>
+                </TreeView>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

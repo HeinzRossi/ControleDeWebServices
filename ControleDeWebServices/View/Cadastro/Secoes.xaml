@@ -1,0 +1,64 @@
+﻿<Page x:Class="ControleDeWebServices.View.Cadastro.Secoes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ControleDeWebServices.View.Cadastro"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" 
+      Title="Secao">
+
+    <Grid Background="WhiteSmoke" Width="850">
+        <StackPanel Orientation="Vertical">
+            <Grid x:Name="GridBotoes">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="Botoes" HorizontalAlignment="Right" Margin="0,5,10,0" Orientation="Horizontal">
+                    <StackPanel Margin="0,0,10,0">
+                        <Button 
+                            x:Name="btnGravar"
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            HorizontalAlignment="Right" 
+                            ToolTip="Salvar" 
+                            Height="Auto" 
+                            Background="#CC5743"
+                            BorderBrush="#CC5743"
+                            IsEnabled="True" Click="BtnGravar_Click">
+                            <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel >
+                        <Button 
+                            x:Name="btnCancelar"
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            HorizontalAlignment="Right" 
+                            ToolTip="Cancelar" 
+                            Height="Auto" 
+                            Background="#4383CC"
+                            BorderBrush="#4383CC"
+                            IsEnabled="True" Click="BtnCancelar_Click">
+                            <materialDesign:PackIcon Kind="ArrowBack" Height="24" Width="24"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <StackPanel>
+                <Grid x:Name="CamposDeServico" VerticalAlignment="Top" Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Height="26" VerticalAlignment="Top" Margin="10,5,5,0" Grid.Column="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtNomeSecao" materialDesign:HintAssist.Hint="Nome Da Seção" HorizontalAlignment="Left" Width="295" Grid.Column="0" Focusable="True" Grid.ColumnSpan="2" CharacterCasing="Upper"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

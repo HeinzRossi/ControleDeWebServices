@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ControleDeWebServices.Modelo.ClasseBaseConexao">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Modelo\ClasseBaseConexao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.App" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Config">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAEACAAAAAAAAAEAAAAQAA=</HashCode>
+      <FileName>Conexao\Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.DadosDBContext" Collapsed="true">
+    <Position X="15.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAACAAAAAAAAQAAAABAAAAAAAACA=</HashCode>
+      <FileName>Conexao\DadosDBContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.INIFile">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAgAACAAEAAAABAAAEAAAA=</HashCode>
+      <FileName>Conexao\INIFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAADAAAAAAAAAAAAAAECABACCAABABAggA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.Diversos.Extensions" Collapsed="true">
+    <Position X="17" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Diversos\Extensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Diversos.Funcoes" Collapsed="true">
+    <Position X="15.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAEAAAAAAAAAAAAAAAAAAABAAAgAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Diversos\Funcoes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Diversos.ReflectionDataGrid" Collapsed="true">
+    <Position X="15.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Diversos\ReflectionDataGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Migrations.Configuration" Collapsed="true">
+    <Position X="15" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Migrations\Configuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Modelo.Cliente">
+    <Position X="2.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAIAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Modelo\Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Modelo.ClienteSistemas">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAABAA=</HashCode>
+      <FileName>Modelo\ClientesSistema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Modelo.Dados">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAABAEACAAAAAAAIAkAiIAoAA=</HashCode>
+      <FileName>Modelo\Dados.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Modelo.Servicos">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Modelo\Servicos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Modelo.ServicosSistema">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAABCA=</HashCode>
+      <FileName>Modelo\ServicosSistema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Modelo.Sistemas">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Modelo\Sistemas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Properties.Resources" Collapsed="true">
+    <Position X="17" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.Properties.Settings" Collapsed="true">
+    <Position X="18.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleDeWebServices.View.Clientes" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RABgBQAAQAAAaAAAAAAAAAAAAAAICAAECACBAAAgAAA=</HashCode>
+      <FileName>View\Clientes.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.ClientesControladorDePaginas" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ClientesControladorDePaginas.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.ListaDeClientes" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACABAAAAAAACAAACAAAAAAgAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>View\ListaDeClientes.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.ListaDeSistemas" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAACAAACAAAAAAgAAAAAAAAAAAEAAAAABA=</HashCode>
+      <FileName>View\ListaDeSistemas.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.Servico" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABABAAAAAAACCAAAAAAAAAgAEAAAgIAAACAEAAgABA=</HashCode>
+      <FileName>View\Servico.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.Sistema" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QADABAIAUAAAaCAAAAAAAAAAAEAIAAAAAACVAAAgEAA=</HashCode>
+      <FileName>View\Sistema.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.Frames.SistemaControladorDePaginas" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Frames\SistemaControladorDePaginas.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.View.WebServices" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAJAAAGCAAAAAAAAEAAAAAAAIAAAAEIAAAAAAAAAk=</HashCode>
+      <FileName>View\WebServices.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ControleDeWebServices.ClasseBaseVinculo">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAIAAAAAAAAABAAAAAAEACAAQEAAAAAEAAEBAAA=</HashCode>
+      <FileName>Modelo\ClasseBaseVinculo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ControleDeWebServices.Diversos.TipoConexao" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Diversos\Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ControleDeWebServices.Diversos.Acao" Collapsed="true">
+    <Position X="15.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Diversos\Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ControleDeWebServices.Diversos.StatusServico" Collapsed="true">
+    <Position X="15.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Diversos\Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ControleDeWebServices.Diversos.Estados" Collapsed="true">
+    <Position X="17" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KACEADCAEABIEmBAABABAAAgQIEAQABAAAAAAADBQAA=</HashCode>
+      <FileName>Diversos\Enumerados.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

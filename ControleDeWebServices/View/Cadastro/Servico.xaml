@@ -1,0 +1,74 @@
+﻿<Page x:Name="frmServicos" x:Class="ControleDeWebServices.View.Cadastro.Servico"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" 
+      Title="Servico">
+
+    <Grid Background="WhiteSmoke" Width="850">
+        <StackPanel Orientation="Vertical">
+            <Grid x:Name="GridBotoes">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="Botoes" HorizontalAlignment="Right" Margin="0,5,10,0" Orientation="Horizontal">
+                    <StackPanel Margin="0,0,10,0">
+                        <Button 
+                            x:Name="btnGravar"
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            HorizontalAlignment="Right" 
+                            ToolTip="Salvar" 
+                            Height="32" 
+                            Width="56"
+                            Background="#CC5743"
+                            BorderBrush="#CC5743"
+                            IsEnabled="True"
+                            Click="BtnGravar_Click">
+                            <materialDesign:PackIcon Kind="ContentSave" Height="24" Width="24"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel >
+                        <Button 
+                            x:Name="btnCancelar"
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            HorizontalAlignment="Right" 
+                            ToolTip="Cancelar" 
+                            Height="Auto" 
+                            Background="#4383CC"
+                            BorderBrush="#4383CC"
+                            IsEnabled="True" Click="BtnCancelar_Click">
+                            <materialDesign:PackIcon Kind="ArrowBack" Height="24" Width="24"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="CamposDeServico" VerticalAlignment="Top" Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Height="26" VerticalAlignment="Top" Margin="10,5,5,0" Grid.Column="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="txtNomeDoServico" materialDesign:HintAssist.Hint="Nome do Serviço" HorizontalAlignment="Left" Width="377" Grid.Column="0" Focusable="True" CharacterCasing="Upper"/>
+                        <ComboBox
+                                x:Name="cbbUF"
+                                materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
+                                materialDesign:HintAssist.Hint="UF"
+                                Grid.Column="2"
+                                Height="26"
+                                HorizontalAlignment="Left"
+                                Width="50"
+                                Margin="10,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
