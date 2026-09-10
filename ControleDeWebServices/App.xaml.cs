@@ -7,12 +7,14 @@ using ControleDeWebServices.Application.Cadastros;
 using ControleDeWebServices.Application.Clientes;
 using ControleDeWebServices.Application.Configuracoes;
 using ControleDeWebServices.Application.Navigation;
+using ControleDeWebServices.Application.Operacao;
 using ControleDeWebServices.Application.Platform;
 using ControleDeWebServices.Application.Vinculos;
 using ControleDeWebServices.Infrastructure.Cadastros;
 using ControleDeWebServices.Infrastructure.Clientes;
 using ControleDeWebServices.Infrastructure.Configuracoes;
 using ControleDeWebServices.Infrastructure.Data;
+using ControleDeWebServices.Infrastructure.Operacao;
 using ControleDeWebServices.Infrastructure.Vinculos;
 using ControleDeWebServices.Presentation.Feedback;
 using ControleDeWebServices.Presentation.Navigation;
@@ -60,6 +62,9 @@ namespace ControleDeWebServices
             services.AddTransient<IConfiguracaoServicoService, ConfiguracaoServicoService>();
             services.AddTransient<IImportarParametrosService, ImportarParametrosService>();
             services.AddTransient<IAtualizarPadroesService, AtualizarPadroes>();
+            services.AddTransient<IWebServicesService, WebServicesService>();
+            services.AddTransient<IWebServiceExecutionService, WebServiceExecutionService>();
+            services.AddSingleton<IProcessService, ProcessService>();
             services.AddSingleton<IFilePickerService, FilePickerService>();
 
             services.AddSingleton<ToastService>();
@@ -81,6 +86,7 @@ namespace ControleDeWebServices
             services.AddTransient<ConfiguracaoSistemaViewModel>();
             services.AddTransient<ConfiguracaoServicoViewModel>();
             services.AddTransient<ImportarParametrosViewModel>();
+            services.AddTransient<WebServicesViewModel>();
             services.AddTransient<Func<VinculoClienteSistemaViewModel>>(provider => () => provider.GetRequiredService<VinculoClienteSistemaViewModel>());
             services.AddTransient<Func<VinculoClienteServicoViewModel>>(provider => () => provider.GetRequiredService<VinculoClienteServicoViewModel>());
             services.AddTransient<Func<ConfiguracaoSistemaViewModel>>(provider => () => provider.GetRequiredService<ConfiguracaoSistemaViewModel>());

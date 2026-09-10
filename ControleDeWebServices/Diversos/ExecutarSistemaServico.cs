@@ -1,10 +1,11 @@
 ﻿using ControleDeWebServices.Auxiliar.Custas;
+using ControleDeWebServices.Application.Operacao;
+using ControleDeWebServices.Infrastructure.Operacao;
 using ControleDeWebServices.Interface;
 using ControleDeWebServices.Modelo;
 using Engegraph.Comum.Utilitarios.Seguranca;
 using PeanutButter.INI;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,14 +19,27 @@ namespace ControleDeWebServices.Diversos
         private INIFile pArquivoConfiguracaoSistema;
         private IQueryable<dynamic> pClienteServicos;
         private XmlSerializer xml;
-        private configuration lerConfig;
-        private DadosDBContext contexto = new DadosDBContext();
+        private ConfigurationXml lerConfig;
+        private readonly DadosDBContext contexto;
+        private readonly IProcessService processService;
         
         private ClienteSistemas pClienteSistemas { get; set; }
 
         public ExecutarSistemaServico(ClienteSistemas clienteSistemas)
+            : this(clienteSistemas, new DadosDBContext(), new ProcessService())
+        {
+        }
+
+        public ExecutarSistemaServico(ClienteSistemas clienteSistemas, DadosDBContext contexto)
+            : this(clienteSistemas, contexto, new ProcessService())
+        {
+        }
+
+        public ExecutarSistemaServico(ClienteSistemas clienteSistemas, DadosDBContext contexto, IProcessService processService)
         {
             pClienteSistemas = clienteSistemas;
+            this.contexto = contexto;
+            this.processService = processService;
         }
         public IExecutarSistemaServico ValidarConfiguracoesSistema()
         {
@@ -341,9 +355,9 @@ namespace ControleDeWebServices.Diversos
             if (string.IsNullOrEmpty(pArquivoConfiguracao))
                 return TipoServico.Selos;
 
-            xml = new XmlSerializer(typeof(configuration));
+            xml = new XmlSerializer(typeof(ConfigurationXml));
             StreamReader reader = new StreamReader(pArquivoConfiguracao);
-            lerConfig = (configuration)xml.Deserialize(reader);
+            lerConfig = (ConfigurationXml)xml.Deserialize(reader);
             reader.Close();
 
             if (lerConfig.CustasProtesto != null)
@@ -373,24 +387,24 @@ namespace ControleDeWebServices.Diversos
             else
                 return TipoServico.Selos;
         }
-        private void AlimentarXmlServicosSaec(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlServicosSaec(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.SAECNacionalServidor.ServidorBancoDeDadosSAECSqlServer.value = MontarStringConexaoServico(pClienteServicos);
             pConfiguration.SAECNacionalServidor.UsuarioBancoDeDadosSqlServer.value = pClienteServicos.Usuario;
             pConfiguration.SAECNacionalServidor.SenhaBancoDeDadosSqlServer.value = pClienteServicos.Senha;
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlServicosRC(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlServicosRC(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.ServicoRC.ConexaoBanco.value = MontarStringConexaoServico(pClienteServicos);
             pConfiguration.ServicoRC.UsuarioBanco.value = pClienteServicos.Usuario;
             pConfiguration.ServicoRC.SenhaBanco.value = pClienteServicos.Senha;
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlSelosMA(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlSelosMA(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
         }
-        private void AlimentarXmlSelosTO(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlSelosTO(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.SeloDigitalTO.SqlHost.value = pClienteServicos.Servidor;
             pConfiguration.SeloDigitalTO.SqlDatabase.value = pClienteServicos.DataBase;
@@ -398,7 +412,7 @@ namespace ControleDeWebServices.Diversos
             pConfiguration.SeloDigitalTO.SqlSenha.value = pClienteServicos.Senha;
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlSelosPA(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlSelosPA(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.SeloDigitalPA.ConexaoBanco.value = MontarStringConexaoServico(pClienteServicos); ;
             pConfiguration.SeloDigitalPA.UsuarioBanco.value = pClienteServicos.Usuario;
@@ -406,14 +420,14 @@ namespace ControleDeWebServices.Diversos
             pConfiguration.SeloDigitalPA.TipoDeConexao.value = pClienteServicos.TipoConexao.ToString();
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlServicosRTD(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlServicosRTD(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.ServicoRTD.ConexaoBanco.value = MontarStringConexaoServico(pClienteServicos);
             pConfiguration.ServicoRTD.UsuarioBanco.value = pClienteServicos.Usuario;
             pConfiguration.ServicoRTD.SenhaBanco.value = pClienteServicos.Senha;
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlCaixa(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlCaixa(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.CaixaServidor.SqlHost.value = pClienteServicos.Servidor;
             pConfiguration.CaixaServidor.SqlDatabase.value = pClienteServicos.DataBase;
@@ -421,7 +435,7 @@ namespace ControleDeWebServices.Diversos
             pConfiguration.CaixaServidor.SqlSenha.value = pClienteServicos.Senha;
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlCustas(configuration pConfiguration,ClienteServicos pClienteServicos)
+        private void AlimentarXmlCustas(ConfigurationXml pConfiguration,ClienteServicos pClienteServicos)
         {
             pConfiguration.CustasProtesto.ConexaoBanco.value = MontarStringConexaoServico(pClienteServicos);
             pConfiguration.CustasProtesto.UsuarioBanco.value = pClienteServicos.Usuario;
@@ -429,7 +443,7 @@ namespace ControleDeWebServices.Diversos
             pConfiguration.CustasProtesto.TipoDeConexao.value = pClienteServicos.TipoConexao.ToString();
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlSelos(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlSelos(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             if (string.IsNullOrEmpty(pClienteServicos.ArquivoConfiguracao))
                 return;
@@ -440,7 +454,7 @@ namespace ControleDeWebServices.Diversos
             pConfiguration.appSettings.FirstOrDefault(x => x.key == "TipoDeConexao").value = pClienteServicos.TipoConexao.ToString();
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlNFSe(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlNFSe(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.NFSe.SqlHost.value = pClienteServicos.Servidor;
             pConfiguration.NFSe.SqlDatabase.value = pClienteServicos.DataBase;
@@ -448,14 +462,14 @@ namespace ControleDeWebServices.Diversos
             pConfiguration.NFSe.Senha.value = pClienteServicos.Senha;
             pConfiguration.Salvar(pClienteServicos.ArquivoConfiguracao);
         }
-        private void AlimentarXmlLauncher(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlLauncher(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.Launcher.SqlHost.value = pClienteServicos.Servidor;
             pConfiguration.Launcher.SqlDatabase.value = pClienteServicos.DataBase;
             pConfiguration.Launcher.Usuario.value = pClienteServicos.Usuario;
             pConfiguration.Launcher.Senha.value = pClienteServicos.Senha;
         }
-        private void AlimentarXmlSelosMG(configuration pConfiguration, ClienteServicos pClienteServicos)
+        private void AlimentarXmlSelosMG(ConfigurationXml pConfiguration, ClienteServicos pClienteServicos)
         {
             pConfiguration.SeloDigitalMg.ConexaoBanco.value = pClienteServicos.Servidor;
             pConfiguration.SeloDigitalMg.Usuario.value = pClienteServicos.Usuario;
@@ -489,44 +503,23 @@ namespace ControleDeWebServices.Diversos
             {
                 ClienteServicos servicos = ReflectionDataGrid.CastObject<ClienteServicos>(clienteservicos);
                 if (servicos.ArquivoExecutavel != "")
-                    Process.Start(servicos.ArquivoExecutavel);
+                    processService.Start(servicos.ArquivoExecutavel);
             }
             return this;
         }
 
         public IExecutarSistemaServico DerrubarServicos()
         {
-            Process[] processos = Process.GetProcesses();
-            foreach (Process processo in processos)
-            {
-                if (processo.ProcessName.Length >= 11)
-                    if (processo.ProcessName.Substring(0, 11) == "SeloDigital")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 15)
-                    if (processo.ProcessName.Substring(0, 15) == "CustasProtestos")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 4)
-                    if (processo.ProcessName.Substring(0, 4) == "NFSe")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 11)
-                    if (processo.ProcessName.Substring(0, 11) == "ServicosRTD")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 5)
-                    if (processo.ProcessName.Substring(0, 5) == "Caixa")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 19)
-                    if (processo.ProcessName.Substring(0, 19) == "CadastroDeEnderecos")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 8)
-                    if (processo.ProcessName.Substring(0, 8) == "Launcher")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 11)
-                    if (processo.ProcessName.Substring(0,9) == "ServicoRC")
-                        processo.Kill();
-                if (processo.ProcessName.Length >= 12)
-                    if (processo.ProcessName.Substring(0, 12) == "SAECNacional")
-                        processo.Kill();
-            }
+            processService.KillByPrefixes(
+                "SeloDigital",
+                "CustasProtestos",
+                "NFSe",
+                "ServicosRTD",
+                "Caixa",
+                "CadastroDeEnderecos",
+                "Launcher",
+                "ServicoRC",
+                "SAECNacional");
             return this;
         }
 

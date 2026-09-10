@@ -258,6 +258,8 @@ Status tecnico aplicado: na Sprint 6 de modernizacao, Sistemas, Servicos, Secoes
 
 Status tecnico aplicado na Sprint 7: configuracoes de sistema/servico e importacao de parametros tambem passaram para ViewModels, servicos, picker isolado, toast/dialogo customizado e telas bindaveis, mantendo o visual operacional limpo.
 
+Status tecnico aplicado na Sprint 8: WebServices passou para ViewModel, commands, status de execucao e acoes explicitas para executar/atualizar URL, preparando o redesign visual final sem code-behind operacional.
+
 Tasks:
 
 - Definir template de formulario com toolbar, agrupamento de campos e area de feedback.

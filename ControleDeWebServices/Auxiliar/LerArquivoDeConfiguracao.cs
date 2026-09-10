@@ -11,8 +11,8 @@ namespace ControleDeWebServices.Auxiliar.Custas
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(AnonymousType = true)]
-    [XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class configuration
+    [XmlRootAttribute("configuration", Namespace = "", IsNullable = false)]
+    public partial class ConfigurationXml
     {
         public CustasProtesto CustasProtesto { get; set; }
         [XmlArrayItemAttribute("add", IsNullable = false)]
@@ -33,7 +33,7 @@ namespace ControleDeWebServices.Auxiliar.Custas
             {
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                 ns.Add("", "");
-                XmlSerializer XML = new XmlSerializer(typeof(configuration));
+                XmlSerializer XML = new XmlSerializer(typeof(ConfigurationXml));
                 XML.Serialize(stream, this, ns);
             }
         }

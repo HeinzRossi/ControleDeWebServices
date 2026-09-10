@@ -270,6 +270,8 @@ Criterios de aceite:
 
 Objetivo: tornar o fluxo operacional observavel, seguro e validado no runtime novo.
 
+Status da execucao inicial: concluida na branch `codex/sprint-8-webservices-execucao-qa`, com relatorio em `docs/Sprint-8-WebServices-Execucao-QA.md`. `WebServices` foi migrado para ViewModel, consulta e execucao operacional foram movidas para servicos, processos foram isolados e o build final ficou limpo.
+
 Entregaveis:
 
 - Caso de uso de execucao de WebServices por etapas.
