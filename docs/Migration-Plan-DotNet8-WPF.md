@@ -89,6 +89,8 @@ Criterios de aceite:
 
 Objetivo: atualizar o ecossistema de dependencias e remover o que nao deve seguir para o runtime moderno.
 
+Status da execucao inicial: concluida na branch `codex/sprint-2-componentes`, com relatorio em `docs/Sprint-2-Componentes.md`. Componentes principais foram atualizados, FluentWPF e dependencias diretas sem uso foram removidos, `System.Data.SqlClient` direto foi substituido por `Microsoft.Data.SqlClient` no codigo externo e o build final ficou com 0 erros. O aviso `NU1701` foi removido; avisos herdados de `MessageBox`/dialogs WinForms e codigo legado ficam para as sprints seguintes.
+
 Entregaveis:
 
 - Matriz final de componentes com decisao: atualizar, substituir, remover ou isolar.

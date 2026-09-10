@@ -1,4 +1,4 @@
-﻿<Page x:Class="ControleDeWebServices.View.Cadastro.ListaDeClientes"
+<Page x:Class="ControleDeWebServices.View.Cadastro.ListaDeClientes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -86,14 +86,14 @@
                                 </Style>
                             </DataGridTextColumn.HeaderStyle>
                         </DataGridTextColumn>
-                        <materialDesign:MaterialDataGridTextColumn
+                        <DataGridTextColumn
                             x:Name="UF"
                             Binding="{Binding Uf, Mode=OneWay}"
                             Width="80"
                             Header="Estado"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                             Foreground="Black">
-                            <materialDesign:MaterialDataGridTextColumn.HeaderStyle>
+                            <DataGridTextColumn.HeaderStyle>
                                 <Style
                                     TargetType="{x:Type DataGridColumnHeader}"
                                     BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
@@ -104,8 +104,8 @@
                                     Property="Foreground"
                                     Value="White"/>
                                 </Style>
-                            </materialDesign:MaterialDataGridTextColumn.HeaderStyle>
-                        </materialDesign:MaterialDataGridTextColumn>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style

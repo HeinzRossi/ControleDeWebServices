@@ -26,6 +26,8 @@ Regra transversal: os modelos em `ControleDeWebServices/Modelo` devem ser preser
 
 Execucao da Sprint 1: a prova inicial de migracao para SDK-style e `net8.0-windows` ficou documentada em `docs/Sprint-1-DotNet-WPF.md`. O build compila com 0 erros, mantendo aviso ativo de compatibilidade do MaterialDesignThemes para a Sprint 2.
 
+Execucao da Sprint 2: a atualizacao de componentes ficou documentada em `docs/Sprint-2-Componentes.md`. O aviso de compatibilidade do MaterialDesignThemes (`NU1701`) foi removido e o build final ficou com 0 erros. Permanecem avisos herdados ligados principalmente a `MessageBox`/dialogs WinForms e a codigo legado, previstos para tratamento nas sprints seguintes.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.

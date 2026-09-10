@@ -2,7 +2,7 @@
 using ControleDeWebServices.Modelo;
 using FirebirdSql.Data.FirebirdClient;
 using System;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Windows.Forms;
 using System.Linq;
 using Npgsql;

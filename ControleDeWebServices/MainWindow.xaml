@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,10 +17,7 @@
         ResizeMode="NoResize" 
         WindowStyle="None"
         MouseDown="FormPrincipal_MouseDown"
-        fw:AcrylicWindow.Enabled="True" 
-
         AllowsTransparency="True" 
-        fw:AcrylicWindow.TintColor="White" 
         MouseLeftButtonDown="FormPrincipal_MouseLeftButtonDown" Loaded="FormPrincipal_Loaded"
         >
     <Window.Resources>
@@ -65,7 +61,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid x:Name="GridMenu" Width="165" HorizontalAlignment="Left" Grid.Column="0" fw:PointerTracker.Enabled="True" Background="#037F98AC">
+        <Grid x:Name="GridMenu" Width="165" HorizontalAlignment="Left" Grid.Column="0" Background="#037F98AC">
             <StackPanel>
                 <Grid Height="40">
 
