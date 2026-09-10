@@ -120,6 +120,8 @@ Criterios de aceite:
 
 Objetivo: separar View, ViewModels, Application, Domain e Infrastructure antes da migracao ampla das telas.
 
+Status da execucao inicial: concluida na branch `codex/sprint-3-arquitetura-camadas`, com relatorio em `docs/Sprint-3-Arquitetura-Camadas.md`. Foram criadas as camadas logicas, contratos base, DI com `Microsoft.Extensions.DependencyInjection` e base MVVM com `CommunityToolkit.Mvvm`, sem migrar telas e sem alterar modelos.
+
 Entregaveis:
 
 - Estrutura de camadas criada na solucao/projeto de migracao.

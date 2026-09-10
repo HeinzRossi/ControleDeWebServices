@@ -17,7 +17,7 @@ namespace ControleDeWebServices
             EventManager.RegisterClassHandler(typeof(TextBox), TextBox.KeyDownEvent, new KeyEventHandler(TextBox_KeyDown));
             EventManager.RegisterClassHandler(typeof(Button), Button.KeyDownEvent, new KeyEventHandler(TextBox_KeyDown));
             EventManager.RegisterClassHandler(typeof(ComboBox), ComboBox.KeyDownEvent, new KeyEventHandler(TextBox_KeyDown));
-            Application.Current.DispatcherUnhandledException += (sender, args) =>
+            System.Windows.Application.Current.DispatcherUnhandledException += (sender, args) =>
             {
                 MessageBox.Show(args.Exception.Message, "Atenção!", MessageBoxButton.OK, MessageBoxImage.Information);
                 args.Handled = true;

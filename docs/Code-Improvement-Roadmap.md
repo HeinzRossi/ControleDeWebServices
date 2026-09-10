@@ -28,6 +28,8 @@ Execucao da Sprint 1: a prova inicial de migracao para SDK-style e `net8.0-windo
 
 Execucao da Sprint 2: a atualizacao de componentes ficou documentada em `docs/Sprint-2-Componentes.md`. O aviso de compatibilidade do MaterialDesignThemes (`NU1701`) foi removido e o build final ficou com 0 erros. Permanecem avisos herdados ligados principalmente a `MessageBox`/dialogs WinForms e a codigo legado, previstos para tratamento nas sprints seguintes.
 
+Execucao da Sprint 3: a base de arquitetura em camadas ficou documentada em `docs/Sprint-3-Arquitetura-Camadas.md`. Foram adicionados DI, contratos de navegacao/feedback/contexto, implementacoes neutras temporarias e `ViewModelBase`, sem migrar telas e sem alterar modelos.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
