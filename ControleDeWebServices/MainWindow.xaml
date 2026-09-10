@@ -21,6 +21,7 @@
         MouseLeftButtonDown="FormPrincipal_MouseLeftButtonDown" Loaded="FormPrincipal_Loaded"
         >
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
@@ -135,6 +136,81 @@
                     <TreeViewItem x:Name="Sair" Height="auto" Header="Sair" Selected="Sair_Selected"/>
                 </TreeView>
             </StackPanel>
+        </Grid>
+
+        <ItemsControl Grid.ColumnSpan="2"
+                      Panel.ZIndex="20"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Top"
+                      Margin="0,16,16,0"
+                      ItemsSource="{Binding ToastService.Toasts, ElementName=FormPrincipal}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="320"
+                            Margin="0,0,0,8"
+                            Padding="14,10"
+                            CornerRadius="4"
+                            Background="{Binding Background}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}"
+                                           Foreground="{Binding Foreground}"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding Message}"
+                                           Foreground="{Binding Foreground}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,3,0,0"/>
+                            </StackPanel>
+                            <Button Grid.Column="1"
+                                    Width="24"
+                                    Height="24"
+                                    Padding="0"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Top"
+                                    Content="X"
+                                    Click="BtnToastFechar_Click"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Grid Grid.ColumnSpan="2"
+              Panel.ZIndex="30"
+              Background="#66000000"
+              Visibility="{Binding ConfirmDialogService.IsOpen, ElementName=FormPrincipal, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Width="420"
+                    Padding="24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="White"
+                    CornerRadius="6">
+                <StackPanel>
+                    <TextBlock Text="{Binding ConfirmDialogService.CurrentRequest.Title, ElementName=FormPrincipal}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Foreground="#172126"/>
+                    <TextBlock Text="{Binding ConfirmDialogService.CurrentRequest.Message, ElementName=FormPrincipal}"
+                               TextWrapping="Wrap"
+                               Margin="0,10,0,22"
+                               Foreground="#172126"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="{Binding ConfirmDialogService.CurrentRequest.CancelText, ElementName=FormPrincipal}"
+                                MinWidth="92"
+                                Margin="0,0,8,0"
+                                Click="BtnCancelarDialog_Click"/>
+                        <Button Content="{Binding ConfirmDialogService.CurrentRequest.ConfirmText, ElementName=FormPrincipal}"
+                                MinWidth="92"
+                                Background="#B94E45"
+                                Foreground="White"
+                                Click="BtnConfirmarDialog_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

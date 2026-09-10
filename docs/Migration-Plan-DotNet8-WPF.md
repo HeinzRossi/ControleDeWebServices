@@ -150,6 +150,8 @@ Criterios de aceite:
 
 Objetivo: modernizar a base de interacao do app e remover o padrao visual de `MessageBox`.
 
+Status da execucao inicial: concluida na branch `codex/sprint-4-shell-feedback`, com relatorio em `docs/Sprint-4-Shell-Feedback.md`. O Shell passou a usar `MainWindowViewModel`, navegacao centralizada por `WpfNavigationService`, host de toasts/dialogo customizado e excecao global por toast, mantendo as telas internas para sprints futuras.
+
 Entregaveis:
 
 - Shell com ViewModel de navegacao.

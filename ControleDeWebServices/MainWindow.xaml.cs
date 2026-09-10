@@ -1,6 +1,9 @@
-﻿using ControleDeWebServices.View;
-using ControleDeWebServices.View.Cadastro;
-using ControleDeWebServices.View.Vinculos;
+using CommunityToolkit.Mvvm.Input;
+using ControleDeWebServices.Application.Feedback;
+using ControleDeWebServices.Presentation.Feedback;
+using ControleDeWebServices.Presentation.Navigation;
+using ControleDeWebServices.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,26 +12,38 @@ namespace ControleDeWebServices
 {
     public partial class MainWindow : Window
     {
-        public DadosDBContext context;
+        private readonly MainWindowViewModel viewModel;
+        private readonly WpfNavigationService navigationService;
+
+        public ToastService ToastService { get; }
+        public ConfirmDialogService ConfirmDialogService { get; }
+
         public MainWindow()
         {
             InitializeComponent();
-            context = new DadosDBContext();
+
+            viewModel = App.Services.GetRequiredService<MainWindowViewModel>();
+            navigationService = App.Services.GetRequiredService<WpfNavigationService>();
+            ToastService = App.Services.GetRequiredService<ToastService>();
+            ConfirmDialogService = App.Services.GetRequiredService<ConfirmDialogService>();
+
+            DataContext = viewModel;
+            navigationService.Attach(FramePrincipal);
+            viewModel.ExitRequested += ViewModel_ExitRequested;
+
             EventManager.RegisterClassHandler(typeof(TextBox), TextBox.KeyDownEvent, new KeyEventHandler(TextBox_KeyDown));
             EventManager.RegisterClassHandler(typeof(Button), Button.KeyDownEvent, new KeyEventHandler(TextBox_KeyDown));
             EventManager.RegisterClassHandler(typeof(ComboBox), ComboBox.KeyDownEvent, new KeyEventHandler(TextBox_KeyDown));
             System.Windows.Application.Current.DispatcherUnhandledException += (sender, args) =>
             {
-                MessageBox.Show(args.Exception.Message, "Atenção!", MessageBoxButton.OK, MessageBoxImage.Information);
+                ToastService.Show(new ToastRequest(ToastKind.Error, "Ocorreu um erro inesperado. Tente novamente ou acione o suporte.", "Atenção"));
                 args.Handled = true;
             };
         }
 
         private void CadastrarServiços_Selected(object sender, RoutedEventArgs e)
         {
-            ListaDeServicos listaDeServicos = new ListaDeServicos();
-            this.FramePrincipal.Content = listaDeServicos;
-
+            ExecuteNavigation(viewModel.NavigateServicosCommand, e);
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -42,7 +57,7 @@ namespace ControleDeWebServices
         private void MoverProximo(KeyEventArgs e)
         {
             var requisicao = new TraversalRequest(FocusNavigationDirection.Next);
-            var controle = (Keyboard.FocusedElement as UIElement);
+            var controle = Keyboard.FocusedElement as UIElement;
             if (controle != null && controle.MoveFocus(requisicao))
             {
                 e.Handled = true;
@@ -51,13 +66,13 @@ namespace ControleDeWebServices
 
         private void CadastrarSistemas_Selected(object sender, RoutedEventArgs e)
         {
-            ListaDeSistemas listaDeSistemas = new ListaDeSistemas();
-            this.FramePrincipal.Content = listaDeSistemas;
+            ExecuteNavigation(viewModel.NavigateSistemasCommand, e);
         }
 
         private void Sair_Selected(object sender, RoutedEventArgs e)
         {
-            Close();
+            viewModel.ExitCommand.Execute(null);
+            e.Handled = true;
         }
 
         private void FormPrincipal_MouseDown(object sender, MouseButtonEventArgs e)
@@ -66,76 +81,98 @@ namespace ControleDeWebServices
             {
                 DragMove();
             }
-            catch { }
-            ;
+            catch
+            {
+            }
         }
 
         private void FormPrincipal_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            this.DragMove();
+            DragMove();
         }
 
         private void CadastrarClientes_Selected(object sender, RoutedEventArgs e)
         {
-            ListaDeClientes listaDeClientes = new ListaDeClientes();
-            this.FramePrincipal.Content = listaDeClientes;
+            ExecuteNavigation(viewModel.NavigateClientesCommand, e);
         }
 
         private void WebServices_Selected(object sender, RoutedEventArgs e)
         {
-            WebServices webServices = new WebServices();
-            this.FramePrincipal.Content = webServices;
+            ExecuteNavigation(viewModel.NavigateWebServicesCommand, e);
         }
 
         private void Cadastrar_Selected(object sender, RoutedEventArgs e)
         {
-            if (Cadastrar.IsExpanded)
+            if (!ReferenceEquals(sender, e.OriginalSource))
             {
-                Cadastrar.IsExpanded = false;
+                return;
             }
-            else
-            {
-                Cadastrar.IsExpanded = true;
-            }
+
+            Cadastrar.IsExpanded = !Cadastrar.IsExpanded;
             Cadastrar.IsSelected = false;
+            e.Handled = true;
         }
 
         private void Vincular_Selected(object sender, RoutedEventArgs e)
         {
-            if (Vincular.IsExpanded)
+            if (!ReferenceEquals(sender, e.OriginalSource))
             {
-                Vincular.IsExpanded = false;
+                return;
             }
-            else
-            {
-                Vincular.IsExpanded = true;
-            }
+
+            Vincular.IsExpanded = !Vincular.IsExpanded;
             Vincular.IsSelected = false;
+            e.Handled = true;
         }
 
         private void VincularSistemas_Selected(object sender, RoutedEventArgs e)
         {
-            ListaVinculosSistema listaVinculosSistema = new ListaVinculosSistema();
-            this.FramePrincipal.Content = listaVinculosSistema;
+            ExecuteNavigation(viewModel.NavigateVinculoClienteSistemaCommand, e);
         }
 
         private void VincularServicos_Selected(object sender, RoutedEventArgs e)
         {
-            ListaVinculosServico listaVinculoServico = new ListaVinculosServico();
-            this.FramePrincipal.Content = listaVinculoServico;
+            ExecuteNavigation(viewModel.NavigateVinculoClienteServicoCommand, e);
         }
 
         private void FormPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            WebServices webServices = new WebServices();
-            this.FramePrincipal.Content = webServices;
+            viewModel.NavigateWebServicesCommand.Execute(null);
         }
 
         private void CadastrarSecao_Selected(object sender, RoutedEventArgs e)
         {
-            ListaDeSecoes listaDeSecoes = new ListaDeSecoes();
-            this.FramePrincipal.Content = listaDeSecoes;
+            ExecuteNavigation(viewModel.NavigateSecoesCommand, e);
+        }
+
+        private void BtnToastFechar_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is ToastNotification toast)
+            {
+                ToastService.Dismiss(toast);
+            }
+        }
+
+        private void BtnConfirmarDialog_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmDialogService.Confirm();
+        }
+
+        private void BtnCancelarDialog_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmDialogService.Cancel();
+        }
+
+        private void ViewModel_ExitRequested(object sender, System.EventArgs e)
+        {
+            Close();
+        }
+
+        private static void ExecuteNavigation(IAsyncRelayCommand command, RoutedEventArgs e)
+        {
+            command.Execute(null);
+            e.Handled = true;
         }
     }
 }

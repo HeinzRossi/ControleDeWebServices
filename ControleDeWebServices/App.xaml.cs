@@ -6,6 +6,7 @@ using ControleDeWebServices.Application.Navigation;
 using ControleDeWebServices.Infrastructure.Data;
 using ControleDeWebServices.Presentation.Feedback;
 using ControleDeWebServices.Presentation.Navigation;
+using ControleDeWebServices.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ControleDeWebServices
@@ -38,9 +39,17 @@ namespace ControleDeWebServices
             var services = new ServiceCollection();
 
             services.AddSingleton<IDadosDbContextFactory, DadosDbContextFactory>();
-            services.AddSingleton<IToastService, NoOpToastService>();
-            services.AddSingleton<IConfirmDialogService, NoOpConfirmDialogService>();
-            services.AddSingleton<INavigationService, NoOpNavigationService>();
+
+            services.AddSingleton<ToastService>();
+            services.AddSingleton<IToastService>(provider => provider.GetRequiredService<ToastService>());
+
+            services.AddSingleton<ConfirmDialogService>();
+            services.AddSingleton<IConfirmDialogService>(provider => provider.GetRequiredService<ConfirmDialogService>());
+
+            services.AddSingleton<WpfNavigationService>();
+            services.AddSingleton<INavigationService>(provider => provider.GetRequiredService<WpfNavigationService>());
+
+            services.AddTransient<MainWindowViewModel>();
 
             return services.BuildServiceProvider();
         }

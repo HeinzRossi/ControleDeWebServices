@@ -30,6 +30,8 @@ Execucao da Sprint 2: a atualizacao de componentes ficou documentada em `docs/Sp
 
 Execucao da Sprint 3: a base de arquitetura em camadas ficou documentada em `docs/Sprint-3-Arquitetura-Camadas.md`. Foram adicionados DI, contratos de navegacao/feedback/contexto, implementacoes neutras temporarias e `ViewModelBase`, sem migrar telas e sem alterar modelos.
 
+Execucao da Sprint 4: o Shell e a base de feedback ficaram documentados em `docs/Sprint-4-Shell-Feedback.md`. Foram criados `MainWindowViewModel`, navegacao centralizada, host de toast/dialogo customizado e substituicao do `MessageBox` global do Shell por toast, mantendo telas internas para Sprint 5 em diante.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
