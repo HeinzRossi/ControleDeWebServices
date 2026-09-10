@@ -179,6 +179,8 @@ Criterios de aceite:
 
 Objetivo: validar arquitetura, UX e padrao visual em um fluxo simples antes de replicar.
 
+Status da execucao inicial: concluida na branch `codex/sprint-5-clientes-piloto`, com relatorio em `docs/Sprint-5-Clientes-Piloto.md`. Clientes foi migrado como tela piloto para ViewModel, servico de aplicacao, feedback por toast/dialogo customizado e visual operacional limpo, sem alterar modelos.
+
 Entregaveis:
 
 - Tela de Clientes migrada para ViewModel, comandos e servicos.

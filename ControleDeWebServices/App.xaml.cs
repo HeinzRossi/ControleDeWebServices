@@ -2,7 +2,9 @@
 using System.Windows;
 using ControleDeWebServices.Application.Data;
 using ControleDeWebServices.Application.Feedback;
+using ControleDeWebServices.Application.Clientes;
 using ControleDeWebServices.Application.Navigation;
+using ControleDeWebServices.Infrastructure.Clientes;
 using ControleDeWebServices.Infrastructure.Data;
 using ControleDeWebServices.Presentation.Feedback;
 using ControleDeWebServices.Presentation.Navigation;
@@ -39,6 +41,7 @@ namespace ControleDeWebServices
             var services = new ServiceCollection();
 
             services.AddSingleton<IDadosDbContextFactory, DadosDbContextFactory>();
+            services.AddTransient<IClientesService, ClientesService>();
 
             services.AddSingleton<ToastService>();
             services.AddSingleton<IToastService>(provider => provider.GetRequiredService<ToastService>());
@@ -50,6 +53,7 @@ namespace ControleDeWebServices
             services.AddSingleton<INavigationService>(provider => provider.GetRequiredService<WpfNavigationService>());
 
             services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<ClientesListViewModel>();
 
             return services.BuildServiceProvider();
         }

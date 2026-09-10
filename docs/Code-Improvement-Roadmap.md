@@ -32,6 +32,8 @@ Execucao da Sprint 3: a base de arquitetura em camadas ficou documentada em `doc
 
 Execucao da Sprint 4: o Shell e a base de feedback ficaram documentados em `docs/Sprint-4-Shell-Feedback.md`. Foram criados `MainWindowViewModel`, navegacao centralizada, host de toast/dialogo customizado e substituicao do `MessageBox` global do Shell por toast, mantendo telas internas para Sprint 5 em diante.
 
+Execucao da Sprint 5: a tela piloto Clientes ficou documentada em `docs/Sprint-5-Clientes-Piloto.md`. O fluxo passou a usar ViewModels, servico de aplicacao, `IDadosDbContextFactory`, comandos, toasts e dialogo customizado de exclusao, com visual operacional limpo e sem alterar modelos.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
