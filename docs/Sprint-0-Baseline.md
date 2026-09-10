@@ -11,6 +11,7 @@ Registrar o estado atual do `ControleDeWebServices` antes da modernizacao para W
 - Branch de origem: `master`.
 - Estado inicial observado apos troca de branch: worktree limpo.
 - Commits recentes observados:
+  - `c2a31b7 remover pasta execução`
   - `47c1a24 Atualizar documentação`
   - `8d600f2 Adicionar arquivos de projeto.`
 
@@ -89,7 +90,9 @@ Esta regra vale para todas as sprints, inclusive migracao para .NET 8/9, separac
 
 ### Execucao
 
-A pasta `ControleDeWebServices/Execucao` contem binarios rastreados pelo Git, incluindo:
+A pasta `ControleDeWebServices/Execucao` era usada como saida Debug e continha binarios rastreados pelo Git. No fechamento da Sprint 0, ela foi removida do indice e passou a ser ignorada por `.gitignore`.
+
+Itens encontrados nesse diretorio antes da remocao do controle de versao:
 
 - executavel e config gerados: `ControleDeWebServices.exe`, `ControleDeWebServices.exe.config`;
 - DLL proprietaria: `Comum.Utilitarios.dll`;
@@ -98,7 +101,7 @@ A pasta `ControleDeWebServices/Execucao` contem binarios rastreados pelo Git, in
 - infraestrutura auxiliar: `Ninject.dll`, `PeanutButter.INI.dll`, `Microsoft.Xaml.Behaviors.dll`;
 - dependencias `System.*` e `Microsoft.*` copiadas para execucao.
 
-Como esses arquivos sao versionados, build automatico nesta sprint foi tratado como risco de sobrescrita de artefatos.
+Como esses arquivos nao estao mais versionados, o build automatico passa a ser possivel sem risco de sobrescrever artefatos rastreados. Ainda assim, qualquer diferenca de build deve ser revisada antes da Sprint 1.
 
 ## Componentes E Decisao Inicial
 
@@ -153,25 +156,27 @@ Os vinculos usam selecao progressiva por UF, Cliente e Sistema, com listas de di
 - `WebServices` executa operacao sensivel por duplo clique, sem progresso visivel por etapa.
 - `VinculoClienteSistema` possui bug provavel em lista de alteracoes, com `Contains` aparentemente invertido.
 - Existem arquivos duplicados/legados, como `Configuracoes.config` e `Configuracoes .config`.
-- A pasta `Execucao` versiona binarios que podem ser sobrescritos pelo build.
+- A pasta `Execucao` versionava binarios que podiam ser sobrescritos pelo build; no fechamento da Sprint 0, a pasta foi removida do indice e ignorada.
 
 ## Protocolo De Build Atual
 
 O projeto atual e WPF em `.NET Framework 4.8` com `.csproj` classico. O build recomendado para baseline e Visual Studio/MSBuild compativel com .NET Framework 4.8.
 
-Nesta sprint, o build automatico nao foi executado porque:
+No inicio da Sprint 0, o build automatico nao foi executado porque:
 
 - a saida Debug aponta para `ControleDeWebServices/Execucao`;
-- muitos arquivos em `Execucao` sao rastreados pelo Git;
+- muitos arquivos em `Execucao` ainda eram rastreados pelo Git;
 - executar o build poderia sobrescrever DLLs, `.exe`, `.pdb` e `.config` versionados.
+
+Depois do commit `c2a31b7 remover pasta execução`, `ControleDeWebServices/Execucao/` passou a ser ignorada e `git ls-files ControleDeWebServices/Execucao` retorna zero arquivos. Assim, o build automatico fica liberado para a Sprint 1, desde que as alteracoes continuem revisadas pelo Git.
 
 Validacao manual recomendada:
 
 1. Abrir `ControleDeWebServices.sln` no Visual Studio com suporte a .NET Framework 4.8.
 2. Restaurar pacotes NuGet se necessario.
 3. Compilar em Debug.
-4. Conferir se o Git mostra alteracoes em `Execucao`.
-5. Registrar qualquer diferenca antes da Sprint 1.
+4. Conferir que `Execucao` permanece ignorada pelo Git.
+5. Registrar qualquer erro de build antes da Sprint 1.
 
 ## Checklist De Paridade Funcional
 
@@ -191,6 +196,6 @@ Validacao manual recomendada:
 - Branch `codex/sprint-0-baseline` criada.
 - Componentes criticos classificados inicialmente.
 - Riscos tecnicos conhecidos registrados.
-- Protocolo de build atual documentado com cautela sobre `Execucao`.
+- Protocolo de build atual documentado com decisao final sobre `Execucao` ignorada.
 - Regra de nao alterar modelos documentada.
 - Proxima sprint pode iniciar pela prova de migracao para .NET 8/9 WPF.
