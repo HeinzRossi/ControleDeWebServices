@@ -61,6 +61,8 @@ Criterios de aceite:
 
 Objetivo: planejar e executar a conversao estrutural para WPF moderno em prova tecnica.
 
+Status da execucao inicial: concluida na branch `codex/sprint-1-dotnet-wpf`, com relatorio em `docs/Sprint-1-DotNet-WPF.md`. O projeto foi convertido para SDK-style, `packages.config` foi substituido por `PackageReference`, o target inicial ficou em `net8.0-windows` e o build final concluiu com 0 erros e 1 aviso ativo documentado para Sprint 2.
+
 Entregaveis:
 
 - Projeto convertido para `.csproj` SDK-style na branch de migracao.

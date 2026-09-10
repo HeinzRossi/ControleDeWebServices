@@ -24,6 +24,8 @@ Este baseline deve ser usado como ponto de partida para o plano especifico em `d
 
 Regra transversal: os modelos em `ControleDeWebServices/Modelo` devem ser preservados. A modernizacao nao deve alterar classes, propriedades, enums, atributos, tabelas ou relacionamentos desses modelos; novas necessidades devem ser resolvidas com ViewModels, DTOs, adapters e servicos.
 
+Execucao da Sprint 1: a prova inicial de migracao para SDK-style e `net8.0-windows` ficou documentada em `docs/Sprint-1-DotNet-WPF.md`. O build compila com 0 erros, mantendo aviso ativo de compatibilidade do MaterialDesignThemes para a Sprint 2.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
