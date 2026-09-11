@@ -196,8 +196,7 @@
 
         <Grid Grid.ColumnSpan="2"
               Panel.ZIndex="30"
-              Background="{StaticResource App.Brush.Overlay}"
-              Visibility="Collapsed">
+              Background="{StaticResource App.Brush.Overlay}">
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Setter Property="Visibility" Value="Collapsed"/>

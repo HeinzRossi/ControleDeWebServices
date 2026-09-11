@@ -338,6 +338,8 @@ Status técnico aplicado na Sprint 17: botoes destrutivos foram padronizados com
 
 Status técnico aplicado na Sprint 18: botoes `Excluir` das grids de cadastro foram corrigidos para acionar comandos pelo `DataGrid`, mantendo feedback por dialog customizado e toast.
 
+Status técnico aplicado na Sprint 19: dialogo customizado de confirmacao voltou a abrir visualmente quando `Excluir` solicita confirmacao, sem aparecer no startup.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

@@ -497,6 +497,26 @@ Criterios de aceite:
 - Sem item, usuario recebe toast de aviso.
 - Modelos permanecem intocados.
 
+## Sprint 19: Corrige Fluxo Visual De Exclusao
+
+Objetivo: corrigir o dialogo customizado que nao aparecia ao clicar em `Excluir`.
+
+Status da execucao inicial: concluida na branch `codex/sprint-19-corrige-fluxo-visual-excluir`, com relatorio em `docs/Sprint-19-Corrige-Fluxo-Visual-Excluir.md`.
+
+Entregaveis:
+
+- Overlay de confirmacao sem `Visibility` local conflitante.
+- Abertura do dialogo controlada apenas por `ConfirmDialogService.IsOpen`.
+- Testes cobrindo confirmacao/cancelamento e regressao do XAML.
+
+Criterios de aceite:
+
+- Botao `Excluir` abre dialogo customizado.
+- Confirmar conclui a operacao aguardada pelo ViewModel.
+- Cancelar nao executa exclusao.
+- Dialogo nao aparece no startup.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -529,6 +549,7 @@ Criterios de aceite:
 17. Sprint 16: Ajustes De Vinculos E Grids Readonly.
 18. Sprint 17: Corrige Copy E Acoes De Exclusao.
 19. Sprint 18: Corrige Botoes Excluir Nas Grids.
+20. Sprint 19: Corrige Fluxo Visual De Exclusao.
 
 ## Assumptions
 
