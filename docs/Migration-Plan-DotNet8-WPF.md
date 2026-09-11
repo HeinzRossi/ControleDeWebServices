@@ -478,6 +478,25 @@ Criterios de aceite:
 - Excluir fica bloqueado durante edicao/configuracao.
 - Modelos permanecem intocados.
 
+## Sprint 18: Corrige Botoes Excluir Nas Grids
+
+Objetivo: corrigir os botoes `Excluir` sem acao nas grids de cadastros simples.
+
+Status da execucao inicial: concluida na branch `codex/sprint-18-corrige-botoes-excluir-grid`, com relatorio em `docs/Sprint-18-Corrige-Botoes-Excluir-Grid.md`.
+
+Entregaveis:
+
+- Bindings de `EditarCommand`, `ExcluirCommand` e `CanUseListActions` resolvidos pelo `DataGrid`.
+- Parametro da linha preservado nos comandos.
+- Testes cobrindo exclusao via command com confirmacao aprovada e cancelada.
+
+Criterios de aceite:
+
+- Botoes `Excluir` das grids acionam o comando correto.
+- Confirmacao cancelada nao exclui registro.
+- Sem item, usuario recebe toast de aviso.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -509,6 +528,7 @@ Criterios de aceite:
 16. Sprint 15: Ajustes De Cadastros.
 17. Sprint 16: Ajustes De Vinculos E Grids Readonly.
 18. Sprint 17: Corrige Copy E Acoes De Exclusao.
+19. Sprint 18: Corrige Botoes Excluir Nas Grids.
 
 ## Assumptions
 

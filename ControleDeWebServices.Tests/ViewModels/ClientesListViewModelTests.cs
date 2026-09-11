@@ -119,4 +119,57 @@ public class ClientesListViewModelTests
 
         toast.Requests.Should().Contain(request => request.Kind == ToastKind.Error && request.Message.Contains("Cliente nao encontrado"));
     }
+
+    [Fact]
+    public async Task ExcluirCommand_ComItemEConfirmacao_ChamaServico()
+    {
+        var service = new Mock<IClientesService>();
+        service.Setup(item => item.Listar()).Returns(Array.Empty<ClienteListItem>());
+        var confirm = new FixedConfirmDialogService(ConfirmDialogResult.Confirmed);
+        var viewModel = new ClientesListViewModel(
+            service.Object,
+            new RecordingToastService(),
+            confirm);
+        var cliente = new ClienteListItem { IdCliente = 15, NomeCliente = "Cliente Teste" };
+
+        viewModel.ExcluirCommand.CanExecute(cliente).Should().BeTrue();
+        await viewModel.ExcluirCommand.ExecuteAsync(cliente);
+
+        service.Verify(item => item.Excluir(15), Times.Once);
+        confirm.Requests.Should().ContainSingle(request =>
+            request.Title == "Excluir este cliente?" &&
+            request.ConfirmText == "Excluir" &&
+            request.IsDestructive);
+    }
+
+    [Fact]
+    public async Task ExcluirCommand_ComConfirmacaoCancelada_NaoChamaServico()
+    {
+        var service = new Mock<IClientesService>();
+        var viewModel = new ClientesListViewModel(
+            service.Object,
+            new RecordingToastService(),
+            new FixedConfirmDialogService(ConfirmDialogResult.Canceled));
+        var cliente = new ClienteListItem { IdCliente = 15, NomeCliente = "Cliente Teste" };
+
+        await viewModel.ExcluirCommand.ExecuteAsync(cliente);
+
+        service.Verify(item => item.Excluir(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ExcluirCommand_SemItem_MostraWarning()
+    {
+        var toast = new RecordingToastService();
+        var viewModel = new ClientesListViewModel(
+            Mock.Of<IClientesService>(),
+            toast,
+            new FixedConfirmDialogService(ConfirmDialogResult.Canceled));
+
+        await viewModel.ExcluirCommand.ExecuteAsync(null);
+
+        toast.Requests.Should().ContainSingle(request =>
+            request.Kind == ToastKind.Warning &&
+            request.Message.Contains("Selecione um cliente"));
+    }
 }

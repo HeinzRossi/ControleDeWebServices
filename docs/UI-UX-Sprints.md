@@ -336,6 +336,8 @@ Status técnico aplicado na Sprint 16: telas de vinculo agora bloqueiam acoes co
 
 Status técnico aplicado na Sprint 17: botoes destrutivos foram padronizados como `Excluir`; `Remover` permanece apenas em acoes internas de desvincular itens.
 
+Status técnico aplicado na Sprint 18: botoes `Excluir` das grids de cadastro foram corrigidos para acionar comandos pelo `DataGrid`, mantendo feedback por dialog customizado e toast.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

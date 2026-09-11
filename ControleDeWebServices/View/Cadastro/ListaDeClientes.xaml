@@ -139,17 +139,17 @@
                                         <Button Height="28"
                                                 Padding="10,0"
                                                 Style="{StaticResource App.PrimaryButton}"
-                                                Command="{Binding DataContext.EditarCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                Command="{Binding DataContext.EditarCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                 CommandParameter="{Binding}"
-                                                IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                 Content="Editar"/>
                                         <Button Height="28"
                                                 Padding="10,0"
                                                 Margin="8,0,0,0"
                                                 Style="{StaticResource App.DangerButton}"
-                                                Command="{Binding DataContext.ExcluirCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                Command="{Binding DataContext.ExcluirCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                 CommandParameter="{Binding}"
-                                                IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                 Content="Excluir"/>
                                     </StackPanel>
                                 </DataTemplate>
