@@ -24,4 +24,45 @@ public class ClientesListViewModelTests
         toast.Requests[0].Kind.Should().Be(ToastKind.Warning);
         toast.Requests[0].Message.Should().Contain("Selecione um cliente");
     }
+
+    [Fact]
+    public void Salvar_NovoClienteValido_ChamaServicoEVoltaParaLista()
+    {
+        var toast = new RecordingToastService();
+        var service = new Mock<IClientesService>();
+        service.Setup(item => item.Listar()).Returns(Array.Empty<ClienteListItem>());
+        var viewModel = new ClientesListViewModel(
+            service.Object,
+            toast,
+            new FixedConfirmDialogService(ConfirmDialogResult.Canceled));
+
+        viewModel.Incluir();
+        viewModel.Editor.CodigoControle = "123";
+        viewModel.Editor.NomeCliente = "Cliente Teste";
+        viewModel.Editor.Uf = "SP";
+        viewModel.Salvar();
+
+        service.Verify(item => item.Salvar(It.Is<ClienteEditor>(editor =>
+            editor.CodigoControle == 123 &&
+            editor.NomeCliente == "Cliente Teste" &&
+            editor.Uf == "SP")), Times.Once);
+        viewModel.IsEditing.Should().BeFalse();
+        toast.Requests.Should().Contain(request => request.Kind == ToastKind.Success);
+    }
+
+    [Fact]
+    public async Task ExcluirAsync_QuandoServicoFalha_MostraErro()
+    {
+        var toast = new RecordingToastService();
+        var service = new Mock<IClientesService>();
+        service.Setup(item => item.Excluir(8)).Throws(new InvalidOperationException("Cliente nao encontrado."));
+        var viewModel = new ClientesListViewModel(
+            service.Object,
+            toast,
+            new FixedConfirmDialogService(ConfirmDialogResult.Confirmed));
+
+        await viewModel.ExcluirAsync(new ClienteListItem { IdCliente = 8, NomeCliente = "Cliente" });
+
+        toast.Requests.Should().Contain(request => request.Kind == ToastKind.Error && request.Message.Contains("Cliente nao encontrado"));
+    }
 }

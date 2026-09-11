@@ -22,4 +22,25 @@ public class ImportarParametrosViewModelTests
         toast.Requests[0].Kind.Should().Be(ToastKind.Warning);
         confirm.Requests.Should().BeEmpty();
     }
+
+    [Fact]
+    public async Task ImportarAsync_ComConfirmacao_ChamaServicoEMostraSucesso()
+    {
+        var toast = new RecordingToastService();
+        var confirm = new FixedConfirmDialogService(ConfirmDialogResult.Confirmed);
+        var service = new Mock<IImportarParametrosService>();
+        service.Setup(item => item.ListarUfs(9)).Returns(Array.Empty<string>());
+        service
+            .Setup(item => item.Importar(4, 9))
+            .Returns(new ImportacaoParametrosResultado { Inseridos = 2, Atualizados = 1 });
+        var viewModel = new ImportarParametrosViewModel(service.Object, toast, confirm);
+        viewModel.Carregar(9);
+        viewModel.SelectedSistema = new ImportacaoSistemaOption { IdClientesSistema = 4, NomeSistema = "Origem" };
+
+        await viewModel.ImportarAsync();
+
+        service.Verify(item => item.Importar(4, 9), Times.Once);
+        confirm.Requests.Should().ContainSingle();
+        toast.Requests.Should().Contain(request => request.Kind == ToastKind.Success);
+    }
 }

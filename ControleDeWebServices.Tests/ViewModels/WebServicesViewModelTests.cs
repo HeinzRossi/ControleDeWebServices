@@ -74,6 +74,20 @@ public class WebServicesViewModelTests
         toast.Requests.Should().Contain(request => request.Kind == ToastKind.Error && request.Message.Contains("configuração inválida"));
     }
 
+    [Fact]
+    public void AtualizarUrl_ComSelecao_ChamaServicoEMostraSucesso()
+    {
+        var toast = new RecordingToastService();
+        var services = new Mock<IWebServicesService>();
+        var viewModel = CreateViewModel(services.Object, toast: toast);
+        var item = new WebServiceItem { IdClientesSistema = 15 };
+
+        viewModel.AtualizarUrl(item);
+
+        services.Verify(service => service.AtualizarUrl(15), Times.Once);
+        toast.Requests.Should().Contain(request => request.Kind == ToastKind.Success);
+    }
+
     private static WebServicesViewModel CreateViewModel(
         IWebServicesService? services = null,
         IWebServiceExecutionService? executionService = null,

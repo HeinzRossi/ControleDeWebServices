@@ -322,6 +322,8 @@ Status aplicado na Sprint 9: o design system visual deixou de ser apenas documen
 
 Status técnico aplicado na Sprint 10: testes automatizados e logging operacional inicial foram adicionados sem mudar o visual aprovado. A UI ganhou proteção extra para falhas inesperadas na execução de WebServices, mantendo feedback por toast.
 
+Status técnico aplicado na Sprint 11: foi criado checklist manual formal para validar Shell, telas, feedback, operação e logs em ambiente real, mantendo o design system aprovado como referência de aceite visual.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

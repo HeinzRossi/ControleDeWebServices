@@ -3,6 +3,7 @@ using System.Windows;
 using ControleDeWebServices.Diversos;
 using ControleDeWebServices.Application.Data;
 using ControleDeWebServices.Application.Feedback;
+using ControleDeWebServices.Application.Logging;
 using ControleDeWebServices.Application.Cadastros;
 using ControleDeWebServices.Application.Clientes;
 using ControleDeWebServices.Application.Configuracoes;
@@ -14,6 +15,7 @@ using ControleDeWebServices.Infrastructure.Cadastros;
 using ControleDeWebServices.Infrastructure.Clientes;
 using ControleDeWebServices.Infrastructure.Configuracoes;
 using ControleDeWebServices.Infrastructure.Data;
+using ControleDeWebServices.Infrastructure.Logging;
 using ControleDeWebServices.Infrastructure.Operacao;
 using ControleDeWebServices.Infrastructure.Vinculos;
 using ControleDeWebServices.Presentation.Feedback;
@@ -22,7 +24,6 @@ using ControleDeWebServices.Presentation.Platform;
 using ControleDeWebServices.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ControleDeWebServices
 {
@@ -36,11 +37,14 @@ namespace ControleDeWebServices
         protected override void OnStartup(StartupEventArgs e)
         {
             Services = ConfigureServices();
+            Services.GetRequiredService<ILogger<App>>().LogInformation("Aplicação iniciada.");
             base.OnStartup(e);
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
+            Services?.GetRequiredService<ILogger<App>>().LogInformation("Aplicação encerrada.");
+
             if (Services is IDisposable disposable)
             {
                 disposable.Dispose();
@@ -53,7 +57,8 @@ namespace ControleDeWebServices
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<ILoggerFactory>(NullLoggerFactory.Instance);
+            services.AddSingleton<IAppLoggerPathProvider, AppLoggerPathProvider>();
+            services.AddSingleton<ILoggerFactory, FileLoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 
             services.AddSingleton<IDadosDbContextFactory, DadosDbContextFactory>();

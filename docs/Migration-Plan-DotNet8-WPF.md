@@ -338,6 +338,26 @@ Critérios de aceite:
 - Falhas operacionais sensíveis possuem caminho de log ou resultado estruturado.
 - Modelos permanecem intocados.
 
+## Sprint 11: Observabilidade, Testes De Serviços E QA Manual
+
+Objetivo: configurar logging real em arquivo local, ampliar testes e formalizar QA manual com banco/configuração real.
+
+Status da execução inicial: concluída na branch `codex/sprint-11-observabilidade-qa`, com relatório em `docs/Sprint-11-Observabilidade-QA.md`. Foi criado logger local por data, sanitização básica de dados sensíveis, checklist manual e ampliação dos testes automatizados para 12 cenários.
+
+Entregáveis:
+
+- Logger local em `Logs/ControleDeWebServices-YYYYMMDD.log`.
+- Provider/factory de logging integrado ao `Microsoft.Extensions.Logging`.
+- Checklist manual em `docs/QA-Manual-Checklist.md`.
+- Testes adicionais para logging, cadastros, importação e operação.
+
+Critérios de aceite:
+
+- Build e testes passam sem erros.
+- Logs são criados sem quebrar startup.
+- Logs não registram senha ou connection string completa.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -362,6 +382,7 @@ Critérios de aceite:
 9. Sprint 8: WebServices, Execucao E QA Final.
 10. Sprint 9: Design System WPF E Polimento Visual.
 11. Sprint 10: Testes, Logs E Hardening Operacional.
+12. Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
 
 ## Assumptions
 
