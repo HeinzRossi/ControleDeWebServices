@@ -358,6 +358,26 @@ Critérios de aceite:
 - Logs não registram senha ou connection string completa.
 - Modelos permanecem intocados.
 
+## Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao
+
+Objetivo: validar a base modernizada, preparar publicacao/teste em maquina limpa e registrar pendencias que dependem de banco/configuracao real.
+
+Status da execucao inicial: concluida na branch `codex/sprint-12-qa-real-hardening`, com relatorio em `docs/Sprint-12-QA-Real-Hardening.md`. Nao houve falha automatica reproduzida que justificasse alteracao de codigo; foi criado checklist de publicacao em `docs/Publish-Checklist.md`.
+
+Entregaveis:
+
+- Relatorio de QA tecnico da Sprint 12.
+- Checklist de publicacao/teste em maquina limpa.
+- Validacao automatizada Debug, Release, testes, startup e logs.
+- Registro das pendencias reais para ambiente com banco/configuracao real.
+
+Criterios de aceite:
+
+- Build Debug/Release e testes passam sem erros.
+- App inicia e cria log local.
+- QA manual com banco real fica registrado como pendencia controlada quando nao executavel localmente.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -383,6 +403,7 @@ Critérios de aceite:
 10. Sprint 9: Design System WPF E Polimento Visual.
 11. Sprint 10: Testes, Logs E Hardening Operacional.
 12. Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
+13. Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
 
 ## Assumptions
 
