@@ -18,7 +18,7 @@ Preparar uma validacao repetivel para publicar ou testar o `ControleDeWebService
 
 - Executavel e DLLs gerados para `net8.0-windows`.
 - `ControleDeWebServices.dll.config` ou configuracao equivalente gerada pelo build, quando aplicavel.
-- `Config.ini` valido no diretorio esperado de execucao.
+- `Config.ini` valido no diretorio esperado de execucao, entregue fora do repositorio e sem commit de credenciais.
 - DLL auxiliar `Comum.Utilitarios.dll`, se ainda for dependencia no build publicado.
 - Arquivos externos usados pelos vinculos de teste: executaveis, XML/INI e configuracoes de servicos.
 - Pasta `Logs/` com permissao de escrita ou permissao para ser criada na primeira inicializacao.
@@ -67,3 +67,11 @@ Preparar uma validacao repetivel para publicar ou testar o `ControleDeWebService
 - Fluxos criticos passam com dados reais ou ficam registrados com falha reproduzivel.
 - Logs existem, sao uteis e nao vazam dados sensiveis.
 - Nenhum artefato local de execucao deve ser commitado.
+
+## Validacao Sprint 13
+
+- Publish local validado em `artifacts/publish/ControleDeWebServices`.
+- App publicado iniciou por curto periodo e criou log local.
+- Artefatos principais conferidos: executavel, DLLs, configs, `Comum.Utilitarios.dll` e SVGs em `Imagens`.
+- `artifacts/` confirmado como ignorado pelo Git.
+- Instalador final ainda nao foi escolhido.

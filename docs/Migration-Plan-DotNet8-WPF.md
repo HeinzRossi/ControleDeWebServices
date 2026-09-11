@@ -378,6 +378,26 @@ Criterios de aceite:
 - QA manual com banco real fica registrado como pendencia controlada quando nao executavel localmente.
 - Modelos permanecem intocados.
 
+## Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa
+
+Objetivo: gerar e validar uma pasta publicada em Release antes de escolher instalador final.
+
+Status da execucao inicial: concluida na branch `codex/sprint-13-publicacao-local`, com relatorio em `docs/Sprint-13-Publicacao-Local.md`. O publish local foi gerado em `artifacts/publish/ControleDeWebServices`, iniciou com sucesso por curto periodo e criou log local.
+
+Entregaveis:
+
+- Pasta publicada local ignorada pelo Git.
+- Checklist de publicacao atualizado com resultado real.
+- Inventario dos artefatos principais copiados pelo publish.
+- Registro das pendencias para validacao em maquina limpa.
+
+Criterios de aceite:
+
+- Publish Release executa sem erro.
+- Pasta publicada contem executavel, configs, DLL auxiliar, imagens e dependencias.
+- App publicado inicia e cria log local.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -404,6 +424,7 @@ Criterios de aceite:
 11. Sprint 10: Testes, Logs E Hardening Operacional.
 12. Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
 13. Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
+14. Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
 
 ## Assumptions
 

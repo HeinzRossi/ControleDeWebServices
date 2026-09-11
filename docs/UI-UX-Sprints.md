@@ -326,6 +326,8 @@ Status técnico aplicado na Sprint 11: foi criado checklist manual formal para v
 
 Status técnico aplicado na Sprint 12: a aplicacao foi validada por build Debug/Release, testes automatizados e inicializacao curta. O QA visual/manual com dados reais permanece registrado em `docs/QA-Manual-Checklist.md`, e a preparacao de publicacao fica em `docs/Publish-Checklist.md`.
 
+Status técnico aplicado na Sprint 13: a aplicacao publicada em pasta local iniciou e criou log, preservando o design system atual. A validacao visual completa em maquina limpa continua pendente de ambiente operacional com dados reais.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.
