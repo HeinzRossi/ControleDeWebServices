@@ -21,6 +21,8 @@ using ControleDeWebServices.Presentation.Navigation;
 using ControleDeWebServices.Presentation.Platform;
 using ControleDeWebServices.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ControleDeWebServices
 {
@@ -50,6 +52,9 @@ namespace ControleDeWebServices
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+
+            services.AddSingleton<ILoggerFactory>(NullLoggerFactory.Instance);
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 
             services.AddSingleton<IDadosDbContextFactory, DadosDbContextFactory>();
             services.AddTransient<IClientesService, ClientesService>();

@@ -120,11 +120,7 @@ namespace ControleDeWebServices.ViewModels
             {
                 var result = await executionService.ExecutarAsync(selected.IdClientesSistema, step =>
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        ExecutionStatus = step.Name;
-                        ExecutionSteps.Add(step.Name);
-                    });
+                    AddExecutionStep(step.Name);
                 });
 
                 if (result.Success)
@@ -138,6 +134,11 @@ namespace ControleDeWebServices.ViewModels
                 }
 
                 ExecutionStatus = result.Message;
+            }
+            catch (Exception ex)
+            {
+                ExecutionStatus = "Falha na execução do WebService.";
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Falha na execução do WebService. {ex.Message}", "Erro"));
             }
             finally
             {
@@ -196,6 +197,24 @@ namespace ControleDeWebServices.ViewModels
                 ? new ObservableCollection<WebServiceItem>()
                 : new ObservableCollection<WebServiceItem>(webServicesService.ListarSistemasPorCliente(value.IdCliente));
             SelectedSistema = Sistemas.Count > 0 ? Sistemas[0] : null;
+        }
+
+        private void AddExecutionStep(string stepName)
+        {
+            void Apply()
+            {
+                ExecutionStatus = stepName;
+                ExecutionSteps.Add(stepName);
+            }
+
+            var dispatcher = System.Windows.Application.Current?.Dispatcher;
+            if (dispatcher != null && !dispatcher.CheckAccess())
+            {
+                dispatcher.Invoke((Action)Apply);
+                return;
+            }
+
+            Apply();
         }
     }
 }

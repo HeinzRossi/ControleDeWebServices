@@ -3,6 +3,8 @@ using ControleDeWebServices.Interface;
 using ControleDeWebServices.Modelo;
 using FirebirdSql.Data.FirebirdClient;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Npgsql;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +14,18 @@ namespace ControleDeWebServices.Diversos
 {
     public sealed class AtualizarPadroes : IAtualizarPadroes, IAtualizarPadroesService
     {
+        private readonly ILogger<AtualizarPadroes> logger;
+
+        public AtualizarPadroes()
+            : this(NullLogger<AtualizarPadroes>.Instance)
+        {
+        }
+
+        public AtualizarPadroes(ILogger<AtualizarPadroes> logger)
+        {
+            this.logger = logger;
+        }
+
         public IAtualizarPadroes AtualizarParametros(ClienteSistemas pclienteSistemas, DadosDBContext pContexto)
         {
             var parametros = pContexto.ParametrosSistema
@@ -36,6 +50,8 @@ namespace ControleDeWebServices.Diversos
 
         public void AtualizarParametros(ClienteSistemas clienteSistemas, IEnumerable<ParametroEditor> parametros)
         {
+            logger.LogInformation("Atualizando parâmetros externos para vínculo {IdClientesSistema}", clienteSistemas.IdClientesSistema);
+
             switch ((TipoConexao)clienteSistemas.TipoConexao)
             {
                 case TipoConexao.SQLSERVER:
@@ -53,6 +69,8 @@ namespace ControleDeWebServices.Diversos
 
         public void AtualizarUrl(ClienteSistemas clienteSistemas)
         {
+            logger.LogInformation("Atualizando URL externa para vínculo {IdClientesSistema}", clienteSistemas.IdClientesSistema);
+
             switch ((TipoConexao)clienteSistemas.TipoConexao)
             {
                 case TipoConexao.SQLSERVER:

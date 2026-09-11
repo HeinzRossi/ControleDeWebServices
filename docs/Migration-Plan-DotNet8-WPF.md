@@ -318,6 +318,26 @@ Critérios de aceite:
 - Não há `MessageBox`, `System.Windows.Forms` ou `UseWindowsForms` como experiência visual.
 - Modelos permanecem intocados.
 
+## Sprint 10: Testes, Logs E Hardening Operacional
+
+Objetivo: criar a base automatizada de testes e tornar falhas operacionais observáveis sem alterar regras de negócio.
+
+Status da execução inicial: concluída na branch `codex/sprint-10-testes-logs-hardening`, com relatório em `docs/Sprint-10-Testes-Logs-Hardening.md`. Foi criado projeto de testes xUnit, adicionados logs silenciosos por padrão e endurecido o fluxo de execução para tratar exceções inesperadas por toast.
+
+Entregáveis:
+
+- Projeto `ControleDeWebServices.Tests`.
+- Logging via `ILogger<>` com `NullLogger` inicial.
+- Resultado estruturado para encerramento de processos.
+- Testes unitários iniciais para ViewModels e contrato operacional.
+
+Critérios de aceite:
+
+- Build e testes passam sem erros.
+- Nenhum `MessageBox` ou dependência visual WinForms retorna.
+- Falhas operacionais sensíveis possuem caminho de log ou resultado estruturado.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -341,6 +361,7 @@ Critérios de aceite:
 8. Sprint 7: Configuracao, Importacao E Banco.
 9. Sprint 8: WebServices, Execucao E QA Final.
 10. Sprint 9: Design System WPF E Polimento Visual.
+11. Sprint 10: Testes, Logs E Hardening Operacional.
 
 ## Assumptions
 

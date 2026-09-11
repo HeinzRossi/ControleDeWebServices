@@ -3,6 +3,7 @@ using ControleDeWebServices.Modelo;
 using PeanutButter.INI;
 using System;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 
 namespace ControleDeWebServices
@@ -32,6 +33,7 @@ namespace ControleDeWebServices
             }
             catch (Exception E)
             {
+                Trace.TraceError("Não foi possível inicializar a conexão principal do sistema. {0}", E);
                 throw new InvalidOperationException("Não foi possível inicializar a conexão principal do sistema.", E);
             }
         }

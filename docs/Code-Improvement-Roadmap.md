@@ -42,6 +42,8 @@ Execucao da Sprint 8: WebServices e execucao operacional ficaram documentados em
 
 Execucao da Sprint 9: o design system visual WPF ficou documentado em `docs/Sprint-9-Design-System-Visual.md`. Foram criados ResourceDictionaries globais para tokens/componentes, as telas migradas passaram a usar chaves `App.*`, o `MessageBox` restante saiu da experiencia visual e `UseWindowsForms=true` foi removido do projeto.
 
+Execucao da Sprint 10: testes, logs e hardening operacional ficaram documentados em `docs/Sprint-10-Testes-Logs-Hardening.md`. Foi criado projeto de testes xUnit, adicionados `ILogger<>`/`NullLogger`, estruturado o resultado de encerramento de processos e cobertos testes iniciais de ViewModels/execução.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.

@@ -320,6 +320,8 @@ Para execucao tecnica, usar o detalhamento de sprints em `docs/Migration-Plan-Do
 
 Status aplicado na Sprint 9: o design system visual deixou de ser apenas documental e passou a existir em ResourceDictionaries WPF globais. As telas migradas usam chaves `App.*` para botões, tabelas, superfícies, painéis, títulos, toasts e diálogos, preservando a direção operacional limpa aprovada. O relatório está em `docs/Sprint-9-Design-System-Visual.md`.
 
+Status técnico aplicado na Sprint 10: testes automatizados e logging operacional inicial foram adicionados sem mudar o visual aprovado. A UI ganhou proteção extra para falhas inesperadas na execução de WebServices, mantendo feedback por toast.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

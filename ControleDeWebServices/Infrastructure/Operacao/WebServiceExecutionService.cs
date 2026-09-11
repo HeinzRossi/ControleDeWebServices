@@ -2,6 +2,7 @@ using ControleDeWebServices.Application.Data;
 using ControleDeWebServices.Application.Operacao;
 using ControleDeWebServices.Diversos;
 using ControleDeWebServices.Modelo;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -13,11 +14,16 @@ namespace ControleDeWebServices.Infrastructure.Operacao
     {
         private readonly IDadosDbContextFactory contextFactory;
         private readonly IProcessService processService;
+        private readonly ILogger<WebServiceExecutionService> logger;
 
-        public WebServiceExecutionService(IDadosDbContextFactory contextFactory, IProcessService processService)
+        public WebServiceExecutionService(
+            IDadosDbContextFactory contextFactory,
+            IProcessService processService,
+            ILogger<WebServiceExecutionService> logger)
         {
             this.contextFactory = contextFactory;
             this.processService = processService;
+            this.logger = logger;
         }
 
         public Task<WebServiceExecutionResult> ExecutarAsync(int idClientesSistema, Action<WebServiceExecutionStep> progress)
@@ -34,6 +40,8 @@ namespace ControleDeWebServices.Infrastructure.Operacao
 
                 try
                 {
+                    logger.LogInformation("Iniciando execução de WebService {IdClientesSistema}", idClientesSistema);
+
                     using (var contexto = contextFactory.Create())
                     {
                         var clienteSistema = CarregarClienteSistema(contexto, idClientesSistema);
@@ -52,12 +60,14 @@ namespace ControleDeWebServices.Infrastructure.Operacao
                     result.Success = true;
                     result.Message = "WebService executado com sucesso.";
                     result.CompletedSteps = steps;
+                    logger.LogInformation("WebService {IdClientesSistema} executado com sucesso com {StepCount} etapas", idClientesSistema, steps.Count);
                     return result;
                 }
                 catch (Exception ex)
                 {
                     result.Message = $"Falha na execução do WebService. {ex.Message}";
                     result.CompletedSteps = steps;
+                    logger.LogError(ex, "Falha na execução de WebService {IdClientesSistema} após {StepCount} etapas", idClientesSistema, steps.Count);
                     return result;
                 }
             });

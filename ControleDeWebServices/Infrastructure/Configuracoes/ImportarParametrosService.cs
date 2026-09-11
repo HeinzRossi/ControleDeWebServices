@@ -1,6 +1,7 @@
 using ControleDeWebServices.Application.Configuracoes;
 using ControleDeWebServices.Application.Data;
 using ControleDeWebServices.Modelo;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,10 +12,12 @@ namespace ControleDeWebServices.Infrastructure.Configuracoes
     public sealed class ImportarParametrosService : IImportarParametrosService
     {
         private readonly IDadosDbContextFactory contextFactory;
+        private readonly ILogger<ImportarParametrosService> logger;
 
-        public ImportarParametrosService(IDadosDbContextFactory contextFactory)
+        public ImportarParametrosService(IDadosDbContextFactory contextFactory, ILogger<ImportarParametrosService> logger)
         {
             this.contextFactory = contextFactory;
+            this.logger = logger;
         }
 
         public IReadOnlyList<string> ListarUfs(int idClientesSistemaDestino)
@@ -66,6 +69,8 @@ namespace ControleDeWebServices.Infrastructure.Configuracoes
 
         public ImportacaoParametrosResultado Importar(int idClientesSistemaOrigem, int idClientesSistemaDestino)
         {
+            logger.LogInformation("Iniciando importação de parâmetros. Origem {Origem}, destino {Destino}", idClientesSistemaOrigem, idClientesSistemaDestino);
+
             using (var contexto = contextFactory.Create())
             {
                 var parametrosOrigem = contexto.ParametrosSistema
@@ -109,6 +114,12 @@ namespace ControleDeWebServices.Infrastructure.Configuracoes
                 }
 
                 contexto.SaveChanges();
+                logger.LogInformation(
+                    "Importação de parâmetros concluída. Origem {Origem}, destino {Destino}, inseridos {Inseridos}, atualizados {Atualizados}",
+                    idClientesSistemaOrigem,
+                    idClientesSistemaDestino,
+                    resultado.Inseridos,
+                    resultado.Atualizados);
                 return resultado;
             }
         }
