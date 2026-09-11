@@ -7,17 +7,17 @@
       mc:Ignorable="d"
       d:DesignHeight="220"
       d:DesignWidth="850"
-      Title="Secao">
+      Title="Seção">
 
-    <Grid Background="#F7F9FA">
-        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding Titulo}" FontSize="18" FontWeight="SemiBold" Foreground="#172126"/>
-                <TextBox Grid.Row="1" Margin="0,14,0,0" materialDesign:HintAssist.Hint="Nome da secao" Text="{Binding NomeSecao, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                <TextBlock Text="{Binding Titulo}" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource App.Brush.TextPrimary}"/>
+                <TextBox Grid.Row="1" Margin="0,14,0,0" materialDesign:HintAssist.Hint="Nome da seção" Text="{Binding NomeSecao, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
             </Grid>
         </Border>
     </Grid>

@@ -9,14 +9,14 @@
       d:DesignWidth="850"
       Title="Sistema">
 
-    <Grid Background="#F7F9FA">
-        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding Titulo}" FontSize="18" FontWeight="SemiBold" Foreground="#172126"/>
+                <TextBlock Text="{Binding Titulo}" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource App.Brush.TextPrimary}"/>
                 <Grid Grid.Row="1" Margin="0,14,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

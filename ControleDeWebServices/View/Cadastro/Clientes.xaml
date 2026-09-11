@@ -9,11 +9,11 @@
       d:DesignWidth="850"
       Title="Clientes">
 
-    <Grid Background="#F7F9FA">
+    <Grid Background="{StaticResource App.Brush.Background}">
         <Border Margin="18"
                 Padding="18"
-                Background="#FCFDFD"
-                BorderBrush="#D7E0E4"
+                Background="{StaticResource App.Brush.Surface}"
+                BorderBrush="{StaticResource App.Brush.Border}"
                 BorderThickness="1"
                 CornerRadius="6">
             <Grid>
@@ -24,7 +24,7 @@
                 <TextBlock Text="{Binding Titulo}"
                            FontSize="18"
                            FontWeight="SemiBold"
-                           Foreground="#172126"/>
+                           Foreground="{StaticResource App.Brush.TextPrimary}"/>
                 <Grid Grid.Row="1" Margin="0,16,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120"/>

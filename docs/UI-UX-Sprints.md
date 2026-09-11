@@ -318,6 +318,8 @@ Criterios de aceite:
 
 Para execucao tecnica, usar o detalhamento de sprints em `docs/Migration-Plan-DotNet8-WPF.md`, que separa baseline, migracao do runtime, componentes, camadas, shell/feedback, tela piloto, cadastros/vinculos, configuracao/banco e WebServices/QA final.
 
+Status aplicado na Sprint 9: o design system visual deixou de ser apenas documental e passou a existir em ResourceDictionaries WPF globais. As telas migradas usam chaves `App.*` para botões, tabelas, superfícies, painéis, títulos, toasts e diálogos, preservando a direção operacional limpa aprovada. O relatório está em `docs/Sprint-9-Design-System-Visual.md`.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

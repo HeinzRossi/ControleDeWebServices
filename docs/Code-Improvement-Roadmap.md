@@ -40,6 +40,8 @@ Execucao da Sprint 7: configuracao, importacao e banco externo ficaram documenta
 
 Execucao da Sprint 8: WebServices e execucao operacional ficaram documentados em `docs/Sprint-8-WebServices-Execucao-QA.md`. A tela `WebServices` passou a usar ViewModel/commands, a consulta foi isolada em service, a execucao operacional passou por service com progresso por etapa e processos foram isolados por `IProcessService`.
 
+Execucao da Sprint 9: o design system visual WPF ficou documentado em `docs/Sprint-9-Design-System-Visual.md`. Foram criados ResourceDictionaries globais para tokens/componentes, as telas migradas passaram a usar chaves `App.*`, o `MessageBox` restante saiu da experiencia visual e `UseWindowsForms=true` foi removido do projeto.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.

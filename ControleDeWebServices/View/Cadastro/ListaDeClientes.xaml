@@ -11,44 +11,13 @@
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-
-        <Style x:Key="PrimaryActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="BorderBrush" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="34"/>
-            <Setter Property="Padding" Value="14,0"/>
-        </Style>
-
-        <Style x:Key="SuccessActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#4E9A57"/>
-            <Setter Property="BorderBrush" Value="#4E9A57"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="34"/>
-            <Setter Property="Padding" Value="14,0"/>
-        </Style>
-
-        <Style x:Key="DangerActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#B94E45"/>
-            <Setter Property="BorderBrush" Value="#B94E45"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="30"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-
-        <Style x:Key="GridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="10,8"/>
-        </Style>
     </Page.Resources>
 
-    <Grid Background="#F7F9FA">
+    <Grid Background="{StaticResource App.Brush.Background}">
         <Border Margin="18"
                 Padding="18"
-                Background="#FCFDFD"
-                BorderBrush="#D7E0E4"
+                Background="{StaticResource App.Brush.Surface}"
+                BorderBrush="{StaticResource App.Brush.Border}"
                 BorderThickness="1"
                 CornerRadius="6">
             <Grid>
@@ -68,13 +37,13 @@
                         <TextBlock Text="Clientes"
                                    FontSize="22"
                                    FontWeight="SemiBold"
-                                   Foreground="#172126"/>
+                                   Foreground="{StaticResource App.Brush.TextPrimary}"/>
                         <TextBlock Text="Consulta e manutenção de clientes"
                                    Margin="0,3,0,0"
-                                   Foreground="#5C6B73"/>
+                                   Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     </StackPanel>
                     <Button Grid.Column="1"
-                            Style="{StaticResource SuccessActionButton}"
+                            Style="{StaticResource App.SuccessButton}"
                             Command="{Binding IncluirCommand}"
                             Content="Incluir"/>
                 </Grid>
@@ -82,8 +51,8 @@
                 <Border Grid.Row="1"
                         Margin="0,16,0,14"
                         Padding="12"
-                        Background="#F7F9FA"
-                        BorderBrush="#D7E0E4"
+                        Background="{StaticResource App.Brush.Background}"
+                        BorderBrush="{StaticResource App.Brush.Border}"
                         BorderThickness="1"
                         CornerRadius="4"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -95,7 +64,7 @@
                         <TextBlock Text="{Binding Titulo}"
                                    FontSize="16"
                                    FontWeight="SemiBold"
-                                   Foreground="#172126"/>
+                                   Foreground="{StaticResource App.Brush.TextPrimary}"/>
                         <Grid Grid.Row="1" Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="120"/>
@@ -119,7 +88,7 @@
                                       SelectedItem="{Binding Uf, UpdateSourceTrigger=PropertyChanged}"
                                       Margin="0,0,10,0"/>
                             <StackPanel Grid.Column="3" Orientation="Horizontal">
-                                <Button Style="{StaticResource PrimaryActionButton}"
+                                <Button Style="{StaticResource App.PrimaryButton}"
                                         Command="{Binding DataContext.SalvarCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                         Content="Salvar"/>
                                 <Button Margin="8,0,0,0"
@@ -130,19 +99,19 @@
                     </Grid>
                 </Border>
 
-                <DataGrid Grid.Row="2"
+                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2"
                           ItemsSource="{Binding Clientes}"
                           SelectedItem="{Binding SelectedCliente, Mode=TwoWay}"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserSortColumns="True"
                           SelectionMode="Single"
-                          Background="#FCFDFD"
-                          RowBackground="#FCFDFD"
-                          AlternatingRowBackground="#F7F9FA"
-                          Foreground="#172126"
+                          Background="{StaticResource App.Brush.Surface}"
+                          RowBackground="{StaticResource App.Brush.Surface}"
+                          AlternatingRowBackground="{StaticResource App.Brush.Background}"
+                          Foreground="{StaticResource App.Brush.TextPrimary}"
                           GridLinesVisibility="Horizontal"
-                          HorizontalGridLinesBrush="#D7E0E4"
+                          HorizontalGridLinesBrush="{StaticResource App.Brush.Border}"
                           HeadersVisibility="Column"
                           materialDesign:DataGridAssist.CellPadding="10,7,10,7"
                           materialDesign:DataGridAssist.ColumnHeaderPadding="10,8">
@@ -150,31 +119,31 @@
                         <DataGridTextColumn Header="Código"
                                             Width="90"
                                             Binding="{Binding CodigoControle}"
-                                            HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                                            HeaderStyle="{StaticResource App.GridHeader}"/>
                         <DataGridTextColumn Header="Cliente"
                                             Width="*"
                                             Binding="{Binding NomeCliente}"
-                                            HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                                            HeaderStyle="{StaticResource App.GridHeader}"/>
                         <DataGridTextColumn Header="UF"
                                             Width="70"
                                             Binding="{Binding Uf}"
-                                            HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                                            HeaderStyle="{StaticResource App.GridHeader}"/>
                         <DataGridTemplateColumn Header="Ações"
                                                 Width="170"
-                                                HeaderStyle="{StaticResource GridHeaderStyle}">
+                                                HeaderStyle="{StaticResource App.GridHeader}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button Height="28"
                                                 Padding="10,0"
-                                                Style="{StaticResource PrimaryActionButton}"
+                                                Style="{StaticResource App.PrimaryButton}"
                                                 Command="{Binding DataContext.EditarCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
                                                 Content="Editar"/>
                                         <Button Height="28"
                                                 Padding="10,0"
                                                 Margin="8,0,0,0"
-                                                Style="{StaticResource DangerActionButton}"
+                                                Style="{StaticResource App.DangerButton}"
                                                 Command="{Binding DataContext.ExcluirCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
                                                 Content="Excluir"/>
@@ -187,11 +156,11 @@
 
                 <Grid Grid.Row="3" Margin="0,12,0,0">
                     <TextBlock Text="{Binding TotalRegistros}"
-                               Foreground="#5C6B73"
+                               Foreground="{StaticResource App.Brush.TextSecondary}"
                                VerticalAlignment="Center"/>
                     <TextBlock Text="Nenhum cliente cadastrado"
                                HorizontalAlignment="Center"
-                               Foreground="#5C6B73"
+                               Foreground="{StaticResource App.Brush.TextSecondary}"
                                Visibility="{Binding IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </Grid>
             </Grid>

@@ -13,30 +13,10 @@
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <diversos:EnumConverter x:Key="GeneralEnumConverter"/>
-        <Style x:Key="PrimaryActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="BorderBrush" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-        <Style x:Key="SuccessActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#4E9A57"/>
-            <Setter Property="BorderBrush" Value="#4E9A57"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-        <Style x:Key="GridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="10,8"/>
-        </Style>
     </Page.Resources>
 
-    <Grid Background="#F7F9FA">
-        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -52,27 +32,27 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Text="WebServices" FontSize="22" FontWeight="SemiBold" Foreground="#172126"/>
-                        <TextBlock Text="Consulta, atualização de URL e execução operacional" Margin="0,3,0,0" Foreground="#5C6B73"/>
+                        <TextBlock Text="WebServices" Style="{StaticResource App.PageTitle}"/>
+                        <TextBlock Text="Consulta, atualização de URL e execução operacional" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="1" Text="{Binding ExecutionStatus}" Foreground="#5C6B73" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{Binding ExecutionStatus}" Foreground="{StaticResource App.Brush.TextSecondary}" VerticalAlignment="Center"/>
                 </Grid>
 
                 <GroupBox Grid.Row="1" Margin="0,16,0,0" Header="10 mais acessados">
-                    <DataGrid ItemsSource="{Binding MaisAcessados}" SelectedItem="{Binding SelectedMaisAcessado, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="#FCFDFD" AlternatingRowBackground="#F7F9FA" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7E0E4" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding MaisAcessados}" SelectedItem="{Binding SelectedMaisAcessado, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Código" Width="80" Binding="{Binding CodigoControle}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Sistema" Width="*" Binding="{Binding NomeSistema}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="UF" Width="55" Binding="{Binding Uf}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Tipo de Conexão" Width="130" Binding="{Binding TipoConexao, Converter={StaticResource GeneralEnumConverter}}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Acessos" Width="80" Binding="{Binding QuantidadeAcessos}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTemplateColumn Header="Ações" Width="180" HeaderStyle="{StaticResource GridHeaderStyle}">
+                            <DataGridTextColumn Header="Código" Width="80" Binding="{Binding CodigoControle}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Sistema" Width="*" Binding="{Binding NomeSistema}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="UF" Width="55" Binding="{Binding Uf}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Tipo de Conexão" Width="130" Binding="{Binding TipoConexao, Converter={StaticResource GeneralEnumConverter}}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Acessos" Width="80" Binding="{Binding QuantidadeAcessos}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTemplateColumn Header="Ações" Width="180" HeaderStyle="{StaticResource App.GridHeader}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Style="{StaticResource SuccessActionButton}" Command="{Binding DataContext.ExecutarSelecionadoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="Executar"/>
-                                            <Button Margin="6,0,0,0" Style="{StaticResource PrimaryActionButton}" Command="{Binding DataContext.AtualizarUrlCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="URL"/>
+                                            <Button Style="{StaticResource App.SuccessButton}" Command="{Binding DataContext.ExecutarSelecionadoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="Executar"/>
+                                            <Button Margin="6,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.AtualizarUrlCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="URL"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -81,7 +61,7 @@
                     </DataGrid>
                 </GroupBox>
 
-                <Border Grid.Row="2" Margin="0,16,0,14" Padding="12" Background="#F7F9FA" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="4">
+                <Border Grid.Row="2" Margin="0,16,0,14" Style="{StaticResource App.FilterPanel}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="110"/>
@@ -93,26 +73,26 @@
                         <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding Ufs}" SelectedItem="{Binding SelectedUf, Mode=TwoWay}" Margin="0,0,10,0"/>
                         <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Cliente" ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente, Mode=TwoWay}" DisplayMemberPath="NomeCliente" Margin="0,0,10,0"/>
                         <StackPanel Grid.Column="3" Orientation="Horizontal">
-                            <Button Style="{StaticResource SuccessActionButton}" Command="{Binding ExecutarSelecionadoCommand}" Content="Executar selecionado"/>
-                            <Button Margin="8,0,0,0" Style="{StaticResource PrimaryActionButton}" Command="{Binding AtualizarUrlCommand}" Content="Atualizar URL"/>
+                            <Button Style="{StaticResource App.SuccessButton}" Command="{Binding ExecutarSelecionadoCommand}" Content="Executar selecionado"/>
+                            <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding AtualizarUrlCommand}" Content="Atualizar URL"/>
                         </StackPanel>
                     </Grid>
                 </Border>
 
                 <GroupBox Grid.Row="3" Header="Resultado da consulta">
-                    <DataGrid ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="#FCFDFD" AlternatingRowBackground="#F7F9FA" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7E0E4" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Código" Width="80" Binding="{Binding CodigoControle}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Sistema" Width="*" Binding="{Binding NomeSistema}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="UF" Width="55" Binding="{Binding Uf}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Tipo de Conexão" Width="130" Binding="{Binding TipoConexao, Converter={StaticResource GeneralEnumConverter}}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                            <DataGridTemplateColumn Header="Ações" Width="180" HeaderStyle="{StaticResource GridHeaderStyle}">
+                            <DataGridTextColumn Header="Código" Width="80" Binding="{Binding CodigoControle}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Sistema" Width="*" Binding="{Binding NomeSistema}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="UF" Width="55" Binding="{Binding Uf}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Tipo de Conexão" Width="130" Binding="{Binding TipoConexao, Converter={StaticResource GeneralEnumConverter}}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTemplateColumn Header="Ações" Width="180" HeaderStyle="{StaticResource App.GridHeader}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Style="{StaticResource SuccessActionButton}" Command="{Binding DataContext.ExecutarSelecionadoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="Executar"/>
-                                            <Button Margin="6,0,0,0" Style="{StaticResource PrimaryActionButton}" Command="{Binding DataContext.AtualizarUrlCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="URL"/>
+                                            <Button Style="{StaticResource App.SuccessButton}" Command="{Binding DataContext.ExecutarSelecionadoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="Executar"/>
+                                            <Button Margin="6,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.AtualizarUrlCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="URL"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -122,7 +102,7 @@
                 </GroupBox>
 
                 <Grid Grid.Row="4" Margin="0,12,0,0">
-                    <TextBlock Text="{Binding ExecutionStatus}" Foreground="#5C6B73"/>
+                    <TextBlock Text="{Binding ExecutionStatus}" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     <ItemsControl ItemsSource="{Binding ExecutionSteps}" HorizontalAlignment="Right">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -131,8 +111,8 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="4,0,0,0" Padding="8,3" Background="#EAF2F5" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="3">
-                                    <TextBlock Text="{Binding}" Foreground="#2F6F8F" FontSize="11"/>
+                                <Border Margin="4,0,0,0" Padding="8,3" Background="{StaticResource App.Brush.SurfaceMuted}" BorderBrush="{StaticResource App.Brush.Border}" BorderThickness="1" CornerRadius="3">
+                                    <TextBlock Text="{Binding}" Foreground="{StaticResource App.Brush.Primary}" FontSize="11"/>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

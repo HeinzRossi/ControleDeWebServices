@@ -10,24 +10,10 @@
       Title="VinculoClienteServico">
 
     <Page.Resources>
-        <Style x:Key="PrimaryActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="BorderBrush" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-        <Style x:Key="DangerActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#B94E45"/>
-            <Setter Property="BorderBrush" Value="#B94E45"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="30"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
     </Page.Resources>
 
-    <Grid Background="#F7F9FA">
-        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -35,7 +21,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Vincular servicos ao sistema" FontSize="18" FontWeight="SemiBold" Foreground="#172126"/>
+                <TextBlock Text="Vincular serviços ao sistema" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource App.Brush.TextPrimary}"/>
 
                 <Grid Grid.Row="1" Margin="0,14,0,14">
                     <Grid.ColumnDefinitions>
@@ -47,7 +33,7 @@
                     <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding Ufs}" SelectedItem="{Binding SelectedUf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"/>
                     <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nome" Margin="0,0,10,0"/>
                     <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nome" Margin="0,0,10,0"/>
-                    <TextBlock Grid.Column="3" Text="{Binding PendingText}" Foreground="#9A6B12" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="{Binding PendingText}" Foreground="{StaticResource App.Brush.Warning}" VerticalAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -57,26 +43,26 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Header="Disponiveis" BorderBrush="#D7E0E4">
+                    <GroupBox Header="Disponiveis" BorderBrush="{StaticResource App.Brush.Border}">
                         <ListBox ItemsSource="{Binding ServicosDisponiveis}" SelectedItem="{Binding SelectedServicoDisponivel, Mode=TwoWay}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel Margin="0,3">
-                                        <Button DockPanel.Dock="Right" Style="{StaticResource PrimaryActionButton}" Command="{Binding DataContext.AdicionarCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Adicionar"/>
-                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" Foreground="#172126"/>
+                                        <Button DockPanel.Dock="Right" Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.AdicionarCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Adicionar"/>
+                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" Foreground="{StaticResource App.Brush.TextPrimary}"/>
                                     </DockPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </GroupBox>
 
-                    <GroupBox Grid.Column="2" Header="Vinculados" BorderBrush="#D7E0E4">
+                    <GroupBox Grid.Column="2" Header="Vinculados" BorderBrush="{StaticResource App.Brush.Border}">
                         <ListBox ItemsSource="{Binding ServicosVinculados}" SelectedItem="{Binding SelectedServicoVinculado, Mode=TwoWay}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel Margin="0,3">
-                                        <Button DockPanel.Dock="Right" Style="{StaticResource DangerActionButton}" Command="{Binding DataContext.RemoverCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Remover"/>
-                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" Foreground="#172126"/>
+                                        <Button DockPanel.Dock="Right" Style="{StaticResource App.DangerButton}" Command="{Binding DataContext.RemoverCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Remover"/>
+                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" Foreground="{StaticResource App.Brush.TextPrimary}"/>
                                     </DockPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>

@@ -11,10 +11,10 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}" 
-        Height="700" 
-        Width="1020"
+        Height="720"
+        Width="1120"
         WindowStartupLocation="CenterScreen" 
-        ResizeMode="NoResize" 
+        ResizeMode="CanResize"
         WindowStyle="None"
         MouseDown="FormPrincipal_MouseDown"
         AllowsTransparency="True" 
@@ -25,13 +25,13 @@
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="160"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="190"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="MenuClose">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="160"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="190"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="64"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <CollectionViewSource x:Key="GroupedItems" Source="{Binding Viewers}">
@@ -41,15 +41,19 @@
         </CollectionViewSource>
     </Window.Resources>
 
-    <Grid>
+    <Grid Background="{StaticResource App.Brush.Background}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" >
-            <Grid>
-                <Grid Height="40" VerticalAlignment="Top">
-                    <TextBlock Text="Controle de WebServices" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+        <Grid Grid.Column="1">
+            <Grid Background="{StaticResource App.Brush.Surface}">
+                <Grid Height="56" VerticalAlignment="Top">
+                    <TextBlock Text="Controle de WebServices"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="24,0,0,0"
+                               Style="{StaticResource App.PageTitle}"/>
                 </Grid>
             </Grid>
             <Grid>
@@ -57,18 +61,31 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="0,40,0,0" Background="WhiteSmoke" Grid.Column="1">
+                <Border Margin="0,56,0,0"
+                        Background="{StaticResource App.Brush.Background}"
+                        BorderBrush="{StaticResource App.Brush.Border}"
+                        BorderThickness="0,1,0,0"
+                        Grid.Column="1">
                     <Frame x:Name="FramePrincipal" NavigationUIVisibility="Hidden"/>
-                </StackPanel>
+                </Border>
             </Grid>
         </Grid>
-        <Grid x:Name="GridMenu" Width="165" HorizontalAlignment="Left" Grid.Column="0" Background="#037F98AC">
+        <Grid x:Name="GridMenu" Width="190" HorizontalAlignment="Left" Grid.Column="0" Background="{StaticResource App.Brush.PrimaryStrong}">
             <StackPanel>
-                <Grid Height="40">
-
+                <Grid Height="56">
+                    <TextBlock Text="CWS"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="17"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource App.Brush.Surface}"/>
                 </Grid>
-                <TreeView x:Name="listaDeMenus" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <TreeViewItem x:Name="Cadastrar" Height="auto"  Header="Cadastrar" Selected="Cadastrar_Selected">
+                <TreeView x:Name="listaDeMenus"
+                          Background="{StaticResource App.Brush.PrimaryStrong}"
+                          BorderThickness="0"
+                          Foreground="{StaticResource App.Brush.Surface}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <TreeViewItem x:Name="Cadastrar" Height="auto" Header="Cadastro" Selected="Cadastrar_Selected">
                         <TreeViewItem x:Name="CadastrarClientes" Selected="CadastrarClientes_Selected">
                             <TreeViewItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -105,12 +122,12 @@
                                     <Viewbox Width="32" Height="32">
                                         <materialDesign:PackIcon Kind="Seat" Width="32" Height="32" VerticalAlignment="Center"/>
                                     </Viewbox>
-                                    <TextBlock Text="Secao" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBlock Text="Seções" VerticalAlignment="Center" Margin="10,0,0,0"/>
                                 </StackPanel>
                             </TreeViewItem.Header>
                         </TreeViewItem>
                     </TreeViewItem>
-                    <TreeViewItem x:Name="Vincular" Height="auto" Header="Vincular" Selected="Vincular_Selected">
+                    <TreeViewItem x:Name="Vincular" Height="auto" Header="Vínculos" Selected="Vincular_Selected">
                         <TreeViewItem x:Name="VincularSistemas" Selected="VincularSistemas_Selected">
                             <TreeViewItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -127,7 +144,7 @@
                                     <Viewbox Width="32" Height="32">
                                         <materialDesign:PackIcon Kind="Build" Width="32" Height="32" VerticalAlignment="Center"/>
                                     </Viewbox>
-                                    <TextBlock Text="serviços" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBlock Text="Serviços" VerticalAlignment="Center" Margin="10,0,0,0"/>
                                 </StackPanel>
                             </TreeViewItem.Header>
                         </TreeViewItem>
@@ -146,10 +163,7 @@
                       ItemsSource="{Binding ToastService.Toasts, ElementName=FormPrincipal}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Width="320"
-                            Margin="0,0,0,8"
-                            Padding="14,10"
-                            CornerRadius="4"
+                    <Border Style="{StaticResource App.Toast}"
                             Background="{Binding Background}">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -172,6 +186,7 @@
                                     Margin="10,0,0,0"
                                     VerticalAlignment="Top"
                                     Content="X"
+                                    Style="{StaticResource App.SecondaryButton}"
                                     Click="BtnToastFechar_Click"/>
                         </Grid>
                     </Border>
@@ -181,32 +196,27 @@
 
         <Grid Grid.ColumnSpan="2"
               Panel.ZIndex="30"
-              Background="#66000000"
+              Background="{StaticResource App.Brush.Overlay}"
               Visibility="{Binding ConfirmDialogService.IsOpen, ElementName=FormPrincipal, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border Width="420"
-                    Padding="24"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="White"
-                    CornerRadius="6">
+            <Border Style="{StaticResource App.ConfirmDialog}">
                 <StackPanel>
                     <TextBlock Text="{Binding ConfirmDialogService.CurrentRequest.Title, ElementName=FormPrincipal}"
                                FontSize="18"
                                FontWeight="SemiBold"
-                               Foreground="#172126"/>
+                               Foreground="{StaticResource App.Brush.TextPrimary}"/>
                     <TextBlock Text="{Binding ConfirmDialogService.CurrentRequest.Message, ElementName=FormPrincipal}"
                                TextWrapping="Wrap"
                                Margin="0,10,0,22"
-                               Foreground="#172126"/>
+                               Foreground="{StaticResource App.Brush.TextPrimary}"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="{Binding ConfirmDialogService.CurrentRequest.CancelText, ElementName=FormPrincipal}"
                                 MinWidth="92"
                                 Margin="0,0,8,0"
+                                Style="{StaticResource App.SecondaryButton}"
                                 Click="BtnCancelarDialog_Click"/>
                         <Button Content="{Binding ConfirmDialogService.CurrentRequest.ConfirmText, ElementName=FormPrincipal}"
                                 MinWidth="92"
-                                Background="#B94E45"
-                                Foreground="White"
+                                Style="{StaticResource App.DangerButton}"
                                 Click="BtnConfirmarDialog_Click"/>
                     </StackPanel>
                 </StackPanel>

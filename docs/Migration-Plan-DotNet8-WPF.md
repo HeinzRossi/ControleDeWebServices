@@ -298,6 +298,26 @@ Criterios de aceite:
 - UI nao usa `MessageBox` como experiencia visual.
 - Dependencias incompatíveis foram atualizadas, substituidas, removidas ou isoladas com justificativa.
 
+## Sprint 9: Design System WPF E Polimento Visual
+
+Objetivo: aplicar a identidade visual final aprovada com ResourceDictionaries globais, reduzindo estilos repetidos e consolidando o padrão operacional limpo.
+
+Status da execução inicial: concluída na branch `codex/sprint-9-design-system-visual`, com relatório em `docs/Sprint-9-Design-System-Visual.md`. Foram criados tokens e componentes WPF próprios, `App.xaml` passou a carregar o design system, as telas migradas passaram a usar chaves `App.*`, `MessageBox` foi removido da experiência visual restante e `UseWindowsForms=true` saiu do projeto.
+
+Entregáveis:
+
+- ResourceDictionaries globais de tokens e componentes.
+- Shell, tabelas, formulários, toasts e diálogos alinhados ao visual aprovado.
+- Remoção de aliases locais de botão/header nas Views migradas.
+- Documentação do design system aplicado.
+
+Critérios de aceite:
+
+- Build limpo em .NET 8 WPF.
+- Views usam estilos globais `App.*` para componentes principais.
+- Não há `MessageBox`, `System.Windows.Forms` ou `UseWindowsForms` como experiência visual.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -320,6 +340,7 @@ Criterios de aceite:
 7. Sprint 6: Cadastros, Listas E Vinculos.
 8. Sprint 7: Configuracao, Importacao E Banco.
 9. Sprint 8: WebServices, Execucao E QA Final.
+10. Sprint 9: Design System WPF E Polimento Visual.
 
 ## Assumptions
 

@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         mc:Ignorable="d"
         Title="Importar parâmetros" Height="220" Width="420">
-    <Border Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6" Padding="18">
+    <Border Background="{StaticResource App.Brush.Surface}" BorderBrush="{StaticResource App.Brush.Border}" BorderThickness="1" CornerRadius="6" Padding="18">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -23,8 +23,8 @@
             </Grid.RowDefinitions>
 
             <StackPanel>
-                <TextBlock Text="Importar parâmetros" FontSize="18" FontWeight="SemiBold" Foreground="#172126"/>
-                <TextBlock Text="Escolha a origem para copiar parâmetros" Margin="0,3,0,0" Foreground="#5C6B73"/>
+                <TextBlock Text="Importar parâmetros" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource App.Brush.TextPrimary}"/>
+                <TextBlock Text="Escolha a origem para copiar parâmetros" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
             </StackPanel>
 
             <Grid Grid.Row="1" Margin="0,18,0,0">
@@ -39,7 +39,7 @@
             <ComboBox Grid.Row="2" Margin="0,12,0,0" materialDesign:HintAssist.Hint="Sistema" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" DisplayMemberPath="NomeSistema"/>
 
             <StackPanel Grid.Row="3" Margin="0,18,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Style="{StaticResource MaterialDesignRaisedButton}" Background="#4E9A57" BorderBrush="#4E9A57" Foreground="White" Command="{Binding ImportarCommand}" Content="Importar"/>
+                <Button Style="{StaticResource App.SuccessButton}" Command="{Binding ImportarCommand}" Content="Importar"/>
                 <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Fechar"/>
             </StackPanel>
         </Grid>

@@ -10,36 +10,10 @@
       Title="CadastroDeInformacoes">
 
     <Page.Resources>
-        <Style x:Key="PrimaryActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="BorderBrush" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-        <Style x:Key="SuccessActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#4E9A57"/>
-            <Setter Property="BorderBrush" Value="#4E9A57"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-        <Style x:Key="DangerActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#B94E45"/>
-            <Setter Property="BorderBrush" Value="#B94E45"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
-        <Style x:Key="GridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
     </Page.Resources>
 
-    <Grid Background="#F7F9FA">
-        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -55,11 +29,11 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Text="Configuração técnica do sistema" FontSize="22" FontWeight="SemiBold" Foreground="#172126"/>
-                        <TextBlock Text="Arquivos, conexão, credenciais e parâmetros" Margin="0,3,0,0" Foreground="#5C6B73"/>
+                        <TextBlock Text="Configuração técnica do sistema" Style="{StaticResource App.PageTitle}"/>
+                        <TextBlock Text="Arquivos, conexão, credenciais e parâmetros" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Button Style="{StaticResource PrimaryActionButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
+                        <Button Style="{StaticResource App.PrimaryButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
                         <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Cancelar"/>
                     </StackPanel>
                 </Grid>
@@ -89,9 +63,9 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox materialDesign:HintAssist.Hint="Arquivo executável" Text="{Binding ArquivoExecutavel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
-                        <Button Grid.Column="1" Style="{StaticResource PrimaryActionButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
+                        <Button Grid.Column="1" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
                         <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Arquivo de configuração" Text="{Binding ArquivoConfiguracao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0"/>
-                        <Button Grid.Column="3" Style="{StaticResource PrimaryActionButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
+                        <Button Grid.Column="3" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
@@ -122,16 +96,16 @@
                         <TextBox materialDesign:HintAssist.Hint="Seção" Text="{Binding NovaSecao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Parâmetro" Text="{Binding NovoParametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Valor" Text="{Binding NovoValor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
-                        <Button Grid.Column="3" Style="{StaticResource SuccessActionButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
-                        <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource DangerActionButton}" Command="{Binding RemoverParametroCommand}" Content="Remover"/>
+                        <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
+                        <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding RemoverParametroCommand}" Content="Remover"/>
                     </Grid>
                 </Grid>
 
-                <DataGrid Grid.Row="3" Margin="0,12,0,0" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" Background="#FCFDFD" AlternatingRowBackground="#F7F9FA" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7E0E4" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="3" Margin="0,12,0,0" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                        <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
-                        <DataGridTextColumn Header="Valor" Width="*" Binding="{Binding Valor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource GridHeaderStyle}"/>
+                        <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                        <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                        <DataGridTextColumn Header="Valor" Width="*" Binding="{Binding Valor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -145,7 +119,7 @@
                     <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding ImportacaoUfs}" SelectedItem="{Binding SelectedImportacaoUf, Mode=TwoWay}" Margin="0,0,8,0"/>
                     <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente origem" ItemsSource="{Binding ImportacaoClientes}" SelectedItem="{Binding SelectedImportacaoCliente, Mode=TwoWay}" DisplayMemberPath="Nome" Margin="0,0,8,0"/>
                     <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema origem" ItemsSource="{Binding ImportacaoSistemas}" SelectedItem="{Binding SelectedImportacaoSistema, Mode=TwoWay}" DisplayMemberPath="NomeSistema" Margin="0,0,8,0"/>
-                    <Button Grid.Column="3" Style="{StaticResource SuccessActionButton}" Command="{Binding ImportarParametrosCommand}" Content="Importar parâmetros"/>
+                    <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding ImportarParametrosCommand}" Content="Importar parâmetros"/>
                 </Grid>
             </Grid>
         </Border>

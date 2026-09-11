@@ -4,7 +4,6 @@ using PeanutButter.INI;
 using System;
 using System.Data.Entity;
 using System.IO;
-using System.Windows;
 
 namespace ControleDeWebServices
 {
@@ -33,7 +32,7 @@ namespace ControleDeWebServices
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message);
+                throw new InvalidOperationException("Não foi possível inicializar a conexão principal do sistema.", E);
             }
         }
         public DbSet<Sistemas> Sistemas { get; set; }

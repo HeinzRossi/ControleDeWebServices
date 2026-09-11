@@ -10,17 +10,10 @@
       Title="CadastroDeInformacoesServico">
 
     <Page.Resources>
-        <Style x:Key="PrimaryActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Background" Value="#2F6F8F"/>
-            <Setter Property="BorderBrush" Value="#2F6F8F"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Padding" Value="12,0"/>
-        </Style>
     </Page.Resources>
 
-    <Grid Background="#F7F9FA">
-        <Border Margin="18" Padding="18" Background="#FCFDFD" BorderBrush="#D7E0E4" BorderThickness="1" CornerRadius="6">
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -35,11 +28,11 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Text="Configuração técnica do serviço" FontSize="22" FontWeight="SemiBold" Foreground="#172126"/>
-                        <TextBlock Text="Arquivos, conexão e credenciais" Margin="0,3,0,0" Foreground="#5C6B73"/>
+                        <TextBlock Text="Configuração técnica do serviço" Style="{StaticResource App.PageTitle}"/>
+                        <TextBlock Text="Arquivos, conexão e credenciais" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Button Style="{StaticResource PrimaryActionButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
+                        <Button Style="{StaticResource App.PrimaryButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
                         <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Cancelar"/>
                     </StackPanel>
                 </Grid>
@@ -65,9 +58,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBox materialDesign:HintAssist.Hint="Arquivo executável" Text="{Binding ArquivoExecutavel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
-                    <Button Grid.Column="1" Style="{StaticResource PrimaryActionButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
+                    <Button Grid.Column="1" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
                     <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Arquivo de configuração" Text="{Binding ArquivoConfiguracao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0"/>
-                    <Button Grid.Column="3" Style="{StaticResource PrimaryActionButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
+                    <Button Grid.Column="3" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
                 </Grid>
 
                 <Grid Grid.Row="3" Margin="0,12,0,0">
