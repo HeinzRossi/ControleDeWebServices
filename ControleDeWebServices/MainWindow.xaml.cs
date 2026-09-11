@@ -20,12 +20,12 @@ namespace ControleDeWebServices
 
         public MainWindow()
         {
-            InitializeComponent();
-
             viewModel = App.Services.GetRequiredService<MainWindowViewModel>();
             navigationService = App.Services.GetRequiredService<WpfNavigationService>();
             ToastService = App.Services.GetRequiredService<ToastService>();
             ConfirmDialogService = App.Services.GetRequiredService<ConfirmDialogService>();
+
+            InitializeComponent();
 
             DataContext = viewModel;
             navigationService.Attach(FramePrincipal);

@@ -197,7 +197,17 @@
         <Grid Grid.ColumnSpan="2"
               Panel.ZIndex="30"
               Background="{StaticResource App.Brush.Overlay}"
-              Visibility="{Binding ConfirmDialogService.IsOpen, ElementName=FormPrincipal, Converter={StaticResource BooleanToVisibilityConverter}}">
+              Visibility="Collapsed">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ConfirmDialogService.IsOpen, ElementName=FormPrincipal}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Border Style="{StaticResource App.ConfirmDialog}">
                 <StackPanel>
                     <TextBlock Text="{Binding ConfirmDialogService.CurrentRequest.Title, ElementName=FormPrincipal}"
