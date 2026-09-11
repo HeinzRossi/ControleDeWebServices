@@ -418,6 +418,26 @@ Criterios de aceite:
 - Artefatos publicados permanecem ignorados pelo Git.
 - Modelos permanecem intocados.
 
+## Sprint 15: Ajustes De Cadastros
+
+Objetivo: corrigir interação das telas de cadastro simples durante inclusão/edição e tornar as grids somente leitura.
+
+Status da execução inicial: concluída na branch `codex/sprint-15-ajustes-cadastros`, com relatório em `docs/Sprint-15-Ajustes-Cadastros.md`. Clientes, Sistemas, Serviços e Seções passaram a bloquear ações de lista quando o formulário está aberto.
+
+Entregáveis:
+
+- Ações de lista condicionadas por `CanUseListActions`.
+- Grids de cadastro simples com `IsReadOnly="True"`.
+- Grids e botões de linha desabilitados durante inclusão/edição.
+- Testes de regressão para bloqueio de ações.
+
+Critérios de aceite:
+
+- Não é possível iniciar inclusão/edição concorrente.
+- Não é possível editar célula diretamente na grid.
+- Salvar/cancelar reabilita lista e ações.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -446,6 +466,7 @@ Criterios de aceite:
 13. Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
 14. Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
 15. Sprint 14: Pacote ZIP Portavel Para Validacao.
+16. Sprint 15: Ajustes De Cadastros.
 
 ## Assumptions
 

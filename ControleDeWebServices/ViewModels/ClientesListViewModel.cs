@@ -38,6 +38,10 @@ namespace ControleDeWebServices.ViewModels
 
         public bool IsListVisible => !IsEditing;
 
+        public bool CanUseListActions => !IsEditing;
+
+        public bool IsListEnabled => CanUseListActions;
+
         public string TotalRegistros => Clientes.Count == 1 ? "1 registro" : $"{Clientes.Count} registros";
 
         public bool HasClientes => Clientes.Count > 0;
@@ -63,16 +67,26 @@ namespace ControleDeWebServices.ViewModels
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Incluir()
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             Editor = ClienteEditViewModel.Novo();
             IsEditing = true;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Editar(ClienteListItem cliente)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = cliente ?? SelectedCliente;
             if (item == null)
             {
@@ -91,9 +105,14 @@ namespace ControleDeWebServices.ViewModels
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public async Task ExcluirAsync(ClienteListItem cliente)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = cliente ?? SelectedCliente;
             if (item == null)
             {
@@ -169,6 +188,11 @@ namespace ControleDeWebServices.ViewModels
         partial void OnIsEditingChanged(bool value)
         {
             OnPropertyChanged(nameof(IsListVisible));
+            OnPropertyChanged(nameof(CanUseListActions));
+            OnPropertyChanged(nameof(IsListEnabled));
+            IncluirCommand.NotifyCanExecuteChanged();
+            EditarCommand.NotifyCanExecuteChanged();
+            ExcluirCommand.NotifyCanExecuteChanged();
         }
 
         private bool ValidarEditor()

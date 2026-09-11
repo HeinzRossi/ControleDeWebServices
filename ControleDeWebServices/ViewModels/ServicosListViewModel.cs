@@ -35,6 +35,8 @@ namespace ControleDeWebServices.ViewModels
 
         public string TotalRegistros => Servicos.Count == 1 ? "1 registro" : $"{Servicos.Count} registros";
         public bool IsEmpty => Servicos.Count == 0;
+        public bool CanUseListActions => !IsEditing;
+        public bool IsListEnabled => CanUseListActions;
 
         [RelayCommand]
         public void Carregar()
@@ -55,20 +57,30 @@ namespace ControleDeWebServices.ViewModels
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Incluir()
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             Editor = ServicoEditViewModel.Novo();
             IsEditing = true;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Editar(ServicoListItem servico)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = servico ?? SelectedServico;
             if (item == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um servico antes de editar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um serviço antes de editar.", "Atenção"));
                 return;
             }
 
@@ -79,23 +91,28 @@ namespace ControleDeWebServices.ViewModels
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel abrir o servico. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível abrir o serviço. {ex.Message}", "Erro"));
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public async Task ExcluirAsync(ServicoListItem servico)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = servico ?? SelectedServico;
             if (item == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um servico antes de excluir.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um serviço antes de excluir.", "Atenção"));
                 return;
             }
 
             var result = await confirmDialogService.ConfirmAsync(new ConfirmDialogRequest(
-                "Excluir este servico?",
-                $"O servico \"{item.NomeServico}\" sera removido permanentemente.",
+                "Excluir este serviço?",
+                $"O serviço \"{item.NomeServico}\" sera removido permanentemente.",
                 "Excluir",
                 "Cancelar",
                 true));
@@ -108,12 +125,12 @@ namespace ControleDeWebServices.ViewModels
             try
             {
                 servicosService.Excluir(item.IdServicos);
-                toastService.Show(new ToastRequest(ToastKind.Success, "Servico excluido com sucesso.", "Sucesso"));
+                toastService.Show(new ToastRequest(ToastKind.Success, "Serviço excluido com sucesso.", "Sucesso"));
                 Carregar();
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel excluir o servico. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível excluir o serviço. {ex.Message}", "Erro"));
             }
         }
 
@@ -128,14 +145,14 @@ namespace ControleDeWebServices.ViewModels
             try
             {
                 servicosService.Salvar(Editor.ToEditor());
-                toastService.Show(new ToastRequest(ToastKind.Success, "Servico salvo com sucesso.", "Sucesso"));
+                toastService.Show(new ToastRequest(ToastKind.Success, "Serviço salvo com sucesso.", "Sucesso"));
                 Editor = null;
                 IsEditing = false;
                 Carregar();
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel salvar o servico. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível salvar o serviço. {ex.Message}", "Erro"));
             }
         }
 
@@ -152,17 +169,26 @@ namespace ControleDeWebServices.ViewModels
             OnPropertyChanged(nameof(IsEmpty));
         }
 
+        partial void OnIsEditingChanged(bool value)
+        {
+            OnPropertyChanged(nameof(CanUseListActions));
+            OnPropertyChanged(nameof(IsListEnabled));
+            IncluirCommand.NotifyCanExecuteChanged();
+            EditarCommand.NotifyCanExecuteChanged();
+            ExcluirCommand.NotifyCanExecuteChanged();
+        }
+
         private bool ValidarEditor()
         {
             if (string.IsNullOrWhiteSpace(Editor.NomeServico))
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe o nome do servico antes de salvar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe o nome do serviço antes de salvar.", "Atenção"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Editor.Uf))
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe a UF do servico antes de salvar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe a UF do serviço antes de salvar.", "Atenção"));
                 return false;
             }
 

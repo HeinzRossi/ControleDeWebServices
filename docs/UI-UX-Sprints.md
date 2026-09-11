@@ -330,6 +330,8 @@ Status técnico aplicado na Sprint 13: a aplicacao publicada em pasta local inic
 
 Status técnico aplicado na Sprint 14: o pacote ZIP portavel foi validado por extracao e startup curto. O design system permanece preservado; a validacao visual completa segue dependente de maquina limpa e dados reais.
 
+Status técnico aplicado na Sprint 15: cadastros simples agora bloqueiam lista e ações durante inclusão/edição, mantendo a grid visível como contexto, porém somente leitura.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

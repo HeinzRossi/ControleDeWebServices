@@ -35,6 +35,8 @@ namespace ControleDeWebServices.ViewModels
 
         public string TotalRegistros => Secoes.Count == 1 ? "1 registro" : $"{Secoes.Count} registros";
         public bool IsEmpty => Secoes.Count == 0;
+        public bool CanUseListActions => !IsEditing;
+        public bool IsListEnabled => CanUseListActions;
 
         [RelayCommand]
         public void Carregar()
@@ -55,20 +57,30 @@ namespace ControleDeWebServices.ViewModels
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Incluir()
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             Editor = SecaoEditViewModel.Novo();
             IsEditing = true;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Editar(SecaoListItem secao)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = secao ?? SelectedSecao;
             if (item == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione uma secao antes de editar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione uma seção antes de editar.", "Atenção"));
                 return;
             }
 
@@ -79,23 +91,28 @@ namespace ControleDeWebServices.ViewModels
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel abrir a secao. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível abrir a seção. {ex.Message}", "Erro"));
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public async Task ExcluirAsync(SecaoListItem secao)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = secao ?? SelectedSecao;
             if (item == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione uma secao antes de excluir.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione uma seção antes de excluir.", "Atenção"));
                 return;
             }
 
             var result = await confirmDialogService.ConfirmAsync(new ConfirmDialogRequest(
-                "Excluir esta secao?",
-                $"A secao \"{item.NomeSecao}\" sera removida permanentemente.",
+                "Excluir esta seção?",
+                $"A seção \"{item.NomeSecao}\" sera removida permanentemente.",
                 "Excluir",
                 "Cancelar",
                 true));
@@ -108,12 +125,12 @@ namespace ControleDeWebServices.ViewModels
             try
             {
                 secoesService.Excluir(item.IdSecao);
-                toastService.Show(new ToastRequest(ToastKind.Success, "Secao excluida com sucesso.", "Sucesso"));
+                toastService.Show(new ToastRequest(ToastKind.Success, "Seção excluida com sucesso.", "Sucesso"));
                 Carregar();
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel excluir a secao. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível excluir a seção. {ex.Message}", "Erro"));
             }
         }
 
@@ -128,14 +145,14 @@ namespace ControleDeWebServices.ViewModels
             try
             {
                 secoesService.Salvar(Editor.ToEditor());
-                toastService.Show(new ToastRequest(ToastKind.Success, "Secao salva com sucesso.", "Sucesso"));
+                toastService.Show(new ToastRequest(ToastKind.Success, "Seção salva com sucesso.", "Sucesso"));
                 Editor = null;
                 IsEditing = false;
                 Carregar();
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel salvar a secao. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível salvar a seção. {ex.Message}", "Erro"));
             }
         }
 
@@ -152,11 +169,20 @@ namespace ControleDeWebServices.ViewModels
             OnPropertyChanged(nameof(IsEmpty));
         }
 
+        partial void OnIsEditingChanged(bool value)
+        {
+            OnPropertyChanged(nameof(CanUseListActions));
+            OnPropertyChanged(nameof(IsListEnabled));
+            IncluirCommand.NotifyCanExecuteChanged();
+            EditarCommand.NotifyCanExecuteChanged();
+            ExcluirCommand.NotifyCanExecuteChanged();
+        }
+
         private bool ValidarEditor()
         {
             if (string.IsNullOrWhiteSpace(Editor.NomeSecao))
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe o nome da secao antes de salvar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe o nome da seção antes de salvar.", "Atenção"));
                 return false;
             }
 

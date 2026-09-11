@@ -32,7 +32,7 @@
                         <TextBlock Text="Seções" Style="{StaticResource App.PageTitle}"/>
                         <TextBlock Text="Consulta e manutenção de seções" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     </StackPanel>
-                    <Button Grid.Column="1" Style="{StaticResource App.SuccessButton}" Command="{Binding IncluirCommand}" Content="Incluir"/>
+                    <Button Grid.Column="1" Style="{StaticResource App.SuccessButton}" Command="{Binding IncluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Incluir"/>
                 </Grid>
 
                 <Border Grid.Row="1" Margin="0,16,0,14" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -56,15 +56,15 @@
                     </Grid>
                 </Border>
 
-                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2" ItemsSource="{Binding Secoes}" SelectedItem="{Binding SelectedSecao, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="True" SelectionMode="Single" Background="{StaticResource App.Brush.Surface}" RowBackground="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" Foreground="{StaticResource App.Brush.TextPrimary}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" HeadersVisibility="Column" materialDesign:DataGridAssist.CellPadding="10,7,10,7" materialDesign:DataGridAssist.ColumnHeaderPadding="10,8">
+                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2" ItemsSource="{Binding Secoes}" SelectedItem="{Binding SelectedSecao, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding IsListEnabled}" CanUserAddRows="False" CanUserSortColumns="True" SelectionMode="Single" Background="{StaticResource App.Brush.Surface}" RowBackground="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" Foreground="{StaticResource App.Brush.TextPrimary}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" HeadersVisibility="Column" materialDesign:DataGridAssist.CellPadding="10,7,10,7" materialDesign:DataGridAssist.ColumnHeaderPadding="10,8">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding NomeSecao}" HeaderStyle="{StaticResource App.GridHeader}"/>
                         <DataGridTemplateColumn Header="Ações" Width="170" HeaderStyle="{StaticResource App.GridHeader}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Height="28" Padding="10,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.EditarCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="Editar"/>
-                                        <Button Height="28" Padding="10,0" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding DataContext.ExcluirCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Content="Excluir"/>
+                                        <Button Height="28" Padding="10,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.EditarCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=Page}}" Content="Editar"/>
+                                        <Button Height="28" Padding="10,0" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding DataContext.ExcluirCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=Page}}" Content="Excluir"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

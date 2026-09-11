@@ -35,6 +35,8 @@ namespace ControleDeWebServices.ViewModels
 
         public string TotalRegistros => Sistemas.Count == 1 ? "1 registro" : $"{Sistemas.Count} registros";
         public bool IsEmpty => Sistemas.Count == 0;
+        public bool CanUseListActions => !IsEditing;
+        public bool IsListEnabled => CanUseListActions;
 
         [RelayCommand]
         public void Carregar()
@@ -55,20 +57,30 @@ namespace ControleDeWebServices.ViewModels
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Incluir()
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             Editor = SistemaEditViewModel.Novo();
             IsEditing = true;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Editar(SistemaListItem sistema)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = sistema ?? SelectedSistema;
             if (item == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um sistema antes de editar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um sistema antes de editar.", "Atenção"));
                 return;
             }
 
@@ -79,17 +91,22 @@ namespace ControleDeWebServices.ViewModels
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel abrir o sistema. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível abrir o sistema. {ex.Message}", "Erro"));
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public async Task ExcluirAsync(SistemaListItem sistema)
         {
+            if (IsEditing)
+            {
+                return;
+            }
+
             var item = sistema ?? SelectedSistema;
             if (item == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um sistema antes de excluir.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um sistema antes de excluir.", "Atenção"));
                 return;
             }
 
@@ -152,17 +169,26 @@ namespace ControleDeWebServices.ViewModels
             OnPropertyChanged(nameof(IsEmpty));
         }
 
+        partial void OnIsEditingChanged(bool value)
+        {
+            OnPropertyChanged(nameof(CanUseListActions));
+            OnPropertyChanged(nameof(IsListEnabled));
+            IncluirCommand.NotifyCanExecuteChanged();
+            EditarCommand.NotifyCanExecuteChanged();
+            ExcluirCommand.NotifyCanExecuteChanged();
+        }
+
         private bool ValidarEditor()
         {
             if (string.IsNullOrWhiteSpace(Editor.NomeSistema))
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe o nome do sistema antes de salvar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe o nome do sistema antes de salvar.", "Atenção"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Editor.Uf))
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe a UF do sistema antes de salvar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Informe a UF do sistema antes de salvar.", "Atenção"));
                 return false;
             }
 

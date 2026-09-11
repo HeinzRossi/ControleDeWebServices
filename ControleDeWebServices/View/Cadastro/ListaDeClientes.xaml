@@ -45,6 +45,7 @@
                     <Button Grid.Column="1"
                             Style="{StaticResource App.SuccessButton}"
                             Command="{Binding IncluirCommand}"
+                            IsEnabled="{Binding CanUseListActions}"
                             Content="Incluir"/>
                 </Grid>
 
@@ -103,6 +104,8 @@
                           ItemsSource="{Binding Clientes}"
                           SelectedItem="{Binding SelectedCliente, Mode=TwoWay}"
                           AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          IsEnabled="{Binding IsListEnabled}"
                           CanUserAddRows="False"
                           CanUserSortColumns="True"
                           SelectionMode="Single"
@@ -139,6 +142,7 @@
                                                 Style="{StaticResource App.PrimaryButton}"
                                                 Command="{Binding DataContext.EditarCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
+                                                IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 Content="Editar"/>
                                         <Button Height="28"
                                                 Padding="10,0"
@@ -146,6 +150,7 @@
                                                 Style="{StaticResource App.DangerButton}"
                                                 Command="{Binding DataContext.ExcluirCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"
+                                                IsEnabled="{Binding DataContext.CanUseListActions, RelativeSource={RelativeSource AncestorType=Page}}"
                                                 Content="Excluir"/>
                                     </StackPanel>
                                 </DataTemplate>
