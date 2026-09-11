@@ -50,6 +50,8 @@ Execucao da Sprint 12: QA tecnico, build Release e preparacao de publicacao fica
 
 Execucao da Sprint 13: publicacao local controlada ficou documentada em `docs/Sprint-13-Publicacao-Local.md`. A pasta publicada foi gerada em `artifacts/`, validada por startup curto e mantida fora do versionamento.
 
+Execucao da Sprint 14: pacote ZIP portavel ficou documentado em `docs/Sprint-14-Pacote-Zip.md`. O pacote foi gerado, extraido, validado por startup curto e acompanhado de template seguro para `Config.ini`.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
@@ -340,6 +342,7 @@ O detalhamento operacional sprint a sprint fica centralizado em `docs/Migration-
 - Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
 - Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
 - Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
+- Sprint 14: Pacote ZIP Portavel Para Validacao.
 
 ## Validacao Da Documentacao
 

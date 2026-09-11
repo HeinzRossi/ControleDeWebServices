@@ -75,3 +75,20 @@ Preparar uma validacao repetivel para publicar ou testar o `ControleDeWebService
 - Artefatos principais conferidos: executavel, DLLs, configs, `Comum.Utilitarios.dll` e SVGs em `Imagens`.
 - `artifacts/` confirmado como ignorado pelo Git.
 - Instalador final ainda nao foi escolhido.
+
+## Fluxo Oficial De Pacote Portavel
+
+- Gerar publish Release em `artifacts/publish/ControleDeWebServices`.
+- Compactar o conteudo publicado em `artifacts/packages/ControleDeWebServices-net8-windows.zip`.
+- Nao incluir `Config.ini` real, logs ou credenciais no ZIP.
+- Registrar SHA256 do pacote antes da entrega.
+- Validar extraindo o ZIP em `artifacts/verify/ControleDeWebServices` e iniciando o app por curto periodo.
+- Usar `docs/Config.ini.template.md` como referencia segura para montar o `Config.ini` no ambiente alvo.
+
+## Validacao Sprint 14
+
+- ZIP portavel validado em `artifacts/packages/ControleDeWebServices-net8-windows.zip`.
+- SHA256 registrado em `docs/Sprint-14-Pacote-Zip.md`.
+- App extraido iniciou por curto periodo e criou log local.
+- `Config.ini` e `Logs/` ficaram fora do ZIP original.
+- Instalador final continua pendente de decisao futura.

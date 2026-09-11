@@ -398,6 +398,26 @@ Criterios de aceite:
 - App publicado inicia e cria log local.
 - Modelos permanecem intocados.
 
+## Sprint 14: Pacote ZIP Portavel Para Validacao
+
+Objetivo: criar um pacote `.zip` portavel a partir do publish Release validado, sem incluir credenciais ou logs.
+
+Status da execucao inicial: concluida na branch `codex/sprint-14-pacote-zip`, com relatorio em `docs/Sprint-14-Pacote-Zip.md`. O ZIP foi gerado em `artifacts/packages/ControleDeWebServices-net8-windows.zip`, extraido para validacao e iniciado com sucesso por curto periodo.
+
+Entregaveis:
+
+- Pacote ZIP portavel gerado em `artifacts/`.
+- Checksum SHA256 registrado.
+- Template seguro de `Config.ini`.
+- Checklist de publicacao atualizado com o fluxo oficial de ZIP.
+
+Criterios de aceite:
+
+- ZIP nao inclui `Config.ini` real nem logs.
+- App extraido inicia e cria log local.
+- Artefatos publicados permanecem ignorados pelo Git.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -425,6 +445,7 @@ Criterios de aceite:
 12. Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
 13. Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
 14. Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
+15. Sprint 14: Pacote ZIP Portavel Para Validacao.
 
 ## Assumptions
 
