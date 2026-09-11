@@ -17,6 +17,7 @@ Preparar uma validacao repetivel para publicar ou testar o `ControleDeWebService
 ## Arquivos Obrigatorios
 
 - Executavel e DLLs gerados para `net8.0-windows`.
+- Icone do aplicativo `ControleDeWebServices.ico` aplicado ao executavel.
 - `ControleDeWebServices.dll.config` ou configuracao equivalente gerada pelo build, quando aplicavel.
 - `Config.ini` valido no diretorio esperado de execucao, entregue fora do repositorio e sem commit de credenciais.
 - DLL auxiliar `Comum.Utilitarios.dll`, se ainda for dependencia no build publicado.
@@ -92,3 +93,9 @@ Preparar uma validacao repetivel para publicar ou testar o `ControleDeWebService
 - App extraido iniciou por curto periodo e criou log local.
 - `Config.ini` e `Logs/` ficaram fora do ZIP original.
 - Instalador final continua pendente de decisao futura.
+
+## Validacao Sprint 21
+
+- Novo icone oficial aplicado em `ControleDeWebServices/ControleDeWebServices.ico`.
+- `.csproj` aponta para `<ApplicationIcon>ControleDeWebServices.ico</ApplicationIcon>`.
+- Icone antigo `agt_web.ico` preservado no projeto por compatibilidade historica.

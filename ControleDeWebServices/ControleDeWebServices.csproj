@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>ControleDeWebServices</RootNamespace>
     <AssemblyName>ControleDeWebServices</AssemblyName>
-    <ApplicationIcon>agt_web.ico</ApplicationIcon>
+    <ApplicationIcon>ControleDeWebServices.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -39,5 +39,6 @@
     <Content Include="SeloDigital.GO.Servico.dll.config" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Dll\Comum.Utilitarios.dll" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Imagens\*.svg" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="ControleDeWebServices.ico" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

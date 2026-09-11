@@ -1,6 +1,6 @@
 # Icone Do Sistema
 
-Este pacote prepara o novo icone conceitual do `ControleDeWebServices`, sem substituir o `agt_web.ico` atual do projeto.
+Este pacote documenta o novo icone oficial do `ControleDeWebServices`, aplicado ao executavel na Sprint 21.
 
 ## Conceito
 
@@ -18,12 +18,12 @@ Este pacote prepara o novo icone conceitual do `ControleDeWebServices`, sem subs
 - `png/ControleDeWebServices-icon-64.png`
 - `png/ControleDeWebServices-icon-128.png`
 - `png/ControleDeWebServices-icon-256.png`
-- `ControleDeWebServices.ico`: arquivo multi-resolucao para uso futuro.
+- `ControleDeWebServices.ico`: arquivo multi-resolucao usado como fonte do icone aplicado ao app.
 - `ControleDeWebServices-icon-preview.png`: prancha de validacao visual.
 
 ## Regras
 
 - Nao alterar modelos.
-- Nao substituir o icone real do aplicativo sem sprint propria.
+- O icone real do aplicativo agora aponta para `ControleDeWebServices/ControleDeWebServices.ico`.
 - Usar SVG ou `MaterialDesign:PackIcon` para icones de UI sempre que possivel.
 - Usar PNG/ICO apenas para documentacao, atalhos, instalador ou identidade do executavel.
