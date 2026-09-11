@@ -56,6 +56,8 @@ Execução da Sprint 15: ajustes de cadastros ficaram documentados em `docs/Spri
 
 Execucao da Sprint 16: ajustes de vinculos ficaram documentados em `docs/Sprint-16-Ajustes-Vinculos.md`. As acoes concorrentes de vinculo foram bloqueadas durante edicao/configuracao e todas as `DataGrid` foram padronizadas como somente leitura.
 
+Execucao da Sprint 17: copy e acoes de exclusao ficaram documentadas em `docs/Sprint-17-Corrige-Excluir-Acoes.md`. Botoes destrutivos usam `Excluir`, enquanto `Remover` permanece apenas para desvincular itens internos.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
@@ -349,6 +351,7 @@ O detalhamento operacional sprint a sprint fica centralizado em `docs/Migration-
 - Sprint 14: Pacote ZIP Portavel Para Validacao.
 - Sprint 15: Ajustes De Cadastros.
 - Sprint 16: Ajustes De Vinculos E Grids Readonly.
+- Sprint 17: Corrige Copy E Acoes De Exclusao.
 
 ## Validacao Da Documentacao
 

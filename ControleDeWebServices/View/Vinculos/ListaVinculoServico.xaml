@@ -92,7 +92,7 @@
                         <Button Style="{StaticResource App.SuccessButton}" Command="{Binding IncluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Incluir"/>
                         <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding EditarCommand}" IsEnabled="{Binding CanUseListActions}" Content="Editar"/>
                         <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding ConfigurarCommand}" IsEnabled="{Binding CanUseListActions}" Content="Configurar"/>
-                        <Button Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding ExcluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Remover"/>
+                        <Button Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding ExcluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Excluir"/>
                     </StackPanel>
                 </Grid>
 

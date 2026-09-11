@@ -151,14 +151,14 @@ namespace ControleDeWebServices.ViewModels
 
             if (SelectedCliente == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um cliente antes de remover vínculos.", "Atenção"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um cliente antes de excluir vínculos.", "Atenção"));
                 return;
             }
 
             var result = await confirmDialogService.ConfirmAsync(new ConfirmDialogRequest(
-                "Remover vínculos do cliente?",
-                $"Todos os sistemas vinculados ao cliente \"{SelectedCliente.NomeCliente}\" serao removidos.",
-                "Remover",
+                "Excluir vínculos do cliente?",
+                $"Todos os sistemas vinculados ao cliente \"{SelectedCliente.NomeCliente}\" serão excluídos.",
+                "Excluir",
                 "Cancelar",
                 true));
 
@@ -170,12 +170,12 @@ namespace ControleDeWebServices.ViewModels
             try
             {
                 vinculoService.ExcluirVinculosDoCliente(SelectedCliente.IdCliente);
-                toastService.Show(new ToastRequest(ToastKind.Success, "Vínculos removidos com sucesso.", "Sucesso"));
+                toastService.Show(new ToastRequest(ToastKind.Success, "Vínculos excluídos com sucesso.", "Sucesso"));
                 Carregar();
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível remover os vínculos. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível excluir os vínculos. {ex.Message}", "Erro"));
             }
         }
 

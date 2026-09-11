@@ -334,6 +334,8 @@ Status técnico aplicado na Sprint 15: cadastros simples agora bloqueiam lista e
 
 Status técnico aplicado na Sprint 16: telas de vinculo agora bloqueiam acoes concorrentes durante edicao/configuracao, os botoes `Adicionar` e `Remover` ficaram alinhados a direita nos itens, e todas as `DataGrid` do projeto sao somente leitura.
 
+Status técnico aplicado na Sprint 17: botoes destrutivos foram padronizados como `Excluir`; `Remover` permanece apenas em acoes internas de desvincular itens.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

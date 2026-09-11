@@ -70,16 +70,61 @@ public class ListaVinculosSistemaViewModelTests
         viewModel.Editor.Should().BeSameAs(editor);
     }
 
-    private static ListaVinculosSistemaViewModel CreateViewModel()
+    [Fact]
+    public async Task ExcluirCommand_ComSelecaoEConfirmacao_ChamaServico()
     {
         var vinculo = new Mock<IVinculoClienteSistemaService>();
-        vinculo.Setup(service => service.ListarUfs()).Returns(Array.Empty<string>());
+        vinculo.Setup(service => service.ListarClientesComVinculos()).Returns(Array.Empty<ClienteVinculoListItem>());
         vinculo.Setup(service => service.ListarSistemasDoCliente(It.IsAny<int>())).Returns(Array.Empty<ClienteSistemaResumo>());
+        var confirm = new FixedConfirmDialogService(ConfirmDialogResult.Confirmed);
+        var viewModel = CreateViewModel(vinculo, confirm);
+        viewModel.SelectedCliente = new ClienteVinculoListItem { IdCliente = 12, NomeCliente = "Cliente Teste", Uf = "SP" };
+
+        viewModel.ExcluirCommand.CanExecute(null).Should().BeTrue();
+        await viewModel.ExcluirCommand.ExecuteAsync(null);
+
+        vinculo.Verify(service => service.ExcluirVinculosDoCliente(12), Times.Once);
+        confirm.Requests.Should().ContainSingle(request =>
+            request.Title == "Excluir vínculos do cliente?" &&
+            request.ConfirmText == "Excluir" &&
+            request.IsDestructive);
+    }
+
+    [Fact]
+    public async Task ExcluirCommand_SemSelecao_MostraWarning()
+    {
+        var toast = new RecordingToastService();
+        var viewModel = CreateViewModel(toastService: toast);
+
+        viewModel.ExcluirCommand.CanExecute(null).Should().BeTrue();
+        await viewModel.ExcluirCommand.ExecuteAsync(null);
+
+        toast.Requests.Should().ContainSingle(request =>
+            request.Kind == ToastKind.Warning &&
+            request.Message.Contains("Selecione um cliente"));
+    }
+
+    private static ListaVinculosSistemaViewModel CreateViewModel()
+    {
+        return CreateViewModel(new Mock<IVinculoClienteSistemaService>(), new FixedConfirmDialogService(ConfirmDialogResult.Canceled));
+    }
+
+    private static ListaVinculosSistemaViewModel CreateViewModel(
+        Mock<IVinculoClienteSistemaService>? vinculo = null,
+        FixedConfirmDialogService? confirmDialogService = null,
+        RecordingToastService? toastService = null)
+    {
+        vinculo ??= new Mock<IVinculoClienteSistemaService>();
+        vinculo.Setup(service => service.ListarUfs()).Returns(Array.Empty<string>());
+        vinculo.Setup(service => service.ListarClientesComVinculos()).Returns(Array.Empty<ClienteVinculoListItem>());
+        vinculo.Setup(service => service.ListarSistemasDoCliente(It.IsAny<int>())).Returns(Array.Empty<ClienteSistemaResumo>());
+        toastService ??= new RecordingToastService();
+        confirmDialogService ??= new FixedConfirmDialogService(ConfirmDialogResult.Canceled);
 
         return new ListaVinculosSistemaViewModel(
             vinculo.Object,
-            new RecordingToastService(),
-            new FixedConfirmDialogService(ConfirmDialogResult.Canceled),
+            toastService,
+            confirmDialogService,
             () => new VinculoClienteSistemaViewModel(vinculo.Object, new RecordingToastService()),
             CreateConfiguracaoSistemaViewModel);
     }

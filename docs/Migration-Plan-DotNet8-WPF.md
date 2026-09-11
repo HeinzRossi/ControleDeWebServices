@@ -458,6 +458,26 @@ Criterios de aceite:
 - Botoes internos nao sobrepoem o texto principal.
 - Modelos permanecem intocados.
 
+## Sprint 17: Corrige Copy E Acoes De Exclusao
+
+Objetivo: alinhar a nomenclatura dos botoes destrutivos e garantir que os comandos de exclusao sejam acionaveis por binding.
+
+Status da execucao inicial: concluida na branch `codex/sprint-17-corrige-excluir-acoes`, com relatorio em `docs/Sprint-17-Corrige-Excluir-Acoes.md`.
+
+Entregaveis:
+
+- Botoes destrutivos exibindo `Excluir`.
+- `Remover` preservado apenas nos paineis internos de desvinculo.
+- Dialogos e toasts de vinculos usando copy de exclusao.
+- Testes exercitando `ExcluirCommand` diretamente.
+
+Criterios de aceite:
+
+- Excluir com selecao valida chama o servico correto.
+- Excluir sem selecao valida mostra toast de aviso.
+- Excluir fica bloqueado durante edicao/configuracao.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -488,6 +508,7 @@ Criterios de aceite:
 15. Sprint 14: Pacote ZIP Portavel Para Validacao.
 16. Sprint 15: Ajustes De Cadastros.
 17. Sprint 16: Ajustes De Vinculos E Grids Readonly.
+18. Sprint 17: Corrige Copy E Acoes De Exclusao.
 
 ## Assumptions
 

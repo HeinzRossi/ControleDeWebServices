@@ -81,7 +81,7 @@
                         <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Parâmetro" Text="{Binding NovoParametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Valor" Text="{Binding NovoValor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
-                        <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding RemoverParametroCommand}" Content="Remover"/>
+                        <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding RemoverParametroCommand}" Content="Excluir"/>
                     </Grid>
                     <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
@@ -134,7 +134,7 @@
                         <Button Style="{StaticResource App.SuccessButton}" Command="{Binding IncluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Incluir"/>
                         <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding EditarCommand}" IsEnabled="{Binding CanUseListActions}" Content="Editar"/>
                         <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding ConfigurarCommand}" IsEnabled="{Binding CanUseListActions}" Content="Configurar"/>
-                        <Button Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding ExcluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Remover"/>
+                        <Button Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding ExcluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Excluir"/>
                     </StackPanel>
                 </Grid>
 
