@@ -332,6 +332,8 @@ Status técnico aplicado na Sprint 14: o pacote ZIP portavel foi validado por ex
 
 Status técnico aplicado na Sprint 15: cadastros simples agora bloqueiam lista e ações durante inclusão/edição, mantendo a grid visível como contexto, porém somente leitura.
 
+Status técnico aplicado na Sprint 16: telas de vinculo agora bloqueiam acoes concorrentes durante edicao/configuracao, os botoes `Adicionar` e `Remover` ficaram alinhados a direita nos itens, e todas as `DataGrid` do projeto sao somente leitura.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

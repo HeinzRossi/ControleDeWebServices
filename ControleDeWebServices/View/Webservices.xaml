@@ -39,7 +39,7 @@
                 </Grid>
 
                 <GroupBox Grid.Row="1" Margin="0,16,0,0" Header="10 mais acessados">
-                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding MaisAcessados}" SelectedItem="{Binding SelectedMaisAcessado, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding MaisAcessados}" SelectedItem="{Binding SelectedMaisAcessado, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Código" Width="80" Binding="{Binding CodigoControle}" HeaderStyle="{StaticResource App.GridHeader}"/>
                             <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource App.GridHeader}"/>
@@ -80,7 +80,7 @@
                 </Border>
 
                 <GroupBox Grid.Row="3" Header="Resultado da consulta">
-                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Código" Width="80" Binding="{Binding CodigoControle}" HeaderStyle="{StaticResource App.GridHeader}"/>
                             <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource App.GridHeader}"/>

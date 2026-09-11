@@ -100,11 +100,10 @@
                     </Grid>
                 </Border>
 
-                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2"
+                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2" IsReadOnly="True"
                           ItemsSource="{Binding Clientes}"
                           SelectedItem="{Binding SelectedCliente, Mode=TwoWay}"
                           AutoGenerateColumns="False"
-                          IsReadOnly="True"
                           IsEnabled="{Binding IsListEnabled}"
                           CanUserAddRows="False"
                           CanUserSortColumns="True"

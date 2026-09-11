@@ -101,7 +101,7 @@
                     </Grid>
                 </Grid>
 
-                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="3" Margin="0,12,0,0" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="3" Margin="0,12,0,0" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
                         <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>

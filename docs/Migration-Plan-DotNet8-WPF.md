@@ -438,6 +438,26 @@ Critérios de aceite:
 - Salvar/cancelar reabilita lista e ações.
 - Modelos permanecem intocados.
 
+## Sprint 16: Ajustes De Vinculos E Grids Readonly
+
+Objetivo: aplicar bloqueio de acoes concorrentes nas telas de vinculo e tornar todas as `DataGrid` somente leitura.
+
+Status da execucao inicial: concluida na branch `codex/sprint-16-ajustes-vinculos`, com relatorio em `docs/Sprint-16-Ajustes-Vinculos.md`. As listas de vinculo agora bloqueiam acoes do topo durante edicao/configuracao, e as grids do projeto foram padronizadas como readonly.
+
+Entregaveis:
+
+- Todas as `DataGrid` com `IsReadOnly="True"`.
+- Acoes de vinculo condicionadas por `CanUseListActions`.
+- Grids principais de vinculo desabilitadas durante edicao/configuracao.
+- Layout dos botoes `Adicionar` e `Remover` alinhado a direita nos paines internos.
+
+Criterios de aceite:
+
+- Nao e possivel iniciar inclusao, edicao ou configuracao concorrente em vinculos.
+- Nao e possivel editar celulas diretamente nas grids.
+- Botoes internos nao sobrepoem o texto principal.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -467,6 +487,7 @@ Critérios de aceite:
 14. Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
 15. Sprint 14: Pacote ZIP Portavel Para Validacao.
 16. Sprint 15: Ajustes De Cadastros.
+17. Sprint 16: Ajustes De Vinculos E Grids Readonly.
 
 ## Assumptions
 

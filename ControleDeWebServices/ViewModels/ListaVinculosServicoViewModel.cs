@@ -62,6 +62,9 @@ namespace ControleDeWebServices.ViewModels
 
         public string TotalRegistros => Clientes.Count == 1 ? "1 cliente vinculado" : $"{Clientes.Count} clientes vinculados";
         public bool IsEmpty => Clientes.Count == 0;
+        public bool IsBusyWithDetails => IsEditing || IsConfiguring;
+        public bool CanUseListActions => !IsBusyWithDetails;
+        public bool IsListEnabled => CanUseListActions;
 
         [RelayCommand]
         public void Carregar()
@@ -82,21 +85,31 @@ namespace ControleDeWebServices.ViewModels
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Incluir()
         {
+            if (IsBusyWithDetails)
+            {
+                return;
+            }
+
             Editor = editorFactory();
             Editor.CarregarCommand.Execute(null);
             IsEditing = true;
             IsConfiguring = false;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Editar()
         {
+            if (IsBusyWithDetails)
+            {
+                return;
+            }
+
             if (SelectedCliente == null || SelectedSistema == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um cliente e um sistema antes de editar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um cliente e um sistema antes de editar.", "Atenção"));
                 return;
             }
 
@@ -119,12 +132,17 @@ namespace ControleDeWebServices.ViewModels
             IsConfiguring = false;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public void Configurar()
         {
+            if (IsBusyWithDetails)
+            {
+                return;
+            }
+
             if (SelectedServico == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um serviço antes de configurar.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um serviço antes de configurar.", "Atenção"));
                 return;
             }
 
@@ -135,18 +153,23 @@ namespace ControleDeWebServices.ViewModels
             IsEditing = false;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanUseListActions))]
         public async Task ExcluirAsync()
         {
+            if (IsBusyWithDetails)
+            {
+                return;
+            }
+
             if (SelectedCliente == null || SelectedSistema == null)
             {
-                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um cliente e um sistema antes de remover vinculos.", "Atencao"));
+                toastService.Show(new ToastRequest(ToastKind.Warning, "Selecione um cliente e um sistema antes de remover vínculos.", "Atenção"));
                 return;
             }
 
             var result = await confirmDialogService.ConfirmAsync(new ConfirmDialogRequest(
-                "Remover vinculos do sistema?",
-                $"Todos os servicos vinculados ao sistema \"{SelectedSistema.NomeSistema}\" serao removidos.",
+                "Remover vínculos do sistema?",
+                $"Todos os serviços vinculados ao sistema \"{SelectedSistema.NomeSistema}\" serao removidos.",
                 "Remover",
                 "Cancelar",
                 true));
@@ -159,12 +182,12 @@ namespace ControleDeWebServices.ViewModels
             try
             {
                 vinculoService.ExcluirVinculosDoSistema(SelectedSistema.IdCliente, SelectedSistema.IdSistemas);
-                toastService.Show(new ToastRequest(ToastKind.Success, "Vinculos removidos com sucesso.", "Sucesso"));
+                toastService.Show(new ToastRequest(ToastKind.Success, "Vínculos removidos com sucesso.", "Sucesso"));
                 Carregar();
             }
             catch (Exception ex)
             {
-                toastService.Show(new ToastRequest(ToastKind.Error, $"Nao foi possivel remover os vinculos. {ex.Message}", "Erro"));
+                toastService.Show(new ToastRequest(ToastKind.Error, $"Não foi possível remover os vínculos. {ex.Message}", "Erro"));
             }
         }
 
@@ -207,6 +230,16 @@ namespace ControleDeWebServices.ViewModels
             OnPropertyChanged(nameof(IsEmpty));
         }
 
+        partial void OnIsEditingChanged(bool value)
+        {
+            NotifyListActionStateChanged();
+        }
+
+        partial void OnIsConfiguringChanged(bool value)
+        {
+            NotifyListActionStateChanged();
+        }
+
         partial void OnSelectedClienteChanged(ClienteVinculoListItem value)
         {
             Sistemas = value == null
@@ -234,6 +267,17 @@ namespace ControleDeWebServices.ViewModels
             }
 
             return null;
+        }
+
+        private void NotifyListActionStateChanged()
+        {
+            OnPropertyChanged(nameof(IsBusyWithDetails));
+            OnPropertyChanged(nameof(CanUseListActions));
+            OnPropertyChanged(nameof(IsListEnabled));
+            IncluirCommand.NotifyCanExecuteChanged();
+            EditarCommand.NotifyCanExecuteChanged();
+            ConfigurarCommand.NotifyCanExecuteChanged();
+            ExcluirCommand.NotifyCanExecuteChanged();
         }
     }
 }
