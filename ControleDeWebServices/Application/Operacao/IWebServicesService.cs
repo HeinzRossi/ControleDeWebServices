@@ -1,3 +1,4 @@
+using ControleDeWebServices.Application.Configuracoes;
 using System.Collections.Generic;
 
 namespace ControleDeWebServices.Application.Operacao
@@ -9,6 +10,6 @@ namespace ControleDeWebServices.Application.Operacao
         IReadOnlyList<WebServiceClienteOption> ListarClientesPorUf(string uf);
         IReadOnlyList<WebServiceItem> ListarSistemasPorCliente(int idCliente);
         IReadOnlyList<WebServiceItem> ListarSistemasPorCodigoCliente(int codigoControle);
-        void AtualizarUrl(int idClientesSistema);
+        AtualizarUrlResult AtualizarUrl(int idClientesSistema);
     }
 }

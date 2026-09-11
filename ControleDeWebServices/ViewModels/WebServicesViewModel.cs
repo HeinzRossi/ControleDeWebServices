@@ -158,8 +158,10 @@ namespace ControleDeWebServices.ViewModels
 
             try
             {
-                webServicesService.AtualizarUrl(selected.IdClientesSistema);
-                toastService.Show(new ToastRequest(ToastKind.Success, "URL atualizada com sucesso.", "Sucesso"));
+                var result = webServicesService.AtualizarUrl(selected.IdClientesSistema);
+                toastService.Show(result.Success
+                    ? new ToastRequest(ToastKind.Success, result.Message, "Sucesso")
+                    : new ToastRequest(ToastKind.Warning, result.Message, "Atenção"));
             }
             catch (Exception ex)
             {

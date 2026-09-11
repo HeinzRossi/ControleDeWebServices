@@ -340,6 +340,8 @@ Status técnico aplicado na Sprint 18: botoes `Excluir` das grids de cadastro fo
 
 Status técnico aplicado na Sprint 19: dialogo customizado de confirmacao voltou a abrir visualmente quando `Excluir` solicita confirmacao, sem aparecer no startup.
 
+Status técnico aplicado na Sprint 20: `Atualizar URL` agora diferencia sucesso real, aviso de configuracao incompleta e erro tecnico, evitando feedback positivo falso.
+
 ## Fora De Escopo Neste Documento
 
 - Alterar codigo, XAML, projeto, configs ou pacotes.

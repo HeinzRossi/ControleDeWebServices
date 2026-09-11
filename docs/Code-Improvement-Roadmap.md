@@ -62,6 +62,8 @@ Execucao da Sprint 18: botoes `Excluir` das grids de cadastros ficaram documenta
 
 Execucao da Sprint 19: fluxo visual de exclusao ficou documentado em `docs/Sprint-19-Corrige-Fluxo-Visual-Excluir.md`. O overlay do dialogo customizado deixou de ter `Visibility` local que impedia a abertura por trigger.
 
+Execucao da Sprint 20: atualizacao de URL ficou documentada em `docs/Sprint-20-Corrige-Atualizar-URL.md`. O fluxo passou a validar configuracao e retornar resultado operacional antes de exibir sucesso.
+
 ## Direcao De Runtime E Componentes
 
 A direcao tecnica aprovada e migrar o aplicativo WPF de .NET Framework 4.8 para WPF em .NET moderno, preferencialmente .NET 8/9, atualizando todos os componentes necessarios. Componentes sem compatibilidade, sem manutencao adequada ou sem uso real devem ser removidos do projeto e substituidos por alternativa similar moderna quando ainda houver necessidade funcional.
@@ -358,6 +360,7 @@ O detalhamento operacional sprint a sprint fica centralizado em `docs/Migration-
 - Sprint 17: Corrige Copy E Acoes De Exclusao.
 - Sprint 18: Corrige Botoes Excluir Nas Grids.
 - Sprint 19: Corrige Fluxo Visual De Exclusao.
+- Sprint 20: Corrige Sucesso Indevido Ao Atualizar URL.
 
 ## Validacao Da Documentacao
 

@@ -87,12 +87,17 @@ namespace ControleDeWebServices.Infrastructure.Operacao
             }
         }
 
-        public void AtualizarUrl(int idClientesSistema)
+        public AtualizarUrlResult AtualizarUrl(int idClientesSistema)
         {
             using (var contexto = contextFactory.Create())
             {
                 var clienteSistema = contexto.ClienteSistemas.Find(idClientesSistema);
-                atualizarPadroesService.AtualizarUrl(clienteSistema);
+                if (clienteSistema == null)
+                {
+                    return AtualizarUrlResult.Warning("WebService não encontrado para atualizar a URL.");
+                }
+
+                return atualizarPadroesService.AtualizarUrl(clienteSistema);
             }
         }
 

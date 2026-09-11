@@ -517,6 +517,26 @@ Criterios de aceite:
 - Dialogo nao aparece no startup.
 - Modelos permanecem intocados.
 
+## Sprint 20: Corrige Sucesso Indevido Ao Atualizar URL
+
+Objetivo: impedir mensagem de sucesso quando a configuracao de banco esta incompleta ou nenhuma URL externa foi alterada.
+
+Status da execucao inicial: concluida na branch `codex/sprint-20-corrige-atualizar-url`, com relatorio em `docs/Sprint-20-Corrige-Atualizar-URL.md`.
+
+Entregaveis:
+
+- Resultado operacional para atualizacao de URL.
+- Validacao de configuracao antes de abrir conexao externa.
+- Retorno de linhas afetadas por `ExecuteNonQuery()`.
+- Toast de sucesso somente quando houve alteracao real.
+
+Criterios de aceite:
+
+- Sem banco configurado, usuario recebe aviso.
+- Nenhuma URL alterada retorna aviso.
+- Falha tecnica retorna erro.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -550,6 +570,7 @@ Criterios de aceite:
 18. Sprint 17: Corrige Copy E Acoes De Exclusao.
 19. Sprint 18: Corrige Botoes Excluir Nas Grids.
 20. Sprint 19: Corrige Fluxo Visual De Exclusao.
+21. Sprint 20: Corrige Sucesso Indevido Ao Atualizar URL.
 
 ## Assumptions
 

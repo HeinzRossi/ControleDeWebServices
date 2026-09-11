@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -67,23 +68,36 @@ namespace ControleDeWebServices.Diversos
             }
         }
 
-        public void AtualizarUrl(ClienteSistemas clienteSistemas)
+        public AtualizarUrlResult AtualizarUrl(ClienteSistemas clienteSistemas)
         {
+            var validation = ValidarConfiguracaoAtualizacaoUrl(clienteSistemas);
+            if (validation != null)
+            {
+                return validation;
+            }
+
             logger.LogInformation("Atualizando URL externa para vínculo {IdClientesSistema}", clienteSistemas.IdClientesSistema);
 
+            int rowsAffected;
             switch ((TipoConexao)clienteSistemas.TipoConexao)
             {
                 case TipoConexao.SQLSERVER:
                 case TipoConexao.MSSQL:
-                    AtualizarUrlSqlServer(clienteSistemas);
+                    rowsAffected = AtualizarUrlSqlServer(clienteSistemas);
                     break;
                 case TipoConexao.FIREBIRD:
-                    AtualizarUrlFirebird(clienteSistemas);
+                    rowsAffected = AtualizarUrlFirebird(clienteSistemas);
                     break;
                 case TipoConexao.POSTGRESQL:
-                    AtualizarUrlPostgreSql(clienteSistemas);
+                    rowsAffected = AtualizarUrlPostgreSql(clienteSistemas);
                     break;
+                default:
+                    return AtualizarUrlResult.Warning("Tipo de conexão não suportado para atualizar a URL.");
             }
+
+            return rowsAffected > 0
+                ? AtualizarUrlResult.Succeeded(rowsAffected)
+                : AtualizarUrlResult.Warning("Nenhuma URL foi encontrada para atualizar.", rowsAffected);
         }
 
         private static void AtualizarParametrosSqlServer(ClienteSistemas clienteSistemas, IEnumerable<ParametroEditor> parametros)
@@ -152,7 +166,7 @@ namespace ControleDeWebServices.Diversos
             }
         }
 
-        private static void AtualizarUrlSqlServer(ClienteSistemas clienteSistemas)
+        private static int AtualizarUrlSqlServer(ClienteSistemas clienteSistemas)
         {
             const string sql = "update ini set VALOR = 'http://127.0.0.1' + SUBSTRING(VALOR, CHARINDEX('/Engegraph', VALOR, 1) - 5, LEN(VALOR)) where NOME like '%URL%' and SECAO <> 'QR_CODE'";
 
@@ -160,11 +174,11 @@ namespace ControleDeWebServices.Diversos
             using (var command = new SqlCommand(sql, connection))
             {
                 connection.Open();
-                command.ExecuteNonQuery();
+                return command.ExecuteNonQuery();
             }
         }
 
-        private static void AtualizarUrlFirebird(ClienteSistemas clienteSistemas)
+        private static int AtualizarUrlFirebird(ClienteSistemas clienteSistemas)
         {
             const string sql = "update ini set VALOR = 'http://127.0.0.1' || substring(VALOR from (position('/Engegraph' in VALOR) - 5) for char_length(VALOR) - (position('/Engegraph' in VALOR) - 5)) where NOME like '%URL%' and SECAO <> 'QR_CODE' and (position('/Engegraph' in VALOR) - 5) >= 0";
 
@@ -172,11 +186,11 @@ namespace ControleDeWebServices.Diversos
             using (var command = new FbCommand(sql, connection))
             {
                 connection.Open();
-                command.ExecuteNonQuery();
+                return command.ExecuteNonQuery();
             }
         }
 
-        private static void AtualizarUrlPostgreSql(ClienteSistemas clienteSistemas)
+        private static int AtualizarUrlPostgreSql(ClienteSistemas clienteSistemas)
         {
             const string sql = "update ini set VALOR = 'http://127.0.0.1' || substring(VALOR, strpos(VALOR, '/Engegraph') - 5, length(VALOR)) where NOME like '%URL%' and SECAO <> 'QR_CODE'";
 
@@ -184,8 +198,45 @@ namespace ControleDeWebServices.Diversos
             using (var command = new NpgsqlCommand(sql, connection))
             {
                 connection.Open();
-                command.ExecuteNonQuery();
+                return command.ExecuteNonQuery();
             }
+        }
+
+        private static AtualizarUrlResult ValidarConfiguracaoAtualizacaoUrl(ClienteSistemas clienteSistemas)
+        {
+            if (clienteSistemas == null)
+            {
+                return AtualizarUrlResult.Warning("WebService não encontrado para atualizar a URL.");
+            }
+
+            if (!Enum.IsDefined(typeof(TipoConexao), clienteSistemas.TipoConexao))
+            {
+                return AtualizarUrlResult.Warning("Tipo de conexão não suportado para atualizar a URL.");
+            }
+
+            var tipoConexao = (TipoConexao)clienteSistemas.TipoConexao;
+            if (tipoConexao != TipoConexao.SQLSERVER &&
+                tipoConexao != TipoConexao.MSSQL &&
+                tipoConexao != TipoConexao.FIREBIRD &&
+                tipoConexao != TipoConexao.POSTGRESQL)
+            {
+                return AtualizarUrlResult.Warning("Tipo de conexão não suportado para atualizar a URL.");
+            }
+
+            if (string.IsNullOrWhiteSpace(clienteSistemas.Servidor) ||
+                string.IsNullOrWhiteSpace(clienteSistemas.DataBase) ||
+                string.IsNullOrWhiteSpace(clienteSistemas.Usuario))
+            {
+                return AtualizarUrlResult.Warning("Configure servidor, banco de dados e usuário antes de atualizar a URL.");
+            }
+
+            if ((tipoConexao == TipoConexao.FIREBIRD || tipoConexao == TipoConexao.POSTGRESQL) &&
+                clienteSistemas.Porta <= 0)
+            {
+                return AtualizarUrlResult.Warning("Configure a porta do banco de dados antes de atualizar a URL.");
+            }
+
+            return null;
         }
 
         private static string BuildSqlServerConnectionString(ClienteSistemas clienteSistemas)
