@@ -35,7 +35,6 @@
                         <TextBlock Text="WebServices" Style="{StaticResource App.PageTitle}"/>
                         <TextBlock Text="Consulta, atualização de URL e execução operacional" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="1" Text="{Binding ExecutionStatus}" Foreground="{StaticResource App.Brush.TextSecondary}" VerticalAlignment="Center"/>
                 </Grid>
 
                 <GroupBox Grid.Row="1" Margin="0,16,0,0" Header="10 mais acessados">
@@ -101,23 +100,19 @@
                     </DataGrid>
                 </GroupBox>
 
-                <Grid Grid.Row="4" Margin="0,12,0,0">
-                    <TextBlock Text="{Binding ExecutionStatus}" Foreground="{StaticResource App.Brush.TextSecondary}"/>
-                    <ItemsControl ItemsSource="{Binding ExecutionSteps}" HorizontalAlignment="Right">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Margin="4,0,0,0" Padding="8,3" Background="{StaticResource App.Brush.SurfaceMuted}" BorderBrush="{StaticResource App.Brush.Border}" BorderThickness="1" CornerRadius="3">
-                                    <TextBlock Text="{Binding}" Foreground="{StaticResource App.Brush.Primary}" FontSize="11"/>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
+                <Border Grid.Row="4"
+                        Margin="0,12,0,0"
+                        Padding="10,5"
+                        Background="{StaticResource App.Brush.SurfaceMuted}"
+                        BorderBrush="{StaticResource App.Brush.Border}"
+                        BorderThickness="1"
+                        CornerRadius="3"
+                        Visibility="{Binding HasExecutionStatus, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="{Binding ExecutionStatus}"
+                               Foreground="{StaticResource App.Brush.Primary}"
+                               FontSize="11"
+                               TextTrimming="CharacterEllipsis"/>
+                </Border>
             </Grid>
         </Border>
     </Grid>

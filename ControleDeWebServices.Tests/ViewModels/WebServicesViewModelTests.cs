@@ -24,9 +24,10 @@ public class WebServicesViewModelTests
     }
 
     [Fact]
-    public async Task ExecutarSelecionadoAsync_ComSucesso_RegistraEtapas()
+    public async Task ExecutarSelecionadoAsync_ComSucesso_SubstituiProgressoELimpaAoFinal()
     {
         var toast = new RecordingToastService();
+        var statuses = new List<string>();
         var services = new Mock<IWebServicesService>();
         services.Setup(service => service.ListarMaisAcessados()).Returns(Array.Empty<WebServiceItem>());
         services.Setup(service => service.ListarUfs()).Returns(Array.Empty<string>());
@@ -47,13 +48,49 @@ public class WebServicesViewModelTests
             });
 
         var viewModel = CreateViewModel(services.Object, execution.Object, toast);
+        viewModel.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(WebServicesViewModel.ExecutionStatus))
+            {
+                statuses.Add(viewModel.ExecutionStatus);
+            }
+        };
         var item = new WebServiceItem { IdClientesSistema = 10, NomeSistema = "Sistema" };
 
         await viewModel.ExecutarSelecionadoAsync(item);
 
-        viewModel.ExecutionSteps.Should().ContainInOrder("Validando configuração", "Registrando acesso");
-        viewModel.ExecutionStatus.Should().Be("WebService executado com sucesso.");
+        statuses.Should().ContainInOrder("Executando Sistema...", "Validando configuração", "Registrando acesso", string.Empty);
+        viewModel.ExecutionStatus.Should().BeEmpty();
+        viewModel.HasExecutionStatus.Should().BeFalse();
         toast.Requests.Should().Contain(request => request.Kind == ToastKind.Success);
+    }
+
+    [Fact]
+    public async Task ExecutarSelecionadoAsync_ComFalhaControlada_LimpaProgressoEMostraErro()
+    {
+        var toast = new RecordingToastService();
+        var execution = new Mock<IWebServiceExecutionService>();
+        execution
+            .Setup(service => service.ExecutarAsync(30, It.IsAny<Action<WebServiceExecutionStep>>()))
+            .Returns<int, Action<WebServiceExecutionStep>>((_, progress) =>
+            {
+                progress(new WebServiceExecutionStep("Validando configuração"));
+                return Task.FromResult(new WebServiceExecutionResult
+                {
+                    Success = false,
+                    Message = "Falha na execução do WebService.",
+                    CompletedSteps = Array.Empty<string>()
+                });
+            });
+
+        var viewModel = CreateViewModel(executionService: execution.Object, toast: toast);
+        var item = new WebServiceItem { IdClientesSistema = 30, NomeSistema = "Sistema" };
+
+        await viewModel.ExecutarSelecionadoAsync(item);
+
+        viewModel.ExecutionStatus.Should().BeEmpty();
+        viewModel.HasExecutionStatus.Should().BeFalse();
+        toast.Requests.Should().Contain(request => request.Kind == ToastKind.Error && request.Message.Contains("Falha"));
     }
 
     [Fact]
@@ -72,6 +109,8 @@ public class WebServicesViewModelTests
 
         await action.Should().NotThrowAsync();
         viewModel.IsBusy.Should().BeFalse();
+        viewModel.ExecutionStatus.Should().BeEmpty();
+        viewModel.HasExecutionStatus.Should().BeFalse();
         toast.Requests.Should().Contain(request => request.Kind == ToastKind.Error && request.Message.Contains("configuração inválida"));
     }
 

@@ -42,10 +42,7 @@ namespace ControleDeWebServices.ViewModels
         private WebServiceItem selectedSistema;
 
         [ObservableProperty]
-        private string executionStatus = "Pronto para operação.";
-
-        [ObservableProperty]
-        private ObservableCollection<string> executionSteps = new ObservableCollection<string>();
+        private string executionStatus = string.Empty;
 
         public WebServicesViewModel(
             IWebServicesService webServicesService,
@@ -59,6 +56,7 @@ namespace ControleDeWebServices.ViewModels
 
         public bool HasSistemas => Sistemas.Count > 0;
         public bool HasMaisAcessados => MaisAcessados.Count > 0;
+        public bool HasExecutionStatus => !string.IsNullOrWhiteSpace(ExecutionStatus);
 
         [RelayCommand]
         public void Carregar()
@@ -67,7 +65,6 @@ namespace ControleDeWebServices.ViewModels
             {
                 MaisAcessados = new ObservableCollection<WebServiceItem>(webServicesService.ListarMaisAcessados());
                 Ufs = new ObservableCollection<string>(webServicesService.ListarUfs());
-                ExecutionStatus = "WebServices carregados.";
             }
             catch (Exception ex)
             {
@@ -94,7 +91,6 @@ namespace ControleDeWebServices.ViewModels
             {
                 Sistemas = new ObservableCollection<WebServiceItem>(webServicesService.ListarSistemasPorCodigoCliente(codigo));
                 SelectedSistema = Sistemas.Count > 0 ? Sistemas[0] : null;
-                ExecutionStatus = Sistemas.Count == 0 ? "Nenhum WebService encontrado para o código informado." : $"{Sistemas.Count} WebServices encontrados.";
             }
             catch (Exception ex)
             {
@@ -113,7 +109,6 @@ namespace ControleDeWebServices.ViewModels
             }
 
             IsBusy = true;
-            ExecutionSteps = new ObservableCollection<string>();
             ExecutionStatus = $"Executando {selected.NomeSistema}...";
 
             try
@@ -132,16 +127,14 @@ namespace ControleDeWebServices.ViewModels
                 {
                     toastService.Show(new ToastRequest(ToastKind.Error, result.Message, "Erro"));
                 }
-
-                ExecutionStatus = result.Message;
             }
             catch (Exception ex)
             {
-                ExecutionStatus = "Falha na execução do WebService.";
                 toastService.Show(new ToastRequest(ToastKind.Error, $"Falha na execução do WebService. {ex.Message}", "Erro"));
             }
             finally
             {
+                ExecutionStatus = string.Empty;
                 IsBusy = false;
             }
         }
@@ -179,6 +172,11 @@ namespace ControleDeWebServices.ViewModels
             OnPropertyChanged(nameof(HasSistemas));
         }
 
+        partial void OnExecutionStatusChanged(string value)
+        {
+            OnPropertyChanged(nameof(HasExecutionStatus));
+        }
+
         partial void OnCodigoClienteChanged(string value)
         {
             BuscarPorCodigo();
@@ -206,7 +204,6 @@ namespace ControleDeWebServices.ViewModels
             void Apply()
             {
                 ExecutionStatus = stepName;
-                ExecutionSteps.Add(stepName);
             }
 
             var dispatcher = System.Windows.Application.Current?.Dispatcher;
