@@ -6,6 +6,9 @@
     <RootNamespace>ControleDeWebServices</RootNamespace>
     <AssemblyName>ControleDeWebServices</AssemblyName>
     <ApplicationIcon>ControleDeWebServices.ico</ApplicationIcon>
+    <OutputPath>Execucao\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
