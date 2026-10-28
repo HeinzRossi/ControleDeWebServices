@@ -6,7 +6,9 @@ Este documento descreve um plano futuro de modernizacao visual para o ControleDe
 
 Atualizacao considerada: a solucao passou a incluir a tela auxiliar `ImportarParametrosDe.xaml`, o utilitario `ConverterListaGenerica.cs` e dependencias de execucao relacionadas a PostgreSQL/Npgsql, alem das dependencias ja existentes para Firebird.
 
-Baseline Git considerado: branch `master`, worktree limpo, projeto ainda em WPF classico com `.NET Framework 4.8`, `.csproj` classico, `packages.config`, `HintPath`, `App.config` e dependencias copiadas para `Execucao`. O detalhamento tecnico sprint a sprint da migracao fica em `docs/Migration-Plan-DotNet8-WPF.md`.
+Baseline Git considerado: branch de origem `master`, branch da Sprint 0 `codex/sprint-0-baseline`, worktree limpo no momento da criacao da branch, projeto ainda em WPF classico com `.NET Framework 4.8`, `.csproj` classico, `packages.config`, `HintPath`, `App.config` e dependencias copiadas para `Execucao`. O detalhamento tecnico sprint a sprint da migracao fica em `docs/Migration-Plan-DotNet8-WPF.md`, com relatorio de baseline em `docs/Sprint-0-Baseline.md`.
+
+Regra transversal: os modelos em `ControleDeWebServices/Modelo` nao devem ser alterados. A modernizacao visual e tecnica deve usar ViewModels, servicos e adapters para evoluir a experiencia sem mudar entidades, propriedades, enums ou relacionamentos existentes.
 
 ## Diagnostico Atual
 
@@ -252,6 +254,12 @@ Criterios de aceite:
 
 Objetivo: melhorar clareza, agrupamento e ergonomia dos fluxos de cadastro e vinculo.
 
+Status tecnico aplicado: na Sprint 6 de modernizacao, Sistemas, Servicos, Secoes e os vinculos Cliente/Sistema e Cliente/Servico passaram a seguir o padrao operacional limpo iniciado em Clientes, com ViewModels, commands, feedback por toast/dialogo customizado e sem `MessageBox` nas telas migradas.
+
+Status tecnico aplicado na Sprint 7: configuracoes de sistema/servico e importacao de parametros tambem passaram para ViewModels, servicos, picker isolado, toast/dialogo customizado e telas bindaveis, mantendo o visual operacional limpo.
+
+Status tecnico aplicado na Sprint 8: WebServices passou para ViewModel, commands, status de execucao e acoes explicitas para executar/atualizar URL, preparando o redesign visual final sem code-behind operacional.
+
 Tasks:
 
 - Definir template de formulario com toolbar, agrupamento de campos e area de feedback.
@@ -309,6 +317,30 @@ Criterios de aceite:
 10. Fazer QA visual, acessibilidade e documentacao final.
 
 Para execucao tecnica, usar o detalhamento de sprints em `docs/Migration-Plan-DotNet8-WPF.md`, que separa baseline, migracao do runtime, componentes, camadas, shell/feedback, tela piloto, cadastros/vinculos, configuracao/banco e WebServices/QA final.
+
+Status aplicado na Sprint 9: o design system visual deixou de ser apenas documental e passou a existir em ResourceDictionaries WPF globais. As telas migradas usam chaves `App.*` para botões, tabelas, superfícies, painéis, títulos, toasts e diálogos, preservando a direção operacional limpa aprovada. O relatório está em `docs/Sprint-9-Design-System-Visual.md`.
+
+Status técnico aplicado na Sprint 10: testes automatizados e logging operacional inicial foram adicionados sem mudar o visual aprovado. A UI ganhou proteção extra para falhas inesperadas na execução de WebServices, mantendo feedback por toast.
+
+Status técnico aplicado na Sprint 11: foi criado checklist manual formal para validar Shell, telas, feedback, operação e logs em ambiente real, mantendo o design system aprovado como referência de aceite visual.
+
+Status técnico aplicado na Sprint 12: a aplicacao foi validada por build Debug/Release, testes automatizados e inicializacao curta. O QA visual/manual com dados reais permanece registrado em `docs/QA-Manual-Checklist.md`, e a preparacao de publicacao fica em `docs/Publish-Checklist.md`.
+
+Status técnico aplicado na Sprint 13: a aplicacao publicada em pasta local iniciou e criou log, preservando o design system atual. A validacao visual completa em maquina limpa continua pendente de ambiente operacional com dados reais.
+
+Status técnico aplicado na Sprint 14: o pacote ZIP portavel foi validado por extracao e startup curto. O design system permanece preservado; a validacao visual completa segue dependente de maquina limpa e dados reais.
+
+Status técnico aplicado na Sprint 15: cadastros simples agora bloqueiam lista e ações durante inclusão/edição, mantendo a grid visível como contexto, porém somente leitura.
+
+Status técnico aplicado na Sprint 16: telas de vinculo agora bloqueiam acoes concorrentes durante edicao/configuracao, os botoes `Adicionar` e `Remover` ficaram alinhados a direita nos itens, e todas as `DataGrid` do projeto sao somente leitura.
+
+Status técnico aplicado na Sprint 17: botoes destrutivos foram padronizados como `Excluir`; `Remover` permanece apenas em acoes internas de desvincular itens.
+
+Status técnico aplicado na Sprint 18: botoes `Excluir` das grids de cadastro foram corrigidos para acionar comandos pelo `DataGrid`, mantendo feedback por dialog customizado e toast.
+
+Status técnico aplicado na Sprint 19: dialogo customizado de confirmacao voltou a abrir visualmente quando `Excluir` solicita confirmacao, sem aparecer no startup.
+
+Status técnico aplicado na Sprint 20: `Atualizar URL` agora diferencia sucesso real, aviso de configuracao incompleta e erro tecnico, evitando feedback positivo falso.
 
 ## Fora De Escopo Neste Documento
 

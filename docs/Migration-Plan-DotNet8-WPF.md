@@ -8,13 +8,16 @@ Esta etapa e documental. Nenhum codigo, XAML, `.csproj`, pacote, config ou depen
 
 ## Baseline Atual
 
-- Branch atual: `master`.
-- Worktree limpo no momento da revisao.
+- Branch de origem: `master`.
+- Branch da Sprint 0: `codex/sprint-0-baseline`.
+- Worktree limpo no momento da criacao da branch da Sprint 0.
 - Projeto atual: WPF classico em `.NET Framework 4.8`.
 - Formato atual: `.csproj` classico, `packages.config`, referencias por `HintPath` e `App.config`.
 - UI atual: MaterialDesignThemes, MaterialDesignColors e FluentWPF.
 - Dados e integracoes: Entity Framework 6, SQL Server, Firebird, PostgreSQL/Npgsql, arquivos INI/XML e DLL auxiliar `Comum.Utilitarios.dll`.
 - Ponto critico de arquitetura: Views e code-behind ainda concentram consultas, validacoes, navegacao, feedback e parte da orquestracao operacional.
+- Relatorio detalhado da Sprint 0: `docs/Sprint-0-Baseline.md`.
+- Regra transversal: os modelos em `ControleDeWebServices/Modelo` nao devem ser alterados; evolucoes devem usar ViewModels, servicos, DTOs ou adapters ao redor deles.
 
 ## Estrategia Geral
 
@@ -58,6 +61,8 @@ Criterios de aceite:
 
 Objetivo: planejar e executar a conversao estrutural para WPF moderno em prova tecnica.
 
+Status da execucao inicial: concluida na branch `codex/sprint-1-dotnet-wpf`, com relatorio em `docs/Sprint-1-DotNet-WPF.md`. O projeto foi convertido para SDK-style, `packages.config` foi substituido por `PackageReference`, o target inicial ficou em `net8.0-windows` e o build final concluiu com 0 erros e 1 aviso ativo documentado para Sprint 2.
+
 Entregaveis:
 
 - Projeto convertido para `.csproj` SDK-style na branch de migracao.
@@ -83,6 +88,8 @@ Criterios de aceite:
 ## Sprint 2: Atualizacao De Componentes
 
 Objetivo: atualizar o ecossistema de dependencias e remover o que nao deve seguir para o runtime moderno.
+
+Status da execucao inicial: concluida na branch `codex/sprint-2-componentes`, com relatorio em `docs/Sprint-2-Componentes.md`. Componentes principais foram atualizados, FluentWPF e dependencias diretas sem uso foram removidos, `System.Data.SqlClient` direto foi substituido por `Microsoft.Data.SqlClient` no codigo externo e o build final ficou com 0 erros. O aviso `NU1701` foi removido; avisos herdados de `MessageBox`/dialogs WinForms e codigo legado ficam para as sprints seguintes.
 
 Entregaveis:
 
@@ -113,6 +120,8 @@ Criterios de aceite:
 
 Objetivo: separar View, ViewModels, Application, Domain e Infrastructure antes da migracao ampla das telas.
 
+Status da execucao inicial: concluida na branch `codex/sprint-3-arquitetura-camadas`, com relatorio em `docs/Sprint-3-Arquitetura-Camadas.md`. Foram criadas as camadas logicas, contratos base, DI com `Microsoft.Extensions.DependencyInjection` e base MVVM com `CommunityToolkit.Mvvm`, sem migrar telas e sem alterar modelos.
+
 Entregaveis:
 
 - Estrutura de camadas criada na solucao/projeto de migracao.
@@ -141,6 +150,8 @@ Criterios de aceite:
 
 Objetivo: modernizar a base de interacao do app e remover o padrao visual de `MessageBox`.
 
+Status da execucao inicial: concluida na branch `codex/sprint-4-shell-feedback`, com relatorio em `docs/Sprint-4-Shell-Feedback.md`. O Shell passou a usar `MainWindowViewModel`, navegacao centralizada por `WpfNavigationService`, host de toasts/dialogo customizado e excecao global por toast, mantendo as telas internas para sprints futuras.
+
 Entregaveis:
 
 - Shell com ViewModel de navegacao.
@@ -167,6 +178,8 @@ Criterios de aceite:
 ## Sprint 5: Tela Piloto Clientes
 
 Objetivo: validar arquitetura, UX e padrao visual em um fluxo simples antes de replicar.
+
+Status da execucao inicial: concluida na branch `codex/sprint-5-clientes-piloto`, com relatorio em `docs/Sprint-5-Clientes-Piloto.md`. Clientes foi migrado como tela piloto para ViewModel, servico de aplicacao, feedback por toast/dialogo customizado e visual operacional limpo, sem alterar modelos.
 
 Entregaveis:
 
@@ -195,6 +208,8 @@ Criterios de aceite:
 
 Objetivo: aplicar o padrao da tela piloto aos fluxos administrativos e de vinculo.
 
+Status da execucao inicial: concluida na branch `codex/sprint-6-cadastros-vinculos`, com relatorio em `docs/Sprint-6-Cadastros-Vinculos.md`. Sistemas, Servicos, Secoes e vinculos Cliente/Sistema e Cliente/Servico foram migrados para ViewModels, servicos, commands e feedback centralizado, mantendo modelos intactos.
+
 Entregaveis:
 
 - Cadastros/listas de Sistemas, Servicos e Secoes migrados.
@@ -222,6 +237,8 @@ Criterios de aceite:
 ## Sprint 7: Configuracao, Importacao E Banco
 
 Objetivo: isolar configuracao tecnica, importacao de parametros e acesso a bancos externos.
+
+Status da execucao inicial: concluida na branch `codex/sprint-7-config-importacao-banco`, com relatorio em `docs/Sprint-7-Config-Importacao-Banco.md`. Configuracoes de sistema/servico, importacao de parametros e `AtualizarPadroes` foram migrados para ViewModels, servicos, picker isolado, toast/dialogo customizado e SQL parametrizado, mantendo modelos intactos.
 
 Entregaveis:
 
@@ -253,6 +270,8 @@ Criterios de aceite:
 
 Objetivo: tornar o fluxo operacional observavel, seguro e validado no runtime novo.
 
+Status da execucao inicial: concluida na branch `codex/sprint-8-webservices-execucao-qa`, com relatorio em `docs/Sprint-8-WebServices-Execucao-QA.md`. `WebServices` foi migrado para ViewModel, consulta e execucao operacional foram movidas para servicos, processos foram isolados e o build final ficou limpo.
+
 Entregaveis:
 
 - Caso de uso de execucao de WebServices por etapas.
@@ -279,6 +298,245 @@ Criterios de aceite:
 - UI nao usa `MessageBox` como experiencia visual.
 - Dependencias incompatíveis foram atualizadas, substituidas, removidas ou isoladas com justificativa.
 
+## Sprint 9: Design System WPF E Polimento Visual
+
+Objetivo: aplicar a identidade visual final aprovada com ResourceDictionaries globais, reduzindo estilos repetidos e consolidando o padrão operacional limpo.
+
+Status da execução inicial: concluída na branch `codex/sprint-9-design-system-visual`, com relatório em `docs/Sprint-9-Design-System-Visual.md`. Foram criados tokens e componentes WPF próprios, `App.xaml` passou a carregar o design system, as telas migradas passaram a usar chaves `App.*`, `MessageBox` foi removido da experiência visual restante e `UseWindowsForms=true` saiu do projeto.
+
+Entregáveis:
+
+- ResourceDictionaries globais de tokens e componentes.
+- Shell, tabelas, formulários, toasts e diálogos alinhados ao visual aprovado.
+- Remoção de aliases locais de botão/header nas Views migradas.
+- Documentação do design system aplicado.
+
+Critérios de aceite:
+
+- Build limpo em .NET 8 WPF.
+- Views usam estilos globais `App.*` para componentes principais.
+- Não há `MessageBox`, `System.Windows.Forms` ou `UseWindowsForms` como experiência visual.
+- Modelos permanecem intocados.
+
+## Sprint 10: Testes, Logs E Hardening Operacional
+
+Objetivo: criar a base automatizada de testes e tornar falhas operacionais observáveis sem alterar regras de negócio.
+
+Status da execução inicial: concluída na branch `codex/sprint-10-testes-logs-hardening`, com relatório em `docs/Sprint-10-Testes-Logs-Hardening.md`. Foi criado projeto de testes xUnit, adicionados logs silenciosos por padrão e endurecido o fluxo de execução para tratar exceções inesperadas por toast.
+
+Entregáveis:
+
+- Projeto `ControleDeWebServices.Tests`.
+- Logging via `ILogger<>` com `NullLogger` inicial.
+- Resultado estruturado para encerramento de processos.
+- Testes unitários iniciais para ViewModels e contrato operacional.
+
+Critérios de aceite:
+
+- Build e testes passam sem erros.
+- Nenhum `MessageBox` ou dependência visual WinForms retorna.
+- Falhas operacionais sensíveis possuem caminho de log ou resultado estruturado.
+- Modelos permanecem intocados.
+
+## Sprint 11: Observabilidade, Testes De Serviços E QA Manual
+
+Objetivo: configurar logging real em arquivo local, ampliar testes e formalizar QA manual com banco/configuração real.
+
+Status da execução inicial: concluída na branch `codex/sprint-11-observabilidade-qa`, com relatório em `docs/Sprint-11-Observabilidade-QA.md`. Foi criado logger local por data, sanitização básica de dados sensíveis, checklist manual e ampliação dos testes automatizados para 12 cenários.
+
+Entregáveis:
+
+- Logger local em `Logs/ControleDeWebServices-YYYYMMDD.log`.
+- Provider/factory de logging integrado ao `Microsoft.Extensions.Logging`.
+- Checklist manual em `docs/QA-Manual-Checklist.md`.
+- Testes adicionais para logging, cadastros, importação e operação.
+
+Critérios de aceite:
+
+- Build e testes passam sem erros.
+- Logs são criados sem quebrar startup.
+- Logs não registram senha ou connection string completa.
+- Modelos permanecem intocados.
+
+## Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao
+
+Objetivo: validar a base modernizada, preparar publicacao/teste em maquina limpa e registrar pendencias que dependem de banco/configuracao real.
+
+Status da execucao inicial: concluida na branch `codex/sprint-12-qa-real-hardening`, com relatorio em `docs/Sprint-12-QA-Real-Hardening.md`. Nao houve falha automatica reproduzida que justificasse alteracao de codigo; foi criado checklist de publicacao em `docs/Publish-Checklist.md`.
+
+Entregaveis:
+
+- Relatorio de QA tecnico da Sprint 12.
+- Checklist de publicacao/teste em maquina limpa.
+- Validacao automatizada Debug, Release, testes, startup e logs.
+- Registro das pendencias reais para ambiente com banco/configuracao real.
+
+Criterios de aceite:
+
+- Build Debug/Release e testes passam sem erros.
+- App inicia e cria log local.
+- QA manual com banco real fica registrado como pendencia controlada quando nao executavel localmente.
+- Modelos permanecem intocados.
+
+## Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa
+
+Objetivo: gerar e validar uma pasta publicada em Release antes de escolher instalador final.
+
+Status da execucao inicial: concluida na branch `codex/sprint-13-publicacao-local`, com relatorio em `docs/Sprint-13-Publicacao-Local.md`. O publish local foi gerado em `artifacts/publish/ControleDeWebServices`, iniciou com sucesso por curto periodo e criou log local.
+
+Entregaveis:
+
+- Pasta publicada local ignorada pelo Git.
+- Checklist de publicacao atualizado com resultado real.
+- Inventario dos artefatos principais copiados pelo publish.
+- Registro das pendencias para validacao em maquina limpa.
+
+Criterios de aceite:
+
+- Publish Release executa sem erro.
+- Pasta publicada contem executavel, configs, DLL auxiliar, imagens e dependencias.
+- App publicado inicia e cria log local.
+- Modelos permanecem intocados.
+
+## Sprint 14: Pacote ZIP Portavel Para Validacao
+
+Objetivo: criar um pacote `.zip` portavel a partir do publish Release validado, sem incluir credenciais ou logs.
+
+Status da execucao inicial: concluida na branch `codex/sprint-14-pacote-zip`, com relatorio em `docs/Sprint-14-Pacote-Zip.md`. O ZIP foi gerado em `artifacts/packages/ControleDeWebServices-net8-windows.zip`, extraido para validacao e iniciado com sucesso por curto periodo.
+
+Entregaveis:
+
+- Pacote ZIP portavel gerado em `artifacts/`.
+- Checksum SHA256 registrado.
+- Template seguro de `Config.ini`.
+- Checklist de publicacao atualizado com o fluxo oficial de ZIP.
+
+Criterios de aceite:
+
+- ZIP nao inclui `Config.ini` real nem logs.
+- App extraido inicia e cria log local.
+- Artefatos publicados permanecem ignorados pelo Git.
+- Modelos permanecem intocados.
+
+## Sprint 15: Ajustes De Cadastros
+
+Objetivo: corrigir interação das telas de cadastro simples durante inclusão/edição e tornar as grids somente leitura.
+
+Status da execução inicial: concluída na branch `codex/sprint-15-ajustes-cadastros`, com relatório em `docs/Sprint-15-Ajustes-Cadastros.md`. Clientes, Sistemas, Serviços e Seções passaram a bloquear ações de lista quando o formulário está aberto.
+
+Entregáveis:
+
+- Ações de lista condicionadas por `CanUseListActions`.
+- Grids de cadastro simples com `IsReadOnly="True"`.
+- Grids e botões de linha desabilitados durante inclusão/edição.
+- Testes de regressão para bloqueio de ações.
+
+Critérios de aceite:
+
+- Não é possível iniciar inclusão/edição concorrente.
+- Não é possível editar célula diretamente na grid.
+- Salvar/cancelar reabilita lista e ações.
+- Modelos permanecem intocados.
+
+## Sprint 16: Ajustes De Vinculos E Grids Readonly
+
+Objetivo: aplicar bloqueio de acoes concorrentes nas telas de vinculo e tornar todas as `DataGrid` somente leitura.
+
+Status da execucao inicial: concluida na branch `codex/sprint-16-ajustes-vinculos`, com relatorio em `docs/Sprint-16-Ajustes-Vinculos.md`. As listas de vinculo agora bloqueiam acoes do topo durante edicao/configuracao, e as grids do projeto foram padronizadas como readonly.
+
+Entregaveis:
+
+- Todas as `DataGrid` com `IsReadOnly="True"`.
+- Acoes de vinculo condicionadas por `CanUseListActions`.
+- Grids principais de vinculo desabilitadas durante edicao/configuracao.
+- Layout dos botoes `Adicionar` e `Remover` alinhado a direita nos paines internos.
+
+Criterios de aceite:
+
+- Nao e possivel iniciar inclusao, edicao ou configuracao concorrente em vinculos.
+- Nao e possivel editar celulas diretamente nas grids.
+- Botoes internos nao sobrepoem o texto principal.
+- Modelos permanecem intocados.
+
+## Sprint 17: Corrige Copy E Acoes De Exclusao
+
+Objetivo: alinhar a nomenclatura dos botoes destrutivos e garantir que os comandos de exclusao sejam acionaveis por binding.
+
+Status da execucao inicial: concluida na branch `codex/sprint-17-corrige-excluir-acoes`, com relatorio em `docs/Sprint-17-Corrige-Excluir-Acoes.md`.
+
+Entregaveis:
+
+- Botoes destrutivos exibindo `Excluir`.
+- `Remover` preservado apenas nos paineis internos de desvinculo.
+- Dialogos e toasts de vinculos usando copy de exclusao.
+- Testes exercitando `ExcluirCommand` diretamente.
+
+Criterios de aceite:
+
+- Excluir com selecao valida chama o servico correto.
+- Excluir sem selecao valida mostra toast de aviso.
+- Excluir fica bloqueado durante edicao/configuracao.
+- Modelos permanecem intocados.
+
+## Sprint 18: Corrige Botoes Excluir Nas Grids
+
+Objetivo: corrigir os botoes `Excluir` sem acao nas grids de cadastros simples.
+
+Status da execucao inicial: concluida na branch `codex/sprint-18-corrige-botoes-excluir-grid`, com relatorio em `docs/Sprint-18-Corrige-Botoes-Excluir-Grid.md`.
+
+Entregaveis:
+
+- Bindings de `EditarCommand`, `ExcluirCommand` e `CanUseListActions` resolvidos pelo `DataGrid`.
+- Parametro da linha preservado nos comandos.
+- Testes cobrindo exclusao via command com confirmacao aprovada e cancelada.
+
+Criterios de aceite:
+
+- Botoes `Excluir` das grids acionam o comando correto.
+- Confirmacao cancelada nao exclui registro.
+- Sem item, usuario recebe toast de aviso.
+- Modelos permanecem intocados.
+
+## Sprint 19: Corrige Fluxo Visual De Exclusao
+
+Objetivo: corrigir o dialogo customizado que nao aparecia ao clicar em `Excluir`.
+
+Status da execucao inicial: concluida na branch `codex/sprint-19-corrige-fluxo-visual-excluir`, com relatorio em `docs/Sprint-19-Corrige-Fluxo-Visual-Excluir.md`.
+
+Entregaveis:
+
+- Overlay de confirmacao sem `Visibility` local conflitante.
+- Abertura do dialogo controlada apenas por `ConfirmDialogService.IsOpen`.
+- Testes cobrindo confirmacao/cancelamento e regressao do XAML.
+
+Criterios de aceite:
+
+- Botao `Excluir` abre dialogo customizado.
+- Confirmar conclui a operacao aguardada pelo ViewModel.
+- Cancelar nao executa exclusao.
+- Dialogo nao aparece no startup.
+- Modelos permanecem intocados.
+
+## Sprint 20: Corrige Sucesso Indevido Ao Atualizar URL
+
+Objetivo: impedir mensagem de sucesso quando a configuracao de banco esta incompleta ou nenhuma URL externa foi alterada.
+
+Status da execucao inicial: concluida na branch `codex/sprint-20-corrige-atualizar-url`, com relatorio em `docs/Sprint-20-Corrige-Atualizar-URL.md`.
+
+Entregaveis:
+
+- Resultado operacional para atualizacao de URL.
+- Validacao de configuracao antes de abrir conexao externa.
+- Retorno de linhas afetadas por `ExecuteNonQuery()`.
+- Toast de sucesso somente quando houve alteracao real.
+
+Criterios de aceite:
+
+- Sem banco configurado, usuario recebe aviso.
+- Nenhuma URL alterada retorna aviso.
+- Falha tecnica retorna erro.
+- Modelos permanecem intocados.
+
 ## Checklist De Paridade Funcional
 
 - App abre e carrega WebServices como tela inicial.
@@ -301,6 +559,18 @@ Criterios de aceite:
 7. Sprint 6: Cadastros, Listas E Vinculos.
 8. Sprint 7: Configuracao, Importacao E Banco.
 9. Sprint 8: WebServices, Execucao E QA Final.
+10. Sprint 9: Design System WPF E Polimento Visual.
+11. Sprint 10: Testes, Logs E Hardening Operacional.
+12. Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
+13. Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
+14. Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
+15. Sprint 14: Pacote ZIP Portavel Para Validacao.
+16. Sprint 15: Ajustes De Cadastros.
+17. Sprint 16: Ajustes De Vinculos E Grids Readonly.
+18. Sprint 17: Corrige Copy E Acoes De Exclusao.
+19. Sprint 18: Corrige Botoes Excluir Nas Grids.
+20. Sprint 19: Corrige Fluxo Visual De Exclusao.
+21. Sprint 20: Corrige Sucesso Indevido Ao Atualizar URL.
 
 ## Assumptions
 
@@ -310,3 +580,4 @@ Criterios de aceite:
 - Componentes incompativeis devem ser substituidos por similares modernos ou removidos quando desnecessarios.
 - A separacao profunda de View, ViewModels, Application, Domain e Infrastructure e requisito da modernizacao.
 - Cada sprint deve preservar paridade funcional antes de avancar para a proxima.
+- Os modelos atuais devem ser preservados sem mudancas de classes, propriedades, enums, atributos ou relacionamentos.

@@ -10,15 +10,59 @@ Esta documentacao nao altera codigo-fonte, XAML, `.csproj`, pacotes, configuraco
 
 Levantamento apos atualizacao do diretorio Git:
 
-- Branch atual: `master`.
-- Worktree limpo no momento da revisao.
+- Branch de origem: `master`.
+- Branch de trabalho da Sprint 0: `codex/sprint-0-baseline`.
+- Worktree limpo no momento da criacao da branch da Sprint 0.
 - Projeto principal ainda esta em WPF classico com `.NET Framework 4.8`.
 - O projeto usa `.csproj` classico, `packages.config`, referencias por `HintPath` e configuracoes em `App.config`.
 - Componentes relevantes encontrados: Entity Framework 6, MaterialDesignThemes, MaterialDesignColors, FluentWPF, FirebirdSql.Data.FirebirdClient, Npgsql, PeanutButter.INI, Ninject, Microsoft.Xaml.Behaviors e `Comum.Utilitarios.dll`.
 - A pasta `Execucao` contem binarios copiados junto da aplicacao e deve ser inventariada durante a prova de migracao.
 - Os documentos `DESIGN.md`, `docs/UI-UX-Sprints.md` e `docs/Code-Improvement-Roadmap.md` ja fazem parte do baseline documentado.
+- O relatorio detalhado da Sprint 0 esta em `docs/Sprint-0-Baseline.md`.
 
 Este baseline deve ser usado como ponto de partida para o plano especifico em `docs/Migration-Plan-DotNet8-WPF.md`, que detalha as sprints de migracao, componentes, arquitetura, UX tecnica, banco, execucao e QA final.
+
+Regra transversal: os modelos em `ControleDeWebServices/Modelo` devem ser preservados. A modernizacao nao deve alterar classes, propriedades, enums, atributos, tabelas ou relacionamentos desses modelos; novas necessidades devem ser resolvidas com ViewModels, DTOs, adapters e servicos.
+
+Execucao da Sprint 1: a prova inicial de migracao para SDK-style e `net8.0-windows` ficou documentada em `docs/Sprint-1-DotNet-WPF.md`. O build compila com 0 erros, mantendo aviso ativo de compatibilidade do MaterialDesignThemes para a Sprint 2.
+
+Execucao da Sprint 2: a atualizacao de componentes ficou documentada em `docs/Sprint-2-Componentes.md`. O aviso de compatibilidade do MaterialDesignThemes (`NU1701`) foi removido e o build final ficou com 0 erros. Permanecem avisos herdados ligados principalmente a `MessageBox`/dialogs WinForms e a codigo legado, previstos para tratamento nas sprints seguintes.
+
+Execucao da Sprint 3: a base de arquitetura em camadas ficou documentada em `docs/Sprint-3-Arquitetura-Camadas.md`. Foram adicionados DI, contratos de navegacao/feedback/contexto, implementacoes neutras temporarias e `ViewModelBase`, sem migrar telas e sem alterar modelos.
+
+Execucao da Sprint 4: o Shell e a base de feedback ficaram documentados em `docs/Sprint-4-Shell-Feedback.md`. Foram criados `MainWindowViewModel`, navegacao centralizada, host de toast/dialogo customizado e substituicao do `MessageBox` global do Shell por toast, mantendo telas internas para Sprint 5 em diante.
+
+Execucao da Sprint 5: a tela piloto Clientes ficou documentada em `docs/Sprint-5-Clientes-Piloto.md`. O fluxo passou a usar ViewModels, servico de aplicacao, `IDadosDbContextFactory`, comandos, toasts e dialogo customizado de exclusao, com visual operacional limpo e sem alterar modelos.
+
+Execucao da Sprint 6: cadastros simples restantes e vinculos ficaram documentados em `docs/Sprint-6-Cadastros-Vinculos.md`. Sistemas, Servicos, Secoes, Vinculo Cliente/Sistema e Vinculo Cliente/Servico passaram a usar servicos, ViewModels, commands e feedback centralizado, preservando `ControleDeWebServices/Modelo`.
+
+Execucao da Sprint 7: configuracao, importacao e banco externo ficaram documentados em `docs/Sprint-7-Config-Importacao-Banco.md`. `CadastroDeInformacoes`, `CadastroDeInformacoesServico`, `ImportarParametrosDe` e `AtualizarPadroes` passaram a usar ViewModels/servicos, feedback padronizado, picker isolado e SQL parametrizado.
+
+Execucao da Sprint 8: WebServices e execucao operacional ficaram documentados em `docs/Sprint-8-WebServices-Execucao-QA.md`. A tela `WebServices` passou a usar ViewModel/commands, a consulta foi isolada em service, a execucao operacional passou por service com progresso por etapa e processos foram isolados por `IProcessService`.
+
+Execucao da Sprint 9: o design system visual WPF ficou documentado em `docs/Sprint-9-Design-System-Visual.md`. Foram criados ResourceDictionaries globais para tokens/componentes, as telas migradas passaram a usar chaves `App.*`, o `MessageBox` restante saiu da experiencia visual e `UseWindowsForms=true` foi removido do projeto.
+
+Execucao da Sprint 10: testes, logs e hardening operacional ficaram documentados em `docs/Sprint-10-Testes-Logs-Hardening.md`. Foi criado projeto de testes xUnit, adicionados `ILogger<>`/`NullLogger`, estruturado o resultado de encerramento de processos e cobertos testes iniciais de ViewModels/execução.
+
+Execucao da Sprint 11: observabilidade e QA manual ficaram documentados em `docs/Sprint-11-Observabilidade-QA.md`. O logging passou a gravar em arquivo local por data, com sanitizacao basica de dados sensiveis, e foi criado checklist manual em `docs/QA-Manual-Checklist.md`.
+
+Execucao da Sprint 12: QA tecnico, build Release e preparacao de publicacao ficaram documentados em `docs/Sprint-12-QA-Real-Hardening.md`. Como nenhuma falha automatica foi reproduzida, a sprint nao alterou codigo funcional e registrou o QA com banco real como pendencia operacional controlada.
+
+Execucao da Sprint 13: publicacao local controlada ficou documentada em `docs/Sprint-13-Publicacao-Local.md`. A pasta publicada foi gerada em `artifacts/`, validada por startup curto e mantida fora do versionamento.
+
+Execucao da Sprint 14: pacote ZIP portavel ficou documentado em `docs/Sprint-14-Pacote-Zip.md`. O pacote foi gerado, extraido, validado por startup curto e acompanhado de template seguro para `Config.ini`.
+
+Execução da Sprint 15: ajustes de cadastros ficaram documentados em `docs/Sprint-15-Ajustes-Cadastros.md`. As ações de lista foram bloqueadas durante inclusão/edição e as grids de cadastros simples passaram a ser somente leitura.
+
+Execucao da Sprint 16: ajustes de vinculos ficaram documentados em `docs/Sprint-16-Ajustes-Vinculos.md`. As acoes concorrentes de vinculo foram bloqueadas durante edicao/configuracao e todas as `DataGrid` foram padronizadas como somente leitura.
+
+Execucao da Sprint 17: copy e acoes de exclusao ficaram documentadas em `docs/Sprint-17-Corrige-Excluir-Acoes.md`. Botoes destrutivos usam `Excluir`, enquanto `Remover` permanece apenas para desvincular itens internos.
+
+Execucao da Sprint 18: botoes `Excluir` das grids de cadastros ficaram documentados em `docs/Sprint-18-Corrige-Botoes-Excluir-Grid.md`. Os comandos das linhas passaram a usar o `DataContext` do `DataGrid` para resolver o binding corretamente.
+
+Execucao da Sprint 19: fluxo visual de exclusao ficou documentado em `docs/Sprint-19-Corrige-Fluxo-Visual-Excluir.md`. O overlay do dialogo customizado deixou de ter `Visibility` local que impedia a abertura por trigger.
+
+Execucao da Sprint 20: atualizacao de URL ficou documentada em `docs/Sprint-20-Corrige-Atualizar-URL.md`. O fluxo passou a validar configuracao e retornar resultado operacional antes de exibir sucesso.
 
 ## Direcao De Runtime E Componentes
 
@@ -305,6 +349,18 @@ O detalhamento operacional sprint a sprint fica centralizado em `docs/Migration-
 - Sprint 6: Cadastros, Listas E Vinculos.
 - Sprint 7: Configuracao, Importacao E Banco.
 - Sprint 8: WebServices, Execucao E QA Final.
+- Sprint 9: Design System WPF E Polimento Visual.
+- Sprint 10: Testes, Logs E Hardening Operacional.
+- Sprint 11: Observabilidade, Testes De Serviços E QA Manual.
+- Sprint 12: QA Real, Hardening Fino E Preparacao De Publicacao.
+- Sprint 13: Publicacao Controlada E Validacao Em Pasta Limpa.
+- Sprint 14: Pacote ZIP Portavel Para Validacao.
+- Sprint 15: Ajustes De Cadastros.
+- Sprint 16: Ajustes De Vinculos E Grids Readonly.
+- Sprint 17: Corrige Copy E Acoes De Exclusao.
+- Sprint 18: Corrige Botoes Excluir Nas Grids.
+- Sprint 19: Corrige Fluxo Visual De Exclusao.
+- Sprint 20: Corrige Sucesso Indevido Ao Atualizar URL.
 
 ## Validacao Da Documentacao
 

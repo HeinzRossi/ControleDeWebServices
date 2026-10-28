@@ -1,223 +1,251 @@
-﻿<Page x:Class="ControleDeWebServices.View.Vinculos.ListaVinculosSistema"
+<Page x:Class="ControleDeWebServices.View.Vinculos.ListaVinculosSistema"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ControleDeWebServices.View.Vinculos"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" 
-      Title="ListaVinculosSistema">
+      xmlns:viewModels="clr-namespace:ControleDeWebServices.ViewModels"
+      mc:Ignorable="d"
+      d:DesignHeight="650"
+      d:DesignWidth="850"
+      Title="VinculosClienteSistema">
 
-    <Grid Background="WhiteSmoke" Width="850">
-        <StackPanel Orientation="Vertical">
-            <Frame x:Name="FrameInserirtEditar" NavigationUIVisibility="Hidden"/>
-        </StackPanel>
-        <StackPanel x:Name="TelaConsultaSistema" Orientation="Vertical" Visibility="Visible">
-            <StackPanel>
-                <Button 
-                    x:Name="btnIncluir"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    HorizontalAlignment="Left" 
-                    ToolTip="Incluir" 
-                    Height="auto"
-                    IsEnabled="True"
-                    Background="#85CC89"    
-                    BorderBrush="#85CC89"
-                    Margin="5,5,0,5" Content="Incluir" Click="BtnIncluir_Click"/>
-            </StackPanel>
-            <Grid VerticalAlignment="Top" Margin="0,15,0,0" Height="200">
-                <DataGrid  
-                    x:Name="GridClientes"
-                    Margin="5,5,10,10"
-                    CanUserSortColumns="True"
-                    CanUserAddRows="False"
-                    AutoGenerateColumns="False"
-                    materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-                    materialDesign:DataGridAssist.ColumnHeaderPadding="5" 
-                    Foreground="Black"
-                    HorizontalGridLinesBrush="WhiteSmoke" 
-                    RowBackground="WhiteSmoke"
-                    SelectionMode="Extended" 
-                    Background="WhiteSmoke"
-                    SelectionChanged="GridClientes_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            x:Name="IdCliente"
-                            Binding="{Binding CodigoControle, Mode=OneWay}"
-                            Width="80"
-                            Header="Código"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" 
-                            Foreground="Black">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter
-                                    Property="Background"
-                                    Value="#4383CC"/>
-                                    <Setter
-                                    Property="Foreground"
-                                    Value="White"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>                        
-                        <DataGridTextColumn
-                            x:Name="NomeCliente"
-                            Binding="{Binding NomeCliente, Mode=OneWay}"
-                            Width="*"
-                            Header="Cliente"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" 
-                            Foreground="Black">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter
-                                    Property="Background"
-                                    Value="#4383CC"/>
-                                    <Setter
-                                    Property="Foreground"
-                                    Value="White"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                        <materialDesign:MaterialDataGridTextColumn
-                            x:Name="Estado"
-                            Binding="{Binding Uf, Mode=OneWay}"
-                            Width="80"
-                            Header="Estado"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                            Foreground="Black">
-                            <materialDesign:MaterialDataGridTextColumn.HeaderStyle>
-                                <Style
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter
-                                    Property="Background"
-                                    Value="#4383CC"/>
-                                    <Setter
-                                    Property="Foreground"
-                                    Value="White"/>
-                                </Style>
-                            </materialDesign:MaterialDataGridTextColumn.HeaderStyle>
-                        </materialDesign:MaterialDataGridTextColumn>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style
-                                    x:Name="Editar"
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter Property="Background" Value="#4383CC"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Content" Value="Editar"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button 
-                                        x:Name="btnEditar"
-                                        Content="Editar"
-                                        Height="25"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Background="#4383CC"
-                                        BorderBrush="#4383CC"
-                                        Click="BtnEditar_Click"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style
-                                    x:Name="Excluir"
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter Property="Background" Value="#4383CC"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Content" Value="Excluir"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button 
-                                        x:Name="btnExcluir"
-                                        Content="Excluir"
-                                        Height="25"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Background="#CC5743"
-                                        BorderBrush="#CC5743"
-                                        Click="BtnExcluir_Click"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <DataTemplate DataType="{x:Type viewModels:ConfiguracaoSistemaViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Configuração técnica do sistema" Style="{StaticResource App.SectionTitle}"/>
+                <ScrollViewer Grid.Row="1"
+                              Margin="0,12,0,0"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox materialDesign:HintAssist.Hint="UF" Text="{Binding Uf}" IsReadOnly="True" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" Text="{Binding NomeCliente}" IsReadOnly="True" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema" Text="{Binding NomeSistema}" IsReadOnly="True"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox materialDesign:HintAssist.Hint="Arquivo executável" Text="{Binding ArquivoExecutavel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                            <Button Grid.Column="1" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
+                            <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Arquivo de configuração" Text="{Binding ArquivoConfiguracao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0"/>
+                            <Button Grid.Column="3" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,12,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox materialDesign:HintAssist.Hint="Servidor" Text="{Binding Servidor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Porta" Text="{Binding Porta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Banco de dados" Text="{Binding DataBase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="3" materialDesign:HintAssist.Hint="Tipo" ItemsSource="{Binding TiposConexao}" SelectedValue="{Binding TipoConexao, Mode=TwoWay}" DisplayMemberPath="Nome" SelectedValuePath="Id" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="4" materialDesign:HintAssist.Hint="Usuário" Text="{Binding Usuario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="5" materialDesign:HintAssist.Hint="Senha" Text="{Binding Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <CheckBox Grid.Column="6" Content="Criptografia" IsChecked="{Binding UsaCriptografia, Mode=TwoWay}" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="0,12,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox materialDesign:HintAssist.Hint="Seção" Text="{Binding NovaSecao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Parâmetro" Text="{Binding NovoParametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Valor" Text="{Binding NovoValor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                        <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
+                        <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding RemoverParametroCommand}" Content="Excluir"/>
+                            </Grid>
+                            <DataGrid Style="{StaticResource App.EmbeddedDataGrid}" Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="Valor" Width="*" Binding="{Binding Valor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                        </DataGrid.Columns>
+                            </DataGrid>
+                            <Grid Grid.Row="3" Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding ImportacaoUfs}" SelectedItem="{Binding SelectedImportacaoUf, Mode=TwoWay}" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente origem" ItemsSource="{Binding ImportacaoClientes}" SelectedItem="{Binding SelectedImportacaoCliente, Mode=TwoWay}" DisplayMemberPath="Nome" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema origem" ItemsSource="{Binding ImportacaoSistemas}" SelectedItem="{Binding SelectedImportacaoSistema, Mode=TwoWay}" DisplayMemberPath="NomeSistema" Margin="0,0,8,0"/>
+                        <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding ImportarParametrosCommand}" Content="Importar parâmetros"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+                <StackPanel Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Style="{StaticResource App.PrimaryButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
+                    <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Cancelar"/>
+                </StackPanel>
             </Grid>
-            <Grid VerticalAlignment="Top" Margin="0,15,0,0" Height="180">
-                <DataGrid  
-                    x:Name="GridSistemas"
-                    Margin="5,5,10,10"
-                    CanUserSortColumns="True"
-                    CanUserAddRows="False"
-                    AutoGenerateColumns="False"
-                    materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-                    materialDesign:DataGridAssist.ColumnHeaderPadding="5" 
-                    Foreground="Black"
-                    HorizontalGridLinesBrush="WhiteSmoke" 
-                    RowBackground="WhiteSmoke"
-                    Background="WhiteSmoke"
-                    SelectionMode="Extended"
-                    Height="380">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            x:Name="Nome"
-                            Binding="{Binding NomeSistema, Mode=OneWay}"
-                            Width="*"
-                            Header="Sistema"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" 
-                            Foreground="Black">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter
-                                    Property="Background"
-                                    Value="#4383CC"/>
-                                    <Setter
-                                    Property="Foreground"
-                                    Value="White"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style
-                                    x:Name="Configurar"
-                                    TargetType="{x:Type DataGridColumnHeader}"
-                                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                    <Setter Property="Background" Value="#4383CC"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Content" Value="Configurar"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button 
-                                        x:Name="btnConfigurar"
-                                        Height="30"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Background="#4383CC"
-                                        BorderBrush="#4383CC"
-                                        materialDesign:HintAssist.Hint="Configurar"
-                                        Click="BtnConfigurar_Click">
-                                        <materialDesign:PackIcon Kind="Settings" Height="24" Width="24"/>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>                        
-                    </DataGrid.Columns>
-                </DataGrid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource App.Brush.Background}">
+        <Border Style="{StaticResource App.PageSurface}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Vínculo Cliente/Sistema" Style="{StaticResource App.PageTitle}"/>
+                        <TextBlock Text="Clientes e sistemas vinculados" Margin="0,3,0,0" Foreground="{StaticResource App.Brush.TextSecondary}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button Style="{StaticResource App.SuccessButton}" Command="{Binding IncluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Incluir"/>
+                        <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding EditarCommand}" IsEnabled="{Binding CanUseListActions}" Content="Editar"/>
+                        <Button Margin="8,0,0,0" Style="{StaticResource App.PrimaryButton}" Command="{Binding ConfigurarCommand}" IsEnabled="{Binding CanUseListActions}" Content="Configurar"/>
+                        <Button Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding ExcluirCommand}" IsEnabled="{Binding CanUseListActions}" Content="Excluir"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="1" Grid.RowSpan="3" Margin="0,16,0,0" VerticalAlignment="Stretch" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid DataContext="{Binding Editor}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Editar vínculos do cliente" Style="{StaticResource App.SectionTitle}"/>
+
+                        <Grid Grid.Row="1" Margin="0,12,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox materialDesign:HintAssist.Hint="UF" ItemsSource="{Binding Ufs}" SelectedItem="{Binding SelectedUf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"/>
+                            <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nome" Margin="0,0,10,0"/>
+                            <TextBlock Grid.Column="2" Text="{Binding PendingText}" Foreground="{StaticResource App.Brush.Warning}" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Header="Disponíveis">
+                                <ListBox Style="{StaticResource App.EmbeddedListBox}" ItemsSource="{Binding SistemasDisponiveis}" SelectedItem="{Binding SelectedSistemaDisponivel, Mode=TwoWay}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,16,0"/>
+                                                <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.AdicionarCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Adicionar"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </GroupBox>
+                            <GroupBox Grid.Column="2" Header="Vinculados">
+                                <ListBox Style="{StaticResource App.EmbeddedListBox}" ItemsSource="{Binding SistemasVinculados}" SelectedItem="{Binding SelectedSistemaVinculado, Mode=TwoWay}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,16,0"/>
+                                                <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource App.DangerButton}" Command="{Binding DataContext.RemoverCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Remover"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </GroupBox>
+                        </Grid>
+
+                        <StackPanel Grid.Row="3" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button Style="{StaticResource App.PrimaryButton}" Command="{Binding DataContext.ConcluirEdicaoCommand, RelativeSource={RelativeSource AncestorType=Page}}" Content="Salvar"/>
+                            <Button Margin="8,0,0,0" Command="{Binding DataContext.CancelarEdicaoCommand, RelativeSource={RelativeSource AncestorType=Page}}" Content="Cancelar"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Grid.RowSpan="3" Margin="0,16,0,0" VerticalAlignment="Stretch" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsConfiguring, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ContentControl Content="{Binding Configuracao}"/>
+                </Border>
+
+                <Grid Grid.Row="2" Visibility="{Binding IsListEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Style="{StaticResource App.DataGrid}" ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding IsListEnabled}" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Cliente" Width="*" Binding="{Binding NomeCliente}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="UF" Width="50" Binding="{Binding Uf}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid Style="{StaticResource App.DataGrid}" Grid.Column="2" ItemsSource="{Binding Sistemas}" SelectedItem="{Binding SelectedSistema, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="{Binding IsListEnabled}" CanUserAddRows="False" SelectionMode="Single" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Sistema" Width="*" Binding="{Binding NomeSistema}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                            <DataGridTextColumn Header="UF" Width="60" Binding="{Binding Uf}" HeaderStyle="{StaticResource App.GridHeader}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="0,12,0,0" Visibility="{Binding IsListEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="{Binding TotalRegistros}" Foreground="{StaticResource App.Brush.TextSecondary}"/>
+                    <TextBlock Text="Nenhum vinculo cadastrado" HorizontalAlignment="Center" Foreground="{StaticResource App.Brush.TextSecondary}" Visibility="{Binding IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
             </Grid>
-        </StackPanel>
+        </Border>
     </Grid>
 </Page>
