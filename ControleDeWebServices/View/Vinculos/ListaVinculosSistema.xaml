@@ -83,7 +83,7 @@
                         <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
                         <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding RemoverParametroCommand}" Content="Excluir"/>
                     </Grid>
-                    <DataGrid Style="{StaticResource App.DataGrid}" Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                    <DataGrid Style="{StaticResource App.EmbeddedDataGrid}" Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
                             <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
@@ -167,7 +167,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <GroupBox Header="Disponíveis">
-                                <ListBox ItemsSource="{Binding SistemasDisponiveis}" SelectedItem="{Binding SelectedSistemaDisponivel, Mode=TwoWay}">
+                                <ListBox Style="{StaticResource App.EmbeddedListBox}" ItemsSource="{Binding SistemasDisponiveis}" SelectedItem="{Binding SelectedSistemaDisponivel, Mode=TwoWay}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid Margin="0,3">
@@ -183,7 +183,7 @@
                                 </ListBox>
                             </GroupBox>
                             <GroupBox Grid.Column="2" Header="Vinculados">
-                                <ListBox ItemsSource="{Binding SistemasVinculados}" SelectedItem="{Binding SelectedSistemaVinculado, Mode=TwoWay}">
+                                <ListBox Style="{StaticResource App.EmbeddedListBox}" ItemsSource="{Binding SistemasVinculados}" SelectedItem="{Binding SelectedSistemaVinculado, Mode=TwoWay}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid Margin="0,3">

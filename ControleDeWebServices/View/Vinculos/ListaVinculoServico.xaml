@@ -127,7 +127,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <GroupBox Header="Disponíveis">
-                                <ListBox ItemsSource="{Binding ServicosDisponiveis}" SelectedItem="{Binding SelectedServicoDisponivel, Mode=TwoWay}">
+                                <ListBox Style="{StaticResource App.EmbeddedListBox}" ItemsSource="{Binding ServicosDisponiveis}" SelectedItem="{Binding SelectedServicoDisponivel, Mode=TwoWay}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid Margin="0,3">
@@ -143,7 +143,7 @@
                                 </ListBox>
                             </GroupBox>
                             <GroupBox Grid.Column="2" Header="Vinculados">
-                                <ListBox ItemsSource="{Binding ServicosVinculados}" SelectedItem="{Binding SelectedServicoVinculado, Mode=TwoWay}">
+                                <ListBox Style="{StaticResource App.EmbeddedListBox}" ItemsSource="{Binding ServicosVinculados}" SelectedItem="{Binding SelectedServicoVinculado, Mode=TwoWay}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid Margin="0,3">

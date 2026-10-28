@@ -47,6 +47,22 @@
         <Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="10,8"/>
     </Style>
 
+    <Style x:Key="App.EmbeddedDataGrid" TargetType="DataGrid" BasedOn="{StaticResource App.DataGrid}">
+        <Setter Property="MinHeight" Value="140"/>
+        <Setter Property="MaxHeight" Value="240"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+    </Style>
+
+    <Style x:Key="App.EmbeddedListBox" TargetType="ListBox">
+        <Setter Property="MinHeight" Value="120"/>
+        <Setter Property="MaxHeight" Value="200"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+    </Style>
+
     <Style x:Key="App.GridHeader" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
         <Setter Property="Background" Value="{StaticResource App.Brush.Primary}"/>
         <Setter Property="Foreground" Value="{StaticResource App.Brush.Surface}"/>
