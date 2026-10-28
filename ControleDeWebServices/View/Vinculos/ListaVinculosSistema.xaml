@@ -16,42 +16,50 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Configuração técnica do sistema" Style="{StaticResource App.SectionTitle}"/>
-                <Grid Grid.Row="1" Margin="0,12,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox materialDesign:HintAssist.Hint="UF" Text="{Binding Uf}" IsReadOnly="True" Margin="0,0,8,0"/>
-                    <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" Text="{Binding NomeCliente}" IsReadOnly="True" Margin="0,0,8,0"/>
-                    <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema" Text="{Binding NomeSistema}" IsReadOnly="True"/>
-                </Grid>
-                <Grid Grid.Row="2" Margin="0,12,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox materialDesign:HintAssist.Hint="Arquivo executável" Text="{Binding ArquivoExecutavel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
-                    <Button Grid.Column="1" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
-                    <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Arquivo de configuração" Text="{Binding ArquivoConfiguracao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0"/>
-                    <Button Grid.Column="3" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
-                </Grid>
-                <Grid Grid.Row="3" Margin="0,12,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="1"
+                              Margin="0,12,0,0"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox materialDesign:HintAssist.Hint="UF" Text="{Binding Uf}" IsReadOnly="True" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente" Text="{Binding NomeCliente}" IsReadOnly="True" Margin="0,0,8,0"/>
+                            <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema" Text="{Binding NomeSistema}" IsReadOnly="True"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox materialDesign:HintAssist.Hint="Arquivo executável" Text="{Binding ArquivoExecutavel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
+                            <Button Grid.Column="1" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoExecutavelCommand}" Content="..."/>
+                            <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Arquivo de configuração" Text="{Binding ArquivoConfiguracao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0"/>
+                            <Button Grid.Column="3" Style="{StaticResource App.PrimaryButton}" Command="{Binding SelecionarArquivoConfiguracaoCommand}" Content="..."/>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,12,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1.2*"/>
                             <ColumnDefinition Width="80"/>
@@ -68,8 +76,8 @@
                         <TextBox Grid.Column="4" materialDesign:HintAssist.Hint="Usuário" Text="{Binding Usuario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <TextBox Grid.Column="5" materialDesign:HintAssist.Hint="Senha" Text="{Binding Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <CheckBox Grid.Column="6" Content="Criptografia" IsChecked="{Binding UsaCriptografia, Mode=TwoWay}" VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Margin="0,12,0,8">
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="0,12,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -82,15 +90,15 @@
                         <TextBox Grid.Column="2" materialDesign:HintAssist.Hint="Valor" Text="{Binding NovoValor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,8,0"/>
                         <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding AdicionarParametroCommand}" Content="Adicionar"/>
                         <Button Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource App.DangerButton}" Command="{Binding RemoverParametroCommand}" Content="Excluir"/>
-                    </Grid>
-                    <DataGrid Style="{StaticResource App.EmbeddedDataGrid}" Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
+                            </Grid>
+                            <DataGrid Style="{StaticResource App.EmbeddedDataGrid}" Grid.Row="2" ItemsSource="{Binding Parametros}" SelectedItem="{Binding SelectedParametro, Mode=TwoWay}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column" Background="{StaticResource App.Brush.Surface}" AlternatingRowBackground="{StaticResource App.Brush.Background}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource App.Brush.Border}" materialDesign:DataGridAssist.CellPadding="10,7,10,7">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Seção" Width="*" Binding="{Binding Secao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
                             <DataGridTextColumn Header="Parâmetro" Width="*" Binding="{Binding Parametro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
                             <DataGridTextColumn Header="Valor" Width="*" Binding="{Binding Valor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource App.GridHeader}"/>
                         </DataGrid.Columns>
-                    </DataGrid>
-                    <Grid Grid.Row="3" Margin="0,12,0,0">
+                            </DataGrid>
+                            <Grid Grid.Row="3" Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="90"/>
                             <ColumnDefinition Width="*"/>
@@ -101,9 +109,11 @@
                         <ComboBox Grid.Column="1" materialDesign:HintAssist.Hint="Cliente origem" ItemsSource="{Binding ImportacaoClientes}" SelectedItem="{Binding SelectedImportacaoCliente, Mode=TwoWay}" DisplayMemberPath="Nome" Margin="0,0,8,0"/>
                         <ComboBox Grid.Column="2" materialDesign:HintAssist.Hint="Sistema origem" ItemsSource="{Binding ImportacaoSistemas}" SelectedItem="{Binding SelectedImportacaoSistema, Mode=TwoWay}" DisplayMemberPath="NomeSistema" Margin="0,0,8,0"/>
                         <Button Grid.Column="3" Style="{StaticResource App.SuccessButton}" Command="{Binding ImportarParametrosCommand}" Content="Importar parâmetros"/>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <StackPanel Grid.Row="4" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                </ScrollViewer>
+                <StackPanel Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Style="{StaticResource App.PrimaryButton}" Command="{Binding SalvarCommand}" Content="Salvar"/>
                     <Button Margin="8,0,0,0" Command="{Binding CancelarCommand}" Content="Cancelar"/>
                 </StackPanel>
@@ -138,7 +148,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Border Grid.Row="1" Margin="0,16,0,14" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Grid.Row="1" Grid.RowSpan="3" Margin="0,16,0,0" VerticalAlignment="Stretch" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid DataContext="{Binding Editor}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -207,11 +217,11 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Margin="0,16,0,14" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsConfiguring, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Grid.Row="1" Grid.RowSpan="3" Margin="0,16,0,0" VerticalAlignment="Stretch" Style="{StaticResource App.FilterPanel}" Visibility="{Binding IsConfiguring, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ContentControl Content="{Binding Configuracao}"/>
                 </Border>
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Visibility="{Binding IsListEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="260"/>
                         <ColumnDefinition Width="16"/>
@@ -231,7 +241,7 @@
                     </DataGrid>
                 </Grid>
 
-                <Grid Grid.Row="3" Margin="0,12,0,0">
+                <Grid Grid.Row="3" Margin="0,12,0,0" Visibility="{Binding IsListEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock Text="{Binding TotalRegistros}" Foreground="{StaticResource App.Brush.TextSecondary}"/>
                     <TextBlock Text="Nenhum vinculo cadastrado" HorizontalAlignment="Center" Foreground="{StaticResource App.Brush.TextSecondary}" Visibility="{Binding IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </Grid>
